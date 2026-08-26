@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Energy Plus Check-In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #faf7f2;
+    --card: #ffffff;
+    --ink: #1f2523;
+    --body: #4a524e;
+    --muted: #7d867f;
+    --line: #e6e0d6;
+    --accent: #2e6e5e;
+    --accent-deep: #1f5245;
+    --accent-soft: #e4efec;
+    --warn: #b84a3c;
+    --radius: 18px;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.55;
+  }
+  .shell {
+    width: 100%;
+    max-width: 620px;
+    padding: 20px 20px 48px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* progress */
+  .progress {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0 20px;
+  }
+  .progress.visible { display: flex; }
+  .progress-track {
+    flex: 1;
+    height: 6px;
+    background: var(--line);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 99px;
+    transition: width .35s ease;
+  }
+  .progress-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* cards */
+  .card {
+    display: none;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 34px 28px 30px;
+    box-shadow: 0 2px 6px rgba(31,37,35,.04), 0 16px 40px rgba(31,37,35,.06);
+    animation: rise .35s ease;
+  }
+  .card.active { display: block; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .kicker {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  h1, h2 {
+    font-family: var(--serif);
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: -.01em;
+  }
+  h1 { font-size: clamp(28px, 6vw, 36px); margin-bottom: 14px; }
+  h2 { font-size: clamp(23px, 5vw, 28px); margin-bottom: 10px; }
+  .lede { color: var(--body); font-size: 16px; margin-bottom: 10px; }
+  .note {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 14px;
+  }
+  .anon-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 99px;
+    padding: 7px 14px;
+    margin: 14px 0 4px;
+  }
+
+  /* scale */
+  .scale {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 22px 0 6px;
+  }
+  .scale button {
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 600;
+    padding: 14px 0;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .scale button:hover { border-color: var(--accent); }
+  .scale button.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+    transform: scale(1.04);
+  }
+  .scale-ends {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  /* fields */
+  .field { margin-top: 20px; }
+  .field label {
+    display: block;
+    font-weight: 600;
+    font-size: 15.5px;
+    margin-bottom: 4px;
+  }
+  .field .sub {
+    color: var(--muted);
+    font-size: 13.5px;
+    margin-bottom: 8px;
+  }
+  .input-wrap { position: relative; }
+  textarea, input[type="text"] {
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 16px;
+    color: var(--ink);
+    background: #fdfcfa;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    padding: 13px 52px 13px 14px;
+    resize: vertical;
+    transition: border-color .15s ease;
+  }
+  input[type="text"] { padding-right: 14px; }
+  textarea { min-height: 110px; }
+  textarea:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  textarea::placeholder, input::placeholder { color: #b3aca0; }
+
+  /* mic */
+  .mic {
+    position: absolute;
+    right: 9px;
+    top: 9px;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .15s ease;
+  }
+  .mic svg { width: 18px; height: 18px; fill: var(--muted); transition: fill .15s ease; }
+  .mic:hover { border-color: var(--accent); }
+  .mic:hover svg { fill: var(--accent); }
+  .mic.listening {
+    background: var(--warn);
+    border-color: var(--warn);
+    animation: pulse 1.2s ease infinite;
+  }
+  .mic.listening svg { fill: #fff; }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(184,74,60,.35); }
+    50% { box-shadow: 0 0 0 8px rgba(184,74,60,0); }
+  }
+  .mic-hint {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .mic-hint.active { color: var(--warn); font-weight: 600; }
+
+  /* buttons */
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 26px;
+    gap: 12px;
+  }
+  .btn {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    padding: 14px 26px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(46,110,94,.25);
+  }
+  .btn-primary:hover { background: var(--accent-deep); }
+  .btn-primary:disabled { opacity: .55; cursor: default; }
+  .btn-back {
+    background: none;
+    color: var(--muted);
+    padding: 14px 10px;
+  }
+  .btn-back:hover { color: var(--ink); }
+  .btn-wide { width: 100%; }
+
+  .error-msg {
+    display: none;
+    color: var(--warn);
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 14px;
+  }
+  .error-msg.visible { display: block; }
+
+  /* thank you */
+  .thanks-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .thanks-icon svg { width: 26px; height: 26px; stroke: var(--accent-deep); }
+
+  footer {
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--muted);
+    padding: 18px 20px 28px;
+  }
+  @media (max-width: 480px) {
+    .card { padding: 26px 20px 24px; }
+    .scale { gap: 7px; }
+    .scale button { font-size: 16px; padding: 12px 0; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="progress" id="progress">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">1 of 5</div>
+  </div>
+
+  <!-- INTRO -->
+  <section class="card active" data-step="intro">
+    <div class="kicker">Energy Plus Check-In</div>
+    <h1>Tell us how it's really going.</h1>
+    <p class="lede">We're growing fast, and before we scale anything else we want to make sure we're taking great care of everyone we work with. That starts with hearing from you, honestly.</p>
+    <p class="lede">Five quick questions. About three minutes. Every answer gets read.</p>
+    <div class="anon-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      100% anonymous unless you choose to share your name
+    </div>
+    <p class="note">Prefer to talk instead of type? Tap the mic button on any question and just say it.</p>
+    <div class="actions">
+      <span></span>
+      <button class="btn btn-primary" onclick="goTo(1)">Start</button>
+    </div>
+  </section>
+
+  <!-- STEP 1: satisfaction -->
+  <section class="card" data-step="1">
+    <div class="kicker">Question 1 of 5</div>
+    <h2>On a scale of 1 to 10, what's your satisfaction with Energy Plus?</h2>
+    <p class="lede">Gut answer. No wrong number.</p>
+    <div class="scale" id="scale"></div>
+    <div class="scale-ends"><span>Rough</span><span>Couldn't be better</span></div>
+    <p class="error-msg" id="scaleError">Pick a number so we know where you're starting from.</p>
+    <div class="actions">
+      <button class="btn btn-back" onclick="goTo(0)">Back</button>
+      <button class="btn btn-primary" onclick="validateScale()">Next</button>
+    </div>
+  </section>
+
+  <!-- STEP 2: get to a 10 -->
+  <section class="card" data-step="2">
+    <div class="kicker">Question 2 of 5</div>
+    <h2>If it's anything less than a 10, what would it take to get it there?</h2>
+    <p class="lede">Be specific if you can. Big or small, it all helps.</p>
+    <div class="field">
+      <div class="input-wrap">
+        <textarea id="q2" placeholder="What would move the needle for you..."></textarea>
+        <button class="mic" data-target="q2" aria-label="Dictate your answer" title="Tap to talk">
+          <svg viewBox="0 0 24 24"><path d="M12 15a4 4 0 0 0 4-4V6a4 4 0 1 0-8 0v5a4 4 0 0 0 4 4zm6-4a6 6 0 0 1-12 0H4a8 8 0 0 0 7 7.93V22h2v-3.07A8 8 0 0 0 20 11h-2z"/></svg>
+        </button>
+      </div>
+      <p class="mic-hint" data-hint="q2">Tap the mic to talk instead of type.</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-back" onclick="goTo(1)">Back</button>
+      <button class="btn btn-primary" onclick="goTo(3)">Next</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: best idea -->
+  <section class="card" data-step="3">
+    <div class="kicker">Question 3 of 5</div>
+    <h2>What's your single best idea to improve Energy Plus?</h2>
+    <p class="lede">The one thing you'd change or build if it were up to you.</p>
+    <div class="field">
+      <div class="input-wrap">
+        <textarea id="q3" placeholder="If I ran the place for a day, I would..."></textarea>
+        <button class="mic" data-target="q3" aria-label="Dictate your answer" title="Tap to talk">
+          <svg viewBox="0 0 24 24"><path d="M12 15a4 4 0 0 0 4-4V6a4 4 0 1 0-8 0v5a4 4 0 0 0 4 4zm6-4a6 6 0 0 1-12 0H4a8 8 0 0 0 7 7.93V22h2v-3.07A8 8 0 0 0 20 11h-2z"/></svg>
+        </button>
+      </div>
+      <p class="mic-hint" data-hint="q3">Tap the mic to talk instead of type.</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-back" onclick="goTo(2)">Back</button>
+      <button class="btn btn-primary" onclick="goTo(4)">Next</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: working well -->
+  <section class="card" data-step="4">
+    <div class="kicker">Question 4 of 5</div>
+    <h2>What's working really well? What would we be crazy to change?</h2>
+    <p class="lede">Tell us what to protect. The things we should keep doing no matter what.</p>
+    <div class="field">
+      <div class="input-wrap">
+        <textarea id="q4" placeholder="Keep doing this..."></textarea>
+        <button class="mic" data-target="q4" aria-label="Dictate your answer" title="Tap to talk">
+          <svg viewBox="0 0 24 24"><path d="M12 15a4 4 0 0 0 4-4V6a4 4 0 1 0-8 0v5a4 4 0 0 0 4 4zm6-4a6 6 0 0 1-12 0H4a8 8 0 0 0 7 7.93V22h2v-3.07A8 8 0 0 0 20 11h-2z"/></svg>
+        </button>
+      </div>
+      <p class="mic-hint" data-hint="q4">Tap the mic to talk instead of type.</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-back" onclick="goTo(3)">Back</button>
+      <button class="btn btn-primary" onclick="goTo(5)">Next</button>
+    </div>
+  </section>
+
+  <!-- STEP 5: do better / needs / gaps / help -->
+  <section class="card" data-step="5">
+    <div class="kicker">Question 5 of 5</div>
+    <h2>What can we do better? What do you need? Where are the gaps? How can we help you?</h2>
+    <p class="lede">Treat this as one big question and just let it flow. Answer all of it or only the part that speaks to you.</p>
+    <div class="field">
+      <div class="input-wrap">
+        <textarea id="q5" placeholder="Honest answers only..." style="min-height:150px;"></textarea>
+        <button class="mic" data-target="q5" aria-label="Dictate your answer" title="Tap to talk">
+          <svg viewBox="0 0 24 24"><path d="M12 15a4 4 0 0 0 4-4V6a4 4 0 1 0-8 0v5a4 4 0 0 0 4 4zm6-4a6 6 0 0 1-12 0H4a8 8 0 0 0 7 7.93V22h2v-3.07A8 8 0 0 0 20 11h-2z"/></svg>
+        </button>
+      </div>
+      <p class="mic-hint" data-hint="q5">Tap the mic to talk instead of type.</p>
+    </div>
+    <div class="actions">
+      <button class="btn btn-back" onclick="goTo(4)">Back</button>
+      <button class="btn btn-primary" onclick="goTo(6)">Next</button>
+    </div>
+  </section>
+
+  <!-- NAME + SUBMIT (not counted as a question) -->
+  <section class="card" data-step="name">
+    <div class="kicker">One Last Thing</div>
+    <h2>Want to put a name on it?</h2>
+    <p class="lede">Totally optional. Leave it blank and your answers stay anonymous. Add your first name if you'd like us to be able to follow up with you directly.</p>
+    <div class="field">
+      <label for="firstName">First name (optional)</label>
+      <div class="input-wrap">
+        <input type="text" id="firstName" placeholder="Leave blank to stay anonymous" autocomplete="off">
+      </div>
+    </div>
+    <p class="error-msg" id="submitError">Something went wrong sending your answers. Please check your connection and try again.</p>
+    <div class="actions">
+      <button class="btn btn-back" onclick="goTo(5)">Back</button>
+      <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">Submit</button>
+    </div>
+  </section>
+
+  <!-- THANK YOU -->
+  <section class="card" data-step="done">
+    <div class="thanks-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <h2>Got it. Thank you.</h2>
+    <p class="lede">Your answers are on their way to us right now, and every single one gets read. This is how we get better, so seriously, thank you for taking the time.</p>
+  </section>
+
+</div>
+<footer>Your responses go straight to Energy Plus leadership. No accounts, no tracking, no follow-up unless you ask for it.</footer>
+
+<script>
+  // ====== CONFIG ======
+  // Swap this for the email that should receive submissions.
+  var DESTINATION_EMAIL = 'dan@danknowsaguy.org';
+  // ====================
+
+  var steps = ['intro', '1', '2', '3', '4', '5', 'name', 'done'];
+  var currentIndex = 0;
+  var satisfaction = null;
+
+  var cards = document.querySelectorAll('.card');
+  var progress = document.getElementById('progress');
+  var progressFill = document.getElementById('progressFill');
+  var progressLabel = document.getElementById('progressLabel');
+
+  function goTo(index) {
+    stopListening();
+    currentIndex = index;
+    cards.forEach(function (c) { c.classList.remove('active'); });
+    document.querySelector('[data-step="' + steps[index] + '"]').classList.add('active');
+    var isQuestion = index >= 1 && index <= 5;
+    progress.classList.toggle('visible', isQuestion);
+    if (isQuestion) {
+      progressFill.style.width = (index / 5 * 100) + '%';
+      progressLabel.textContent = index + ' of 5';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // 1 to 10 scale
+  var scaleEl = document.getElementById('scale');
+  for (var i = 1; i <= 10; i++) {
+    (function (n) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = n;
+      b.addEventListener('click', function () {
+        satisfaction = n;
+        scaleEl.querySelectorAll('button').forEach(function (x) { x.classList.remove('selected'); });
+        b.classList.add('selected');
+        document.getElementById('scaleError').classList.remove('visible');
+      });
+      scaleEl.appendChild(b);
+    })(i);
+  }
+
+  function validateScale() {
+    if (satisfaction === null) {
+      document.getElementById('scaleError').classList.add('visible');
+      return;
+    }
+    goTo(2);
+  }
+
+  // ====== Speech to text (Web Speech API) ======
+  var SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var recognition = null;
+  var activeMicBtn = null;
+  var activeTargetId = null;
+  var baseText = '';
+
+  if (!SpeechRec) {
+    document.querySelectorAll('.mic').forEach(function (m) { m.style.display = 'none'; });
+    document.querySelectorAll('.mic-hint').forEach(function (h) {
+      h.textContent = 'Tip: on your phone, tap the mic key on your keyboard to dictate.';
+    });
+  } else {
+    document.querySelectorAll('.mic').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var targetId = btn.getAttribute('data-target');
+        if (activeMicBtn === btn) { stopListening(); return; }
+        stopListening();
+        startListening(btn, targetId);
+      });
+    });
+  }
+
+  function startListening(btn, targetId) {
+    recognition = new SpeechRec();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+
+    activeMicBtn = btn;
+    activeTargetId = targetId;
+    var ta = document.getElementById(targetId);
+    baseText = ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '';
+
+    btn.classList.add('listening');
+    setHint(targetId, 'Listening... tap again to stop.', true);
+
+    recognition.onresult = function (e) {
+      var finalText = '', interim = '';
+      for (var i = 0; i < e.results.length; i++) {
+        if (e.results[i].isFinal) finalText += e.results[i][0].transcript;
+        else interim += e.results[i][0].transcript;
+      }
+      ta.value = baseText + finalText + interim;
+    };
+    recognition.onerror = function (e) {
+      if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+        setHint(targetId, 'Microphone access was blocked. You can type instead, or use the mic key on your keyboard.', false);
+      }
+      cleanupListening();
+    };
+    recognition.onend = function () { cleanupListening(); };
+
+    try { recognition.start(); }
+    catch (err) { cleanupListening(); }
+  }
+
+  function stopListening() {
+    if (recognition) {
+      try { recognition.stop(); } catch (e) {}
+    }
+    cleanupListening();
+  }
+
+  function cleanupListening() {
+    if (activeMicBtn) {
+      activeMicBtn.classList.remove('listening');
+      setHint(activeTargetId, 'Tap the mic to talk instead of type.', false);
+    }
+    activeMicBtn = null;
+    activeTargetId = null;
+    recognition = null;
+  }
+
+  function setHint(targetId, text, active) {
+    var hint = document.querySelector('[data-hint="' + targetId + '"]');
+    if (hint) {
+      hint.textContent = text;
+      hint.classList.toggle('active', !!active);
+    }
+  }
+
+  // ====== Submit via FormSubmit (free form-to-email, no backend) ======
+  function submitForm() {
+    stopListening();
+    var btn = document.getElementById('submitBtn');
+    var errEl = document.getElementById('submitError');
+    errEl.classList.remove('visible');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    var name = document.getElementById('firstName').value.trim();
+    var payload = {
+      _subject: 'Energy Plus Check-In response' + (name ? ' from ' + name : ' (anonymous)'),
+      _template: 'box',
+      _captcha: 'false',
+      'Name': name || 'Anonymous',
+      'Satisfaction with Energy Plus (1 to 10)': String(satisfaction),
+      'What would get it to a 10': document.getElementById('q2').value.trim() || '(no answer)',
+      'Single best idea to improve Energy Plus': document.getElementById('q3').value.trim() || '(no answer)',
+      'Working well and crazy to change': document.getElementById('q4').value.trim() || '(no answer)',
+      'Do better, needs, gaps, how we can help': document.getElementById('q5').value.trim() || '(no answer)'
+    };
+
+    fetch('https://formsubmit.co/ajax/' + DESTINATION_EMAIL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function (res) {
+      if (!res.ok) throw new Error('send failed');
+      return res.json();
+    })
+    .then(function () {
+      goTo(7);
+    })
+    .catch(function () {
+      errEl.classList.add('visible');
+      btn.disabled = false;
+      btn.textContent = 'Submit';
+    });
+  }
+</script>
+</body>
+</html>
