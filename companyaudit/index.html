@@ -525,42 +525,65 @@
   }
 
   function startListening(btn, targetId) {
-    recognition = new SpeechRec();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.lang = 'en-US';
+    var rec = new SpeechRec();
+    rec.continuous = true;
+    rec.interimResults = true;
+    rec.lang = 'en-US';
 
+    recognition = rec;
     activeMicBtn = btn;
     activeTargetId = targetId;
     var ta = document.getElementById(targetId);
     baseText = ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '';
 
+    // Text this session has locked in. Only NEW results (from resultIndex on)
+    // are read each event, and each final chunk is committed exactly once, so
+    // engines that re-report earlier segments can't duplicate words.
+    var committed = '';
+    var lastFinal = '';
+
     btn.classList.add('listening');
     setHint(targetId, 'Listening... tap again to stop.', true);
 
-    recognition.onresult = function (e) {
-      var finalText = '', interim = '';
-      for (var i = 0; i < e.results.length; i++) {
-        if (e.results[i].isFinal) finalText += e.results[i][0].transcript;
-        else interim += e.results[i][0].transcript;
+    rec.onresult = function (e) {
+      if (recognition !== rec) { try { rec.abort(); } catch (x) {} return; }
+      var interim = '';
+      for (var i = e.resultIndex; i < e.results.length; i++) {
+        var t = e.results[i][0].transcript;
+        if (e.results[i].isFinal) {
+          var trimmed = t.replace(/^\s+|\s+$/g, '');
+          if (trimmed && trimmed !== lastFinal) {
+            committed += trimmed + ' ';
+            lastFinal = trimmed;
+          }
+        } else {
+          interim += t;
+        }
       }
-      ta.value = baseText + finalText + interim;
+      ta.value = baseText + committed + interim;
     };
-    recognition.onerror = function (e) {
+    rec.onerror = function (e) {
+      if (recognition !== rec) return;
       if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
         setHint(targetId, 'Microphone access was blocked. You can type instead, or use the mic key on your keyboard.', false);
       }
       cleanupListening();
     };
-    recognition.onend = function () { cleanupListening(); };
+    rec.onend = function () {
+      if (recognition !== rec) return;
+      ta.value = baseText + committed;
+      cleanupListening();
+    };
 
-    try { recognition.start(); }
+    try { rec.start(); }
     catch (err) { cleanupListening(); }
   }
 
   function stopListening() {
     if (recognition) {
-      try { recognition.stop(); } catch (e) {}
+      var rec = recognition;
+      recognition = null;
+      try { rec.stop(); } catch (e) {}
     }
     cleanupListening();
   }
