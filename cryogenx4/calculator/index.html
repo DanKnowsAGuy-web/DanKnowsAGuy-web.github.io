@@ -100,7 +100,7 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
     font-size: clamp(30px, 6.6vw, 40px); line-height: 1.14; letter-spacing: -0.01em;
     margin: 0 0 10px; text-wrap: balance;
   }
-  .q-hint { color: var(--ink-soft); font-size: 18px; margin: 0 0 34px; max-width: 30em; }
+  .q-hint { color: var(--ink-soft); font-size: 18px; line-height: 1.4; margin: 0 0 22px; max-width: 30em; }
 
   .fill-line { display: flex; align-items: center; gap: 20px; max-width: 420px; }
   .stepbtn {
@@ -127,15 +127,15 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
   .fill-value input:focus { outline: none; }
   .fill-value .unit { font-family: var(--sans); font-size: 19px; color: var(--ink-soft); }
 
-  .presets { display: flex; flex-direction: column; gap: 12px; margin-top: 34px; }
+  .presets { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
   .preset {
-    display: flex; align-items: center; gap: 16px; text-align: left;
+    display: flex; align-items: center; gap: 14px; text-align: left;
     background: transparent; border: 1.5px solid var(--hairline);
-    padding: 16px 18px; width: 100%;
+    padding: 11px 16px; width: 100%;
     transition: border-color .12s ease-out, background-color .12s ease-out;
   }
   .preset:hover { border-color: var(--ink-soft); }
-  .preset[aria-pressed="true"] { border: 2px solid var(--green); background: #F2F1E8; padding: 15.5px 17.5px; }
+  .preset[aria-pressed="true"] { border: 2px solid var(--green); background: #F2F1E8; padding: 10.5px 15.5px; }
   .preset .radio {
     width: 24px; height: 24px; flex: none; border-radius: 50%;
     border: 2px solid var(--ink-soft); position: relative;
@@ -144,11 +144,11 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
   .preset[aria-pressed="true"] .radio::after {
     content: ""; position: absolute; inset: 4px; border-radius: 50%; background: var(--green);
   }
-  .preset .ptext { display: flex; flex-direction: column; gap: 1px; }
-  .preset .ptext span { font-size: 19px; font-weight: 600; }
-  .preset .ptext small { font-size: 16px; color: var(--ink-soft); }
+  .preset .ptext { display: flex; flex-direction: column; gap: 0; line-height: 1.3; }
+  .preset .ptext span { font-size: 18px; font-weight: 600; }
+  .preset .ptext small { font-size: 15.5px; color: var(--ink-soft); }
 
-  .quiz-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 40px; }
+  .quiz-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 26px; }
   .backlink {
     background: none; border: none; padding: 0;
     font-size: 16.5px; color: var(--ink-soft);
@@ -288,13 +288,25 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
 
   @media (max-width: 760px) {
     body.focus-mode header { display: none; }
-    body.focus-mode .wrap { padding-top: 26px; }
+    body.focus-mode .wrap { padding-top: 22px; }
+    .q-title { font-size: clamp(26px, 6vw, 40px); margin-bottom: 8px; }
+    .kicker { margin-bottom: 6px; }
     .formgrid { grid-template-columns: 1fr; }
     .cta-block .ask { font-size: 22px; }
   }
   @media (min-width: 761px) {
     .wrap { padding-top: 64px; }
     .choice-stack { gap: 18px; }
+  }
+  /* desktop result: the whole statement on one screen, two columns */
+  @media (min-width: 980px) {
+    body.on-bill .wrap { max-width: 1080px; padding-top: 48px; }
+    body.on-bill header { display: none; }
+    #viewBill { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 72px; align-items: start; }
+    .bill-right .verdict { padding-top: 6px; }
+    .bill-right .story { margin-top: 28px; padding-top: 18px; }
+    .bill-right .fine { margin-top: 20px; }
+    .bill-right .cta-block { margin-top: 26px; padding-top: 20px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .strike-anim path { animation: none; stroke-dashoffset: 0; }
@@ -320,7 +332,7 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
       </button>
       <button class="choice go-upload" id="pickUpload">
         <span class="title">Exact numbers from your real bill</span>
-        <span class="sub">Send your bill and nameplate photos. We reply within 24 hours.</span>
+        <span class="sub">Send your bill and your HVAC model and serial numbers. We reply within 24 hours.</span>
       </button>
     </div>
     <p class="trust">No account, no newsletter. Your documents go to one desk.</p>
@@ -349,17 +361,20 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
 
   <!-- RESULT -->
   <section id="viewBill" class="stage hidden">
-    <div class="statement-head">
-      <h2 id="mastheadName">Annual HVAC Statement</h2>
-      <small>Corrected copy</small>
+    <div class="bill-left">
+      <div class="statement-head">
+        <h2 id="mastheadName">Annual HVAC Statement</h2>
+        <small>Corrected copy</small>
+      </div>
+      <table class="ledger" id="billLedger"><tbody></tbody></table>
+      <div class="totals">
+        <span class="label">Annual HVAC total</span>
+        <span class="old-total"><span id="oldTotal">$47,712</span>
+          <svg viewBox="0 0 260 12" aria-hidden="true" class="strike-anim" id="strikeSvg"><path d="M4 7 C 80 5, 170 8, 256 5"/></svg>
+        </span>
+      </div>
     </div>
-    <table class="ledger" id="billLedger"><tbody></tbody></table>
-    <div class="totals">
-      <span class="label">Annual HVAC total</span>
-      <span class="old-total"><span id="oldTotal">$47,712</span>
-        <svg viewBox="0 0 260 12" aria-hidden="true" class="strike-anim" id="strikeSvg"><path d="M4 7 C 80 5, 170 8, 256 5"/></svg>
-      </span>
-    </div>
+    <div class="bill-right">
     <div class="verdict reveal" role="status" id="verdictWrap">
       <p class="verdict-label">Energy overspend eliminated</p>
       <p class="verdict-amount"><span id="dollars" class="num">$8,970</span><span class="per">per year</span></p>
@@ -381,14 +396,15 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
       <span class="contact" id="stubContact"></span>
     </div>
     <p class="below-note"><button class="backlink" id="redoQuiz">Change my answers</button></p>
+    </div>
   </section>
 
   <!-- UPLOAD -->
   <section id="viewUpload" class="stage hidden">
     <form id="uploadForm" novalidate>
       <h2 class="up-title">Exact numbers, from your real bill</h2>
-      <p class="up-lede">Your electric bill, plus photos of the nameplate on each HVAC unit. Spreadsheets and PDFs work too. We reply with exact numbers within 24 hours.</p>
-      <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Add files: bills, nameplate photos, spreadsheets">
+      <p class="up-lede">Your electric bill, plus the model and serial number of each HVAC unit. Send them however is easiest: nameplate photos, a spreadsheet, or a PDF. We reply with exact numbers within 24 hours.</p>
+      <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Add files: bills, model and serial numbers, spreadsheets">
         <span class="big">Add your files</span>
         <span class="small">Tap to take photos or choose files. Photos, PDF, Excel. Up to 8 files.</span>
       </div>
@@ -475,6 +491,7 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
   function show(id) {
     views.forEach(function (v) { $(v).classList.toggle("hidden", v !== id); });
     document.body.classList.toggle("focus-mode", id !== "viewFork");
+    document.body.classList.toggle("on-bill", id === "viewBill");
     window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
   }
 
