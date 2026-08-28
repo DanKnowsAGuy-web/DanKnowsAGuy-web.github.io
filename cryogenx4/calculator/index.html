@@ -6,6 +6,7 @@ FIRST VIEWPORT: Headline strip over two equal paper artifacts: manila drop folde
 FORM: The Corrected Bill, candidate 1 of 7, seed 19b0b9a5, Fork First comp.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
 -->
+<meta charset="utf-8">
 <title>Overspend Estimator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -88,6 +89,22 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
   .mono { font-family: "Courier Prime", "Courier New", monospace; font-variant-numeric: tabular-nums; }
 
+  /* clear-affordance buttons: solid ink fill, unrotated, unmistakably controls */
+  .btn {
+    display: inline-block;
+    font-family: "Saira Condensed", "Arial Narrow", sans-serif;
+    font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+    font-size: 16px; line-height: 1.1;
+    background: var(--green); color: var(--paper);
+    border: none; padding: 12px 22px 11px;
+    box-shadow: 0 3px 0 rgba(18, 24, 30, .35);
+    transition: transform .1s ease-out, box-shadow .1s ease-out;
+  }
+  .btn:hover { background: #1E5C38; }
+  .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(18, 24, 30, .35); }
+  .btn.blue { background: var(--masthead); }
+  .btn.blue:hover { background: #3A5E8C; }
+
   /* ------- headline strip ------- */
   header.strip {
     background: #DEE0DF var(--paper-tex) repeat;
@@ -127,6 +144,21 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     gap: 40px;
     align-items: stretch;
   }
+  /* mobile-only compact chooser: quick estimate first, both options in the first viewport */
+  .chooser { display: none; grid-column: 1 / -1; }
+  .chooser button {
+    display: block; width: 100%; text-align: left;
+    border: none; padding: 16px 18px 14px; margin: 0 0 14px;
+    box-shadow: 0 4px 0 rgba(18, 24, 30, .35);
+  }
+  .chooser button:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(18, 24, 30, .35); }
+  .chooser .title {
+    display: block; font-family: "Saira Condensed", sans-serif; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .04em; font-size: 19px;
+  }
+  .chooser .sub2 { display: block; font-size: 13.5px; margin-top: 3px; opacity: .92; }
+  .chooser .go-quiz { background: var(--green); color: var(--paper); }
+  .chooser .go-upload { background: var(--masthead); color: var(--paper); }
   .path {
     border: none; padding: 0; margin: 0; text-align: left; background: none;
     display: block; width: 100%;
@@ -228,9 +260,12 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   .fill-line .unit { font-family: "Courier Prime", monospace; color: var(--ink-soft); font-size: 16px; }
   .presets { display: flex; flex-wrap: wrap; gap: 14px 22px; margin: 18px 0 0; }
   .preset {
-    background: none; border: none; padding: 0; display: flex; gap: 9px; align-items: center;
-    font-family: "Courier Prime", monospace; font-size: 15px; color: var(--ink);
+    background: none; border: none; padding: 0; display: flex; gap: 9px; align-items: flex-start;
+    font-family: "Courier Prime", monospace; font-size: 15px; color: var(--ink); text-align: left;
   }
+  .preset .ptext { display: flex; flex-direction: column; gap: 1px; }
+  .preset .ptext small { font-size: 12.5px; color: var(--ink-soft); }
+  .preset .box { margin-top: 1px; }
   .preset .box {
     width: 17px; height: 17px; border: 2px solid var(--ink); display: inline-block; position: relative; flex: none;
   }
@@ -275,6 +310,20 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   }
   .result-note { text-align: center; color: var(--ink-soft); font-size: 15px; margin: 4px 0 0; }
   .result-note .mono { color: var(--ink); font-weight: 700; }
+  .story { max-width: 54ch; margin: 22px auto 0; border-top: 2px solid var(--ink); padding-top: 12px; }
+  .story-label {
+    font-family: "Saira Condensed", sans-serif; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .09em; font-size: 14px; margin: 0 0 2px;
+  }
+  .story-lede { color: var(--ink-soft); font-size: 14.5px; margin: 0 0 8px; }
+  .story ul { list-style: none; margin: 0; padding: 0; }
+  .story li {
+    position: relative; padding: 4px 0 4px 22px; font-size: 14.5px; color: var(--ink);
+  }
+  .story li::before {
+    content: ""; position: absolute; left: 2px; top: 10px;
+    width: 8px; height: 8px; background: var(--green);
+  }
   .fine {
     color: var(--ink-soft); font-size: 12.5px; max-width: 64ch; margin: 18px auto 0; text-align: center;
   }
@@ -349,6 +398,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
   @media (max-width: 760px) {
     .fork { grid-template-columns: 1fr; gap: 46px; }
+    .chooser { display: block; }
+    .fork .path { display: none; }
     .folder .peek { display: none; }
     .ledger td, .ledger th { font-size: 14.5px; padding: 10px 2px 8px; }
     .ledger td:last-child { white-space: normal; }
@@ -382,17 +433,27 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
   <!-- THE FORK -->
   <section id="viewFork" class="fork" aria-label="Choose your path">
+    <div class="chooser">
+      <button class="go-quiz" id="chooseQuiz">
+        <span class="title">Quick estimate</span>
+        <span class="sub2">Four questions, about a minute</span>
+      </button>
+      <button class="go-upload" id="chooseUpload">
+        <span class="title">Exact numbers from your real bill</span>
+        <span class="sub2">Upload your bill and nameplate photos, we reply within 24 hours</span>
+      </button>
+    </div>
     <button class="path" id="pickUpload" aria-describedby="uploadDesc">
       <div class="manila folder">
         <span class="tab">Send us the real thing</span>
-        <span class="peek" aria-hidden="true"><span class="mini"><b>Power &amp; Light Statement</b><i></i></span></span>
+        <span class="peek" aria-hidden="true"><span class="mini"><b>Your Electric Bill</b><i></i></span></span>
         <div class="folder-body">
           <h2>Exact numbers, from your real bill</h2>
           <p class="sub" id="uploadDesc">Drop in your electric bill and photos of your HVAC nameplates. We read them and reply with real numbers.</p>
           <div class="dropzone-print" aria-hidden="true">Drop your bill and nameplate photos here</div>
           <div class="folder-foot">
             <span class="stamp blue">Exact numbers<br>within 24 hours</span>
-            <span class="stamp green" style="transform: rotate(2deg); font-size: 13px;">Open the folder</span>
+            <span class="btn blue" style="font-size: 15px;">Open the folder</span>
           </div>
         </div>
       </div>
@@ -413,7 +474,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         </table>
         <div class="worksheet-foot">
           <span class="stamp gray" style="font-size: 12.5px;">Estimate only<br>excludes peak demand charges</span>
-          <span class="stamp green" style="transform: rotate(1.8deg); font-size: 13px;">Start the estimate</span>
+          <span class="btn" style="font-size: 15px;">Start the estimate</span>
         </div>
       </div>
     </button>
@@ -432,7 +493,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
       <div class="presets hidden" id="qPresets" role="group" aria-label="Common schedules"></div>
       <div class="quiz-foot">
         <button class="backlink" id="qBack">go back</button>
-        <button class="stamp green" id="qNext" style="font-size: 16px;">Type it on the ledger</button>
+        <button class="btn" id="qNext">Next</button>
       </div>
     </div>
   </section>
@@ -440,7 +501,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   <!-- RESULT BILL -->
   <section id="viewBill" class="stage hidden">
     <div class="sheet bill">
-      <p class="masthead"><span id="mastheadName">Power &amp; Light Statement</span> <small>Corrected copy</small></p>
+      <p class="masthead"><span id="mastheadName">Annual HVAC Statement</span> <small>Corrected copy</small></p>
       <table class="ledger" id="billLedger">
         <caption>Annual HVAC ledger</caption>
         <tbody></tbody>
@@ -461,12 +522,21 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         </span>
       </div>
       <p class="result-note">That is <span class="mono" id="kwh">56,062</span> kWh you are paying for each year, about <span class="mono" id="monthly">$747</span> a month.</p>
+      <div class="story">
+        <p class="story-label">What else improves</p>
+        <p class="story-lede">The bill is only part of the story. Treated units typically see:</p>
+        <ul>
+          <li>Colder coils pull more moisture from the air, so the space feels drier and more comfortable.</li>
+          <li>Compressors run under less strain, which means fewer breakdowns during the hottest weeks.</li>
+          <li>Less wear on every start and stop, so equipment tends to last longer.</li>
+        </ul>
+      </div>
       <p class="fine">This is an estimate from your entries and the typical performance loss of cooling equipment at that age. It does not include peak demand charges or similar billing components, which is usually more money on the table. It covers standard DX systems such as rooftop and split units.</p>
       <hr class="perf">
       <div class="stub">
         <span class="ask">Want the exact number?</span>
         <span class="contact" id="stubContact"></span>
-        <button class="stamp blue" id="stubUpload" style="font-size: 15px;">Send us your bill</button>
+        <button class="btn blue" id="stubUpload" style="font-size: 15px;">Send us your bill</button>
       </div>
     </div>
     <p style="text-align:center; margin-top: 18px;"><button class="backlink" id="redoQuiz" style="color:#E7ECEF;">change my answers</button></p>
@@ -494,7 +564,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         <p class="error-line hidden" id="uploadError"></p>
         <div class="upload-foot">
           <span class="sendnote">Goes straight to our desk. No account, no newsletter.</span>
-          <button class="stamp green" id="sendBtn" type="submit" style="font-size: 17px;">Send for exact numbers</button>
+          <button class="btn" id="sendBtn" type="submit" style="font-size: 17px;">Send for exact numbers</button>
         </div>
         <p style="margin: 18px 0 0;"><button class="backlink" id="uploadBack" type="button">go back</button></p>
       </div>
@@ -508,7 +578,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         <span class="stamp green thunk" style="font-size: 21px;">Real numbers<br>within 24 hours</span>
         <h2 id="doneTitle">It is on our desk</h2>
         <p id="doneCopy">We will email you within 24 hours with your real numbers, worked from the documents you sent.</p>
-        <p class="again"><button class="stamp blue" id="doneQuiz" style="font-size: 14px;">Run the quick estimate while you wait</button></p>
+        <p class="again"><button class="btn blue" id="doneQuiz" style="font-size: 14px;">Run the quick estimate while you wait</button></p>
       </div>
     </div>
   </section>
@@ -520,7 +590,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   // ---- whitelabel config: skin per partner without touching the page ----
   var CONFIG = {
     brandName: "",                 // e.g. "Christ Power & Light"; blank hides the prepared-by line
-    masthead: "Power & Light Statement",
+    masthead: "Annual HVAC Statement",
     phone: "",                     // e.g. "(561) 410-4253"; blank hides call lines
     email: "dan@danknowsaguy.org", // where uploads are delivered (FormSubmit endpoint)
     subject: "Exact numbers request from the Overspend Estimator"
@@ -576,7 +646,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     { key: "tons", title: "Total cooling capacity, in tons", hint: "Add up the tonnage of all your AC units. It is printed on each unit's nameplate or in your service records.", unit: "tons", value: 100, min: 1, max: 10000, ledger: function (v) { return ["Cooling capacity", fmt.format(v) + " tons"]; } },
     { key: "age", title: "Average age of your units", hint: "A rough average across all units is fine.", unit: "years", value: 7, min: 0, max: 25, ledger: function (v) { return ["Average unit age", v + " years"]; } },
     { key: "hours", title: "Hours each unit runs per year", hint: "Not sure? Check the schedule that sounds most like yours.", unit: "hours", value: 2840, min: 100, max: 8760, ledger: function (v) { return ["Annual run hours", fmt.format(v)]; },
-      presets: [["Business hours", 2840], ["Extended hours", 4400], ["Around the clock", 8760]] }
+      presets: [["Business hours", 2840, "about 55 hours a week"], ["Extended hours", 4400, "about 85 hours a week"], ["Around the clock", 8760, "24 hours a day, 7 days a week"]] }
   ];
   var stepIx = 0;
 
@@ -597,7 +667,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
         var b = document.createElement("button");
         b.type = "button"; b.className = "preset";
         b.setAttribute("aria-pressed", String(Number(input.value) === p[1]));
-        b.innerHTML = '<span class="box" aria-hidden="true"></span>' + p[0];
+        b.innerHTML = '<span class="box" aria-hidden="true"></span><span class="ptext"><span>' + p[0] + '</span><small>' + p[2] + '</small></span>';
         b.addEventListener("click", function () {
           input.value = p[1];
           sizeInput();
@@ -609,7 +679,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     } else {
       pv.classList.add("hidden");
     }
-    $("qNext").textContent = stepIx === 3 ? "Correct my bill" : "Type it on the ledger";
+    $("qNext").textContent = stepIx === 3 ? "Show my number" : "Next";
     $("qBack").textContent = stepIx === 0 ? "back to the two paths" : "go back";
     sizeInput();
     input.focus({ preventScroll: true });
@@ -656,6 +726,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   }
 
   $("pickQuiz").addEventListener("click", function () { stepIx = 0; show("viewQuiz"); renderStep(); });
+  $("chooseQuiz").addEventListener("click", function () { stepIx = 0; show("viewQuiz"); renderStep(); });
+  $("chooseUpload").addEventListener("click", function () { show("viewUpload"); });
   $("qNext").addEventListener("click", commitStep);
   $("qInput").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); commitStep(); } });
   $("qBack").addEventListener("click", function () {
