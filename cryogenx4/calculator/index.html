@@ -214,7 +214,15 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
   }
   .verdict-amount .per { font-family: var(--sans); font-weight: 400; font-size: 19px; color: var(--ink-soft); letter-spacing: 0; margin-left: 6px; }
   .reveal { animation: reveal .5s ease-out .55s both; }
+  .reveal2 { animation: reveal .5s ease-out 1.5s both; }
   @keyframes reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .totals-final {
+    display: flex; justify-content: flex-end; align-items: baseline; gap: 16px;
+    border-top: 3px double var(--ink); margin-top: 10px; padding: 14px 2px 4px;
+  }
+  .totals-final .label { color: var(--ink-soft); font-size: 17px; }
+  .new-total { font-family: var(--serif); font-weight: 700; font-size: 31px; color: var(--ink); }
   .result-note { text-align: center; color: var(--ink-soft); font-size: 18px; margin: 14px 0 0; }
   .result-note strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 
@@ -303,14 +311,14 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
     body.on-bill .wrap { max-width: 1080px; padding-top: 48px; }
     body.on-bill header { display: none; }
     #viewBill { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 72px; align-items: start; }
-    .bill-right .verdict { padding-top: 6px; }
-    .bill-right .story { margin-top: 28px; padding-top: 18px; }
+    .bill-left .verdict { padding: 26px 0 4px; }
+    .bill-right .story { margin-top: 0; padding-top: 4px; border-top: none; }
     .bill-right .fine { margin-top: 20px; }
     .bill-right .cta-block { margin-top: 26px; padding-top: 20px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .strike-anim path { animation: none; stroke-dashoffset: 0; }
-    .reveal { animation: none; }
+    .reveal, .reveal2 { animation: none; }
     html { scroll-behavior: auto; }
   }
 </style>
@@ -368,18 +376,22 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
       </div>
       <table class="ledger" id="billLedger"><tbody></tbody></table>
       <div class="totals">
-        <span class="label">Annual HVAC total</span>
+        <span class="label">Annual HVAC total today</span>
         <span class="old-total"><span id="oldTotal">$47,712</span>
           <svg viewBox="0 0 260 12" aria-hidden="true" class="strike-anim" id="strikeSvg"><path d="M4 7 C 80 5, 170 8, 256 5"/></svg>
         </span>
       </div>
+      <div class="verdict reveal" role="status" id="verdictWrap">
+        <p class="verdict-label">Energy overspend eliminated</p>
+        <p class="verdict-amount"><span id="dollars" class="num">$8,970</span><span class="per">per year</span></p>
+        <p class="result-note">That is <strong id="kwh">56,062</strong> kWh you are paying for each year, about <strong id="monthly">$747</strong> a month.</p>
+      </div>
+      <div class="totals-final reveal2">
+        <span class="label">Corrected annual total</span>
+        <span class="new-total num" id="newTotal">$38,742</span>
+      </div>
     </div>
     <div class="bill-right">
-    <div class="verdict reveal" role="status" id="verdictWrap">
-      <p class="verdict-label">Energy overspend eliminated</p>
-      <p class="verdict-amount"><span id="dollars" class="num">$8,970</span><span class="per">per year</span></p>
-      <p class="result-note">That is <strong id="kwh">56,062</strong> kWh you are paying for each year, about <strong id="monthly">$747</strong> a month.</p>
-    </div>
     <div class="story">
       <p class="story-label">What else improves</p>
       <p class="story-lede">The bill is only part of the story. Treated units typically see:</p>
@@ -606,14 +618,15 @@ FORM: Premium statement (A) with modern-finance affordance (B), user-blended fro
     use.innerHTML = "<td>HVAC energy used</td><td>" + fmt.format(Math.round(r.annualKwh)) + " kWh per year</td>";
     tb.appendChild(use);
     $("oldTotal").textContent = "$" + fmt.format(Math.round(r.oldCost));
+    $("newTotal").textContent = "$" + fmt.format(Math.round(r.oldCost - r.dollars));
     $("kwh").textContent = fmt.format(Math.round(r.savedKwh));
     $("monthly").textContent = "$" + fmt.format(Math.round(r.dollars / 12));
 
     // restart the strike + reveal choreography, counting the credit line up
-    var sv = $("strikeSvg"), vw = $("verdictWrap");
-    sv.classList.remove("strike-anim"); vw.classList.remove("reveal");
+    var sv = $("strikeSvg"), vw = $("verdictWrap"), tf = document.querySelector(".totals-final");
+    sv.classList.remove("strike-anim"); vw.classList.remove("reveal"); tf.classList.remove("reveal2");
     void sv.offsetWidth;
-    sv.classList.add("strike-anim"); vw.classList.add("reveal");
+    sv.classList.add("strike-anim"); vw.classList.add("reveal"); tf.classList.add("reveal2");
     if (countAnim) cancelAnimationFrame(countAnim);
     if (reduceMotion || document.hidden) {
       $("dollars").textContent = "$" + fmt.format(Math.round(r.dollars));
