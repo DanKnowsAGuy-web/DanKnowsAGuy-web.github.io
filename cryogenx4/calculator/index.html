@@ -248,7 +248,21 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     font-size: clamp(23px, 3.4vw, 32px); margin: 4px 0 6px; letter-spacing: .015em;
   }
   .quiz .hint { color: var(--ink-soft); font-size: 15px; margin: 0 0 20px; max-width: 52ch; }
-  .fill-line { display: flex; align-items: baseline; gap: 12px; border-bottom: 2px solid var(--ink); padding-bottom: 4px; max-width: 340px; }
+  .fill-line { display: flex; align-items: center; gap: 14px; max-width: 380px; }
+  .fill-value { display: flex; align-items: baseline; gap: 10px; border-bottom: 2px solid var(--ink); padding-bottom: 4px; flex: 1; justify-content: center; min-width: 0; }
+  .stepbtn {
+    width: 48px; height: 48px; flex: none;
+    background: var(--ink); color: var(--paper); border: none;
+    font-family: "Courier Prime", monospace; font-size: 28px; font-weight: 700; line-height: 1;
+    box-shadow: 0 3px 0 rgba(18, 24, 30, .35);
+    transition: transform .1s ease-out, box-shadow .1s ease-out;
+  }
+  .stepbtn:hover { background: #2A3138; }
+  .stepbtn:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(18, 24, 30, .35); }
+  .wk {
+    font-family: "Courier Prime", monospace; font-size: 30px; font-weight: 700;
+    color: var(--masthead); font-variant-numeric: tabular-nums;
+  }
   .fill-line input {
     font-family: "Courier Prime", monospace; font-size: 30px; font-weight: 700;
     color: var(--masthead); background: transparent; border: none; width: 4ch; padding: 0;
@@ -401,6 +415,10 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     .chooser { display: block; }
     .fork .path { display: none; }
     .folder .peek { display: none; }
+    /* once a path is chosen the headline exits, so the keyboard cannot hide the question */
+    body.focus-mode header.strip { display: none; }
+    body.focus-mode .wrap { padding-top: 14px; }
+    body.focus-mode .stage { margin-top: 0; }
     .ledger td, .ledger th { font-size: 14.5px; padding: 10px 2px 8px; }
     .ledger td:last-child { white-space: normal; }
     .folder { transform: none; }
@@ -487,8 +505,13 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
       <h2 id="qTitle">What do you pay per kWh?</h2>
       <p class="hint" id="qHint">It is on your electric bill. Most businesses pay 12 to 20 cents.</p>
       <div class="fill-line">
-        <input id="qInput" type="number" inputmode="decimal" aria-label="Answer" />
-        <span class="unit" id="qUnit">cents</span>
+        <button class="stepbtn" id="qMinus" type="button" aria-label="Decrease">&minus;</button>
+        <div class="fill-value">
+          <input id="qInput" type="number" inputmode="decimal" aria-label="Answer" />
+          <span class="wk hidden" id="qWeekly">55</span>
+          <span class="unit" id="qUnit">cents</span>
+        </div>
+        <button class="stepbtn" id="qPlus" type="button" aria-label="Increase">+</button>
       </div>
       <div class="presets hidden" id="qPresets" role="group" aria-label="Common schedules"></div>
       <div class="quiz-foot">
@@ -636,19 +659,42 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   function show(id) {
     views.forEach(function (v) { $(v).classList.toggle("hidden", v !== id); });
     if (id !== "viewFork") $("viewFork").classList.add("hidden");
+    document.body.classList.toggle("focus-mode", id !== "viewFork");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
   function showForkToo() { $("viewFork").classList.remove("hidden"); }
 
   // ---- quiz: one line at a time ----
   var steps = [
-    { key: "rate", title: "What do you pay per kWh?", hint: "It is on your electric bill. Most businesses pay 12 to 20 cents.", unit: "cents", value: 16, min: 4, max: 60, ledger: function (v) { return ["Electric rate", v + " cents per kWh"]; } },
-    { key: "tons", title: "Total cooling capacity, in tons", hint: "Add up the tonnage of all your AC units. It is printed on each unit's nameplate or in your service records.", unit: "tons", value: 100, min: 1, max: 10000, ledger: function (v) { return ["Cooling capacity", fmt.format(v) + " tons"]; } },
-    { key: "age", title: "Average age of your units", hint: "A rough average across all units is fine.", unit: "years", value: 7, min: 0, max: 25, ledger: function (v) { return ["Average unit age", v + " years"]; } },
-    { key: "hours", title: "Hours each unit runs per year", hint: "Not sure? Check the schedule that sounds most like yours.", unit: "hours", value: 2840, min: 100, max: 8760, ledger: function (v) { return ["Annual run hours", fmt.format(v)]; },
+    { key: "rate", title: "What do you pay per kWh?", hint: "It is on your electric bill. Most businesses pay 12 to 20 cents.", unit: "cents", value: 16, min: 4, max: 60, nudge: 1, ledger: function (v) { return ["Electric rate", v + " cents per kWh"]; } },
+    { key: "tons", title: "Total cooling capacity, in tons", hint: "Add up the tonnage of all your AC units. It is printed on each unit's nameplate or in your service records.", unit: "tons", value: 100, min: 5, max: 10000, nudge: 5, ledger: function (v) { return ["Cooling capacity", fmt.format(v) + " tons"]; } },
+    { key: "age", title: "Average age of your units", hint: "A rough average across all units is fine.", unit: "years", value: 7, min: 0, max: 25, nudge: 1, ledger: function (v) { return ["Average unit age", v + " years"]; } },
+    { key: "hours", title: "How many hours a week do your units run?", hint: "Check the schedule that sounds most like yours, then nudge it with plus and minus.", unit: "hours a week", value: 2840, min: 260, max: 8760, nudge: 260, weekly: true, ledger: function (v) { return ["Annual run hours", fmt.format(v)]; },
       presets: [["Business hours", 2840, "about 55 hours a week"], ["Extended hours", 4400, "about 85 hours a week"], ["Around the clock", 8760, "24 hours a day, 7 days a week"]] }
   ];
   var stepIx = 0;
+  var isDesktop = window.matchMedia("(min-width: 761px)");
+
+  function weeklyOf(annual) { return Math.min(168, Math.round(annual / 52)); }
+
+  function syncPresetChecks() {
+    var s = steps[stepIx];
+    if (!s.presets) return;
+    $("qPresets").querySelectorAll(".preset").forEach(function (x, ix) {
+      x.setAttribute("aria-pressed", String(s.value === s.presets[ix][1]));
+    });
+  }
+
+  function renderValue() {
+    var s = steps[stepIx];
+    if (s.weekly) {
+      $("qWeekly").textContent = weeklyOf(s.value);
+    } else {
+      $("qInput").value = s.value;
+      sizeInput();
+    }
+    syncPresetChecks();
+  }
 
   function renderStep() {
     var s = steps[stepIx];
@@ -657,7 +703,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     $("qHint").textContent = s.hint;
     $("qUnit").textContent = s.unit;
     var input = $("qInput");
-    input.value = s.value;
+    input.classList.toggle("hidden", !!s.weekly);
+    $("qWeekly").classList.toggle("hidden", !s.weekly);
     input.min = s.min; input.max = s.max;
     var pv = $("qPresets");
     pv.innerHTML = "";
@@ -666,13 +713,10 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
       s.presets.forEach(function (p) {
         var b = document.createElement("button");
         b.type = "button"; b.className = "preset";
-        b.setAttribute("aria-pressed", String(Number(input.value) === p[1]));
         b.innerHTML = '<span class="box" aria-hidden="true"></span><span class="ptext"><span>' + p[0] + '</span><small>' + p[2] + '</small></span>';
         b.addEventListener("click", function () {
-          input.value = p[1];
-          sizeInput();
-          pv.querySelectorAll(".preset").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
-          b.setAttribute("aria-pressed", "true");
+          s.value = p[1];
+          renderValue();
         });
         pv.appendChild(b);
       });
@@ -681,22 +725,37 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     }
     $("qNext").textContent = stepIx === 3 ? "Show my number" : "Next";
     $("qBack").textContent = stepIx === 0 ? "back to the two paths" : "go back";
-    sizeInput();
-    input.focus({ preventScroll: true });
-    input.select();
+    renderValue();
+    // desktop gets the caret ready; mobile stays keyboard-free until the number is tapped
+    if (isDesktop.matches && !s.weekly) { input.focus({ preventScroll: true }); input.select(); }
   }
 
   function sizeInput() {
     var i = $("qInput");
     i.style.width = (Math.max(2, String(i.value).length) + 1) + "ch";
   }
-  $("qInput").addEventListener("input", sizeInput);
+  $("qInput").addEventListener("input", function () {
+    var s = steps[stepIx];
+    var v = parseFloat($("qInput").value);
+    if (!isNaN(v)) s.value = clamp(v, s.min, s.max);
+    sizeInput();
+  });
+
+  $("qMinus").addEventListener("click", function () { nudgeValue(-1); });
+  $("qPlus").addEventListener("click", function () { nudgeValue(1); });
+  function nudgeValue(dir) {
+    var s = steps[stepIx];
+    s.value = clamp(s.value + dir * s.nudge, s.min, s.max);
+    renderValue();
+  }
 
   function commitStep() {
     var s = steps[stepIx];
-    var v = parseFloat($("qInput").value);
-    if (isNaN(v)) { $("qInput").focus(); return; }
-    s.value = clamp(v, s.min, s.max);
+    if (!s.weekly) {
+      var v = parseFloat($("qInput").value);
+      if (isNaN(v)) { $("qInput").focus(); return; }
+      s.value = clamp(v, s.min, s.max);
+    }
     if (stepIx < 3) { stepIx++; renderStep(); }
     else { renderBill(); show("viewBill"); }
   }
