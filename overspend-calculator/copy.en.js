@@ -118,6 +118,16 @@ window.EPCOPY_EN = {
   "assume.src.hours": "Source: typical weekly hours for this building type, CBECS 2018",
   "assume.confirmed": "Set by you",
 
+  /* ---------- drawings ---------- */
+  "viz.building.title": "Where the money is in your building",
+  "viz.building.aria": "Line drawing of the building with the three biggest lines on the bill marked",
+  "viz.peak.label": "Busiest fifteen minutes: {rate} per kW",
+  "viz.peak.shaved": "with a battery",
+  "viz.peak.aria": "A day of electricity use with the highest fifteen minutes marked and the level a battery would hold it to",
+  "viz.months.aria": "Twelve months of bills following the state's seasonal pattern, with the month you entered highlighted",
+  "viz.months.note": "Your month is highlighted. The darker slice on every bar is the overspend, riding along all year.",
+  "viz.months.note.pre": "Your month is highlighted. One bill is never the year, so we correct it against this pattern.",
+
   /* ---------- results ---------- */
   "result.title": "Annual overspend",
   "result.anchor": "About {lo} to {hi} months of your electric bill, every year.",

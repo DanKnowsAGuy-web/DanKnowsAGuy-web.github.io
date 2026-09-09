@@ -104,6 +104,14 @@ window.EPCOPY_ES = {
   "assume.confirmed": "Definido por usted",
 
   /* ---------- resultados ---------- */
+  "viz.building.title": "Dónde está el dinero en su edificio",
+  "viz.building.aria": "Dibujo lineal del edificio con las tres líneas más grandes de la factura marcadas",
+  "viz.peak.label": "Los quince minutos más altos: {rate} por kW",
+  "viz.peak.shaved": "con una batería",
+  "viz.peak.aria": "Un día de consumo eléctrico con los quince minutos más altos marcados y el nivel al que una batería lo mantendría",
+  "viz.months.aria": "Doce meses de facturas siguiendo el patrón estacional del estado, con el mes que usted ingresó resaltado",
+  "viz.months.note": "Su mes está resaltado. La franja más oscura en cada barra es el sobrecosto, presente todo el año.",
+  "viz.months.note.pre": "Su mes está resaltado. Una factura nunca es el año, así que la corregimos contra este patrón.",
   "result.title": "Sobrecosto anual",
   "result.anchor": "Cerca de {lo} a {hi} meses de su factura eléctrica, cada año.",
   "result.needle": "La aguja marca donde suele caer un {facility} de su antigüedad.",

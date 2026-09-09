@@ -174,6 +174,37 @@ details.how h4{margin:16px 0 4px;font-size:14px;font-weight:600;letter-spacing:.
 .stick .n .to{font-family:"Archivo",sans-serif;font-weight:400;font-size:12px;opacity:.75;margin:0 4px}
 .stick button{appearance:none;background:#f4f7f8;color:var(--prim);border:0;border-radius:5px;font-weight:600;font-size:15px;padding:11px 14px;min-height:44px}
 
+/* ---------- drawings ---------- */
+.bldgwrap{margin:4px 0 18px}
+.bldgwrap h3{margin:0 0 6px;font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--fg2)}
+.bldgfig{color:var(--fg);opacity:.92}
+.bldg .spot-hvac,.bldg .spot-demand,.bldg .spot-refrig,.bldg .spot-lighting,.bldg .spot-supply,.bldg .spot-motors{transition:stroke .4s,stroke-width .4s}
+.bldg g.lit{stroke:var(--mark);stroke-width:2.2}
+.bldg g.lit *{stroke:var(--mark)}
+.spots{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 26px}
+.spots li{display:inline-flex;gap:10px;align-items:baseline;font-size:15px;color:var(--fg2);white-space:nowrap;opacity:0;transform:translateY(4px);transition:opacity .45s var(--ease-out),transform .45s var(--ease-out)}
+.spots li.on{opacity:1;transform:none}
+.spots li i{width:8px;height:8px;border-radius:50%;background:var(--mark);flex:none;display:inline-block;margin-right:8px;vertical-align:1px}
+.spots li b{font-family:"Geist Mono",monospace;font-weight:600;letter-spacing:-.02em;color:var(--fg);white-space:nowrap}
+.dcurve{margin:10px 0 2px;color:var(--fg)}
+.dcurve text{font-family:"Archivo",sans-serif;font-size:9px;fill:var(--fg3)}
+.dcurve text.lbl{font-size:10px;fill:var(--fg);font-weight:600}
+.dcurve text.lbl.mark{fill:var(--mark)}
+.dcurve .load,.dcurve .shaved{stroke-dasharray:1200;stroke-dashoffset:1200;animation:drawline 1.4s var(--ease-out) forwards}
+.dcurve .shaved{animation-delay:.9s;animation-duration:1.2s}
+.dcurve .peak,.dcurve .capline{opacity:0;animation:fadein .5s .9s forwards}
+.dcurve .capline{animation-delay:1.9s}
+@keyframes drawline{to{stroke-dashoffset:0}}
+@keyframes fadein{to{opacity:1}}
+.mbars{margin:10px 0 0;color:var(--ink)}
+.mbars text{font-family:"Archivo",sans-serif;font-size:9.5px;fill:var(--mute)}
+.mbars .mbar .bill{fill:color-mix(in srgb,var(--prim) 30%,#fff)}
+.mbars .mbar.hi .bill{fill:var(--prim)}
+.mbars .mbar .os{fill:var(--mark)}
+.mbars .mbar rect{transform-box:fill-box;transform-origin:bottom;animation:growbar .6s var(--ease-out) both;animation-delay:var(--d)}
+@keyframes growbar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.mnote{margin:6px 0 0;font-size:14px;color:var(--ink2)}
+@media (prefers-reduced-motion:reduce){.dcurve .load,.dcurve .shaved{stroke-dashoffset:0;animation:none}.dcurve .peak,.dcurve .capline{opacity:1;animation:none}.mbars .mbar rect{animation:none}.spots li{opacity:1;transform:none}}
 /* ---------- story ---------- */
 .story{display:none}
 .story.on{display:block}
@@ -307,6 +338,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     <div id="results" hidden>
       <h2 id="headline"></h2>
       <p class="lede" id="lede"></p>
+      <div class="bldgwrap" id="bldg" hidden></div>
       <div id="buckets"></div>
       <div class="more" id="more" hidden></div>
       <div class="wait" id="wait"></div>
@@ -329,6 +361,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
 <script src="constants.js"></script>
 <script src="engine.js"></script>
+<script src="viz.js"></script>
 <script src="copy.en.js"></script>
 <script src="copy.es.js" defer></script>
 <script src="zip/utilities.js" defer></script>
@@ -518,7 +551,7 @@ function revealHTML(id){
   switch(id){
     case 'zip': { if(!st) return ''; const rate = st.rate; const us = (C.meta.usRate||14.19); const cmp = rate>us*1.05?'above':rate<us*0.95?'below':'near'; const vars={utility:utilName(),stateName:st.name,rate:rate.toFixed(1),compare:t('zip.compare.'+cmp,{usRate:us.toFixed(1)})}; return t(S.util? 'zip.reveal' : 'zip.reveal.state', vars); }
     case 'facility': { const fac=C.facilities[S.facility]; const hv=Math.round((fac.hvac.cooling+fac.hvac.heat+fac.hvac.ventilation)*100), rf=Math.round((fac.refrigShare||0)*100), li=Math.round((fac.lightingShare||0)*100), rest=Math.max(0,100-hv-rf-li); const segs=[['a','mover.hvac',hv],['b','mover.refrig',rf],['c','mover.lighting',li],['d','mover.other',rest]].filter(x=>x[2]>0); return t('facility.reveal.'+S.facility,{stateName:st.name,hvacPct:hv+'%'})+`<div class="bar">${segs.map(x=>`<i class="${x[0]}" style="width:${x[2]}%"></i>`).join('')}</div><p class="legend">${segs.map(x=>`<span class="${x[0]}">${t(x[1])}<b>${x[2]}%</b></span>`).join('')}</p>`; }
-    case 'bill': { if(!S.result) return ''; const r=S.result; const cls=['a','b','c']; return t('bill.reveal',{annual:money(r.annual),season:t('season.'+S.season).toLowerCase(),stateName:st.name})+`<div class="rows">${r.movers.map((m,i)=>`<div class="row ${cls[i]}"><span class="l">${t('mover.'+m.key)}</span><span class="n">${money(m.value/12)}<small>${t('label.month')} · ${Math.round(m.value/r.annual*100)}%</small></span><span class="t"><i style="width:${Math.min(100,Math.round(m.value/r.annual*100))}%"></i></span></div>`).join('')}</div><p style="margin:6px 0 0">${t('bill.products')}</p>`; }
+    case 'bill': { if(!S.result) return ''; const r=S.result; const cls=['a','b','c']; return t('bill.reveal',{annual:money(r.annual),season:t('season.'+S.season).toLowerCase(),stateName:st.name})+`<div class="rows">${r.movers.map((m,i)=>`<div class="row ${cls[i]}"><span class="l">${t('mover.'+m.key)}</span><span class="n">${money(m.value/12)}<small>${t('label.month')} · ${Math.round(m.value/r.annual*100)}%</small></span><span class="t"><i style="width:${Math.min(100,Math.round(m.value/r.annual*100))}%"></i></span></div>`).join('')}</div><p style="margin:6px 0 0">${t('bill.products')}</p>${monthsHTML()}`; }
     case 'heat': return t('heat.reveal.'+S.heat);
     case 'hours': { if(!S.result) return ''; return t(S.result.flat?'hours.reveal.flat':'hours.reveal.peaky',{hours:S.hoursWeek}); }
     case 'age': { if(!S.age) return ''; if(!S.age.sure) return t('age.reveal.unsure'); if(S.age.value<5) return t('age.reveal.new'); return t('age.reveal',{age:S.age.value,lossPct:pct(EPX.lossByAge(S.age.value))}); }
@@ -602,9 +635,35 @@ function renderResults(){
   const peakWhy = t(B.peak.flat?'bucket.peak.flat':'bucket.peak.peaky',{utility:utilName(),demandRate,facility:facLabel(S.facility).toLowerCase(),hours:S.hoursWeek}) + (B.peak.pfPossible?' '+t('bucket.peak.pf',{utility:utilName()}):'');
   const eqWhy = (r.age>=4 ? t('bucket.equipment.fouling',{age:Math.round(r.age),lossPct:pct(r.hvac.loss)}) : t('bucket.equipment.fouling.new')) + ' ' + (fac.refrigShare>0.3 ? t('bucket.equipment.refrig') : t('bucket.equipment.fans')) + (S.heat==='resistance'?' '+t('bucket.equipment.heat.resistance'):'');
   const rows=[]; if(B.brokering.range[1]>0) rows.push(['brokering',B.brokering.range,brokerWhy,'']); rows.push(['peak',B.peak.range,peakWhy,(S.lang==='es'?'La demanda es cerca del ':'Demand is about ')+pct(r.demandShare)+(S.lang==='es'?' de su factura':' of your bill')],['equipment',B.equipment.range,eqWhy,(S.lang==='es'?'Sin reemplazar equipo':'No replacement of major equipment')]);
-  $('buckets').innerHTML = rows.map(([id,rg,why,sub])=>`<div class="bk"><div class="row"><div class="name">${t('bucket.'+id+'.title')}<i>${t('bucket.'+id+'.sub')}</i></div><div class="r">${rg[1]>0?range(rg):'$0'}<small>${sub}</small></div></div><p>${why}</p></div>`).join('');
+  $('buckets').innerHTML = rows.map(([id,rg,why,sub])=>`<div class="bk"><div class="row"><div class="name">${t('bucket.'+id+'.title')}<i>${t('bucket.'+id+'.sub')}</i></div><div class="r">${rg[1]>0?range(rg):'$0'}<small>${sub}</small></div></div><p>${why}</p>${id==='peak'?demandCurveHTML(r):''}</div>`).join('');
   $('wait').innerHTML = `<div><b>${range(r.tenYear)}</b>${t('wait.tenYear',{stateName:st.name})}</div><div><b>${Math.max(1,Math.round(r.months[0]))} ${t('label.to')} ${Math.max(1,Math.round(r.months[1]))} ${S.lang==='es'?'meses':'months'}</b>${t('wait.months')}</div><div><b>${S.lang==='es'?'Nada se instala':'Nothing installs'}</b>${t('wait.install')}</div>`;
-  renderMore(); renderCash(); renderContact(); renderIncentives(); renderHow(); renderCTA(); sendReading();
+  renderBuilding(); renderMore(); renderCash(); renderContact(); renderIncentives(); renderHow(); renderCTA(); sendReading();
+}
+let bldgKey=null;
+function renderBuilding(){
+  const r=S.result, host=$('bldg'); const keys=r.movers.map(m=>m.key);
+  const key=S.facility+'|'+keys.join(',')+'|'+S.lang; host.hidden=false;
+  if(bldgKey!==key){
+    bldgKey=key;
+    host.innerHTML=`<h3>${t('viz.building.title')}</h3><div class="bldgfig">${window.EPViz.building(S.facility, keys)}</div><ul class="spots">${r.movers.map(m=>`<li data-spot="${m.key}"><span><i></i>${t('mover.'+m.key)}</span><b data-v="${m.value/12}"></b></li>`).join('')}</ul>`;
+    const svg=host.querySelector('svg'); svg.setAttribute('aria-label', t('viz.building.aria'));
+    keys.forEach((k,i)=>{ setTimeout(()=>{ svg.querySelectorAll('.'+window.EPViz.SPOT_CLASS[k]).forEach(g=>g.classList.add('lit')); const li=host.querySelector(`li[data-spot="${k}"]`); if(li){ li.classList.add('on'); li.querySelector('b').textContent=money(+li.querySelector('b').dataset.v)+' '+t('label.month'); } }, 350+i*550); });
+  } else {
+    host.querySelectorAll('.spots li').forEach(li=>{ const m=r.movers.find(x=>x.key===li.dataset.spot); if(m) li.querySelector('b').textContent=money(m.value/12)+' '+t('label.month'); });
+  }
+}
+function demandCurveHTML(r){
+  const B=r.buckets.peak; const pool=r.products.demand; const battery=B.lines.find(l=>l.id==='battery'); const f = pool>0 && battery ? (battery.range[0]+battery.range[1])/2/pool : 0;
+  const base = r.flat ? 0.62 : 0.28; const shave = Math.min(1, f/(1-base));
+  const st=C.states[S.state]; const rate = S.util&&S.util.demandRate ? '$'+S.util.demandRate.toFixed(2) : '$'+(st.demandRate||12.5).toFixed(2);
+  return window.EPViz.demandCurve({ flat:r.flat, hoursWeek:S.hoursWeek||168, shave, peakLabel:t('viz.peak.label',{rate}), shavedLabel:t('viz.peak.shaved'), aria:t('viz.peak.aria') });
+}
+function monthsHTML(){
+  const st=C.states[S.state]; const idx=(C.seasonMonths&&C.seasonMonths[S.state])||null; if(!idx||!S.result) return '';
+  const r=S.result; const hi={summer:[5,6,7,8],winter:[11,0,1],mild:[2,3,4,9,10]}[S.season]||[];
+  const labels=(S.lang==='es'?'E F M A M J J A S O N D':'J F M A M J J A S O N D').split(' ');
+  const share = complete() ? Math.min(0.6, r.perSite[0]/r.annual) : 0;
+  return window.EPViz.months({ index:idx, monthlyAvg:r.monthlyAvg, highlight:hi, overspendShare:share, labels, aria:t('viz.months.aria') })+`<p class="mnote">${t(complete()?'viz.months.note':'viz.months.note.pre')}</p>`;
 }
 /* every completed reading goes to the inbox once; contact details go with it when given */
 function readingPayload(extra){
