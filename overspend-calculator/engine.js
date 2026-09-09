@@ -116,6 +116,19 @@
     const crossCheck = cooling$ > 0 ? coolingEquip$ / cooling$ : 1;
     if (crossCheck > 1.6 || crossCheck < 0.6) flags.push('coolingCrossCheck');
 
+    // what moves this bill: the top three dollar lines a buyer can act on, in this building and this state
+    const lighting$ = annual * (fac.lightingShare || 0);
+    const hvacAll$ = cooling$ + heatElectric$ + vent$;
+    const moverList = [
+      { key: 'hvac', value: hvacAll$ },
+      { key: 'refrig', value: refrig$ },
+      { key: 'demand', value: products.demand },
+      { key: 'supply', value: st.retailChoice === true ? products.supply : 0 },
+      { key: 'lighting', value: lighting$ }
+    ].filter(m => m.value > 0).sort((a, b) => b.value - a.value);
+    const movers = moverList.slice(0, 3);
+    const shares = { hvac: hvacAll$ / annual, refrig: refrig$ / annual, lighting: lighting$ / annual, demand: demandShare };
+
     /* ---------- Equipment not tuned ---------- */
     const loss = lossByAge(age);
     const antifouling = [cooling$ * loss, cooling$ * loss];
@@ -199,6 +212,7 @@
       seasonIdx, occupancyFactor: occ, hotMult, crossCheck,
       products, demandShare, supplyShare,
       hvac: { cooling: cooling$, vent: vent$, heat: heatElectric$, refrig: refrig$, loss },
+      movers, shares,
       buckets: {
         brokering: { range: brokering, reason: brokeringReason, lines: [{ id: 'supply', range: brokering }] },
         peak: { range: peak, flat, pfPossible, lines: [{ id: 'staging', range: staging }, { id: 'battery', range: battery }] },

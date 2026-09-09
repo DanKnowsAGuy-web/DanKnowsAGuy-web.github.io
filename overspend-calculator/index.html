@@ -93,11 +93,19 @@ main{display:grid;gap:22px;margin-top:22px}
 .opener p{margin:0 0 6px;font-size:16px;color:var(--ink2);line-height:1.5}
 .bar{display:flex;height:14px;border-radius:3px;overflow:hidden;margin:10px 0 6px;background:var(--hair)}
 .bar i{display:block;height:100%}
-.bar i.a{background:var(--prim)}.bar i.b{background:color-mix(in srgb,var(--prim) 45%,#fff)}.bar i.c{background:var(--mark)}
+.bar i.a{background:var(--prim)}.bar i.b{background:color-mix(in srgb,var(--prim) 45%,#fff)}.bar i.c{background:var(--mark)}.bar i.d{background:#c9d0d4}
 .legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px;color:var(--ink2);margin:0}
 .legend span:before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;background:var(--prim)}
-.legend span.b:before{background:color-mix(in srgb,var(--prim) 45%,#fff)}.legend span.c:before{background:var(--mark)}
+.legend span.b:before{background:color-mix(in srgb,var(--prim) 45%,#fff)}.legend span.c:before{background:var(--mark)}.legend span.d:before{background:#c9d0d4}
 .legend b{font-family:"Geist Mono",monospace;font-weight:600;letter-spacing:-.02em;margin-left:4px}
+.rows{margin:12px 0 4px}
+.row{display:grid;grid-template-columns:1fr auto;gap:2px 10px;align-items:baseline;margin:0 0 9px}
+.row .l{font-size:15px;color:var(--ink2)}
+.row .n{font-family:"Geist Mono",monospace;font-weight:600;font-size:15px;letter-spacing:-.02em;white-space:nowrap}
+.row .n small{font-family:"Archivo",sans-serif;font-weight:400;color:var(--mute);font-size:12.5px;margin-left:4px}
+.row .t{grid-column:1/-1;height:8px;background:var(--hair);border-radius:2px;overflow:hidden}
+.row .t i{display:block;height:100%;background:var(--prim);border-radius:2px}
+.row.b .t i{background:color-mix(in srgb,var(--prim) 45%,#fff)}.row.c .t i{background:var(--mark)}
 .cash{padding:16px 0 4px;border-top:1px solid var(--line2);margin-top:14px}
 .cash .name{font-weight:600;font-size:18px;letter-spacing:-.01em}
 .cash .name i{font-style:normal;display:block;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--fg3);font-weight:500;margin-top:3px}
@@ -466,8 +474,8 @@ function revealHTML(id){
   const st = S.state?C.states[S.state]:null;
   switch(id){
     case 'zip': { if(!st) return ''; const rate = st.rate; const us = (C.meta.usRate||14.19); const cmp = rate>us*1.05?'above':rate<us*0.95?'below':'near'; return t('zip.reveal',{utility:utilName(),stateName:st.name,rate:rate.toFixed(1),compare:t('zip.compare.'+cmp,{usRate:us.toFixed(1)})}); }
-    case 'facility': { const fac=C.facilities[S.facility]; const cool=Math.round((fac.hvac.cooling+fac.hvac.heat)*100), fans=Math.round(fac.hvac.ventilation*100), rest=100-cool-fans; const pct_=pct(fac.hvac.cooling+fac.hvac.ventilation+fac.hvac.heat); return t('facility.reveal.'+S.facility,{stateName:st.name,hvacPct:pct_})+`<div class="bar"><i class="a" style="width:${cool}%"></i><i class="b" style="width:${fans}%"></i><i class="c" style="width:${rest}%"></i></div><p class="legend"><span>${t('chart.cooling')}<b>${cool}%</b></span><span class="b">${t('chart.fans')}<b>${fans}%</b></span><span class="c">${t('chart.rest')}<b>${rest}%</b></span></p>`; }
-    case 'bill': { if(!S.result) return ''; const r=S.result; const P=r.products, tot=P.supply+P.delivery+P.demand; const w=(x)=>Math.round(x/tot*100); return t('bill.reveal',{annual:money(r.annual),season:t('season.'+S.season).toLowerCase(),stateName:st.name})+`<div class="bar"><i class="a" style="width:${w(P.supply)}%"></i><i class="b" style="width:${w(P.delivery)}%"></i><i class="c" style="width:${w(P.demand)}%"></i></div><p class="legend"><span>${t('label.supply')}<b>${money(P.supply/12)}</b></span><span class="b">${t('label.delivery')}<b>${money(P.delivery/12)}</b></span><span class="c">${t('label.demand')}<b>${money(P.demand/12)}</b></span></p><p style="margin:8px 0 0">${t('bill.products')}</p>`; }
+    case 'facility': { const fac=C.facilities[S.facility]; const hv=Math.round((fac.hvac.cooling+fac.hvac.heat+fac.hvac.ventilation)*100), rf=Math.round((fac.refrigShare||0)*100), li=Math.round((fac.lightingShare||0)*100), rest=Math.max(0,100-hv-rf-li); const segs=[['a','mover.hvac',hv],['b','mover.refrig',rf],['c','mover.lighting',li],['d','mover.other',rest]].filter(x=>x[2]>0); return t('facility.reveal.'+S.facility,{stateName:st.name,hvacPct:hv+'%'})+`<div class="bar">${segs.map(x=>`<i class="${x[0]}" style="width:${x[2]}%"></i>`).join('')}</div><p class="legend">${segs.map(x=>`<span class="${x[0]}">${t(x[1])}<b>${x[2]}%</b></span>`).join('')}</p>`; }
+    case 'bill': { if(!S.result) return ''; const r=S.result; const cls=['a','b','c']; return t('bill.reveal',{annual:money(r.annual),season:t('season.'+S.season).toLowerCase(),stateName:st.name})+`<div class="rows">${r.movers.map((m,i)=>`<div class="row ${cls[i]}"><span class="l">${t('mover.'+m.key)}</span><span class="n">${money(m.value/12)}<small>${t('label.month')} · ${Math.round(m.value/r.annual*100)}%</small></span><span class="t"><i style="width:${Math.min(100,Math.round(m.value/r.annual*100))}%"></i></span></div>`).join('')}</div><p style="margin:6px 0 0">${t('bill.products')}</p>`; }
     case 'heat': return t('heat.reveal.'+S.heat);
     case 'hours': { if(!S.result) return ''; return t(S.result.flat?'hours.reveal.flat':'hours.reveal.peaky',{hours:S.hoursWeek}); }
     default: return '';
@@ -541,8 +549,9 @@ function renderResults(){
   if(!ready) return;
   const st=C.states[S.state], fac=C.facilities[S.facility];
   const negotiable = (r.buckets.brokering.range[1]>0?1:0)+1;
-  $('headline').innerHTML = t(negotiable===2?'result.headline.two':'result.headline.one',{utility:utilName()}).replace(/(three products|tres productos)/i,'<em>$1</em>');
-  $('lede').textContent = t('result.lede',{facility:facLabel(S.facility).toLowerCase()});
+  const lc=(x)=>x===x.toUpperCase()?x:x.toLowerCase(); const mv=r.movers.map(m=>lc(t('mover.'+m.key)));
+  $('headline').innerHTML = t('result.headline.movers',{facility:facLabel(S.facility).toLowerCase(),stateName:st.name,a:'<em>'+(mv[0]||'')+'</em>',b:mv[1]||'',c:mv[2]||''});
+  $('lede').textContent = t('result.lede.movers');
   const B=r.buckets;
   const demandRate = S.util&&S.util.demandRate? '$'+S.util.demandRate.toFixed(2) : '$'+(st.demandRate||12.5).toFixed(2);
   const brokerWhy = t('bucket.brokering.'+B.brokering.reason,{stateName:st.name,headroom:st.publicBoard?(S.state==='OH'?'7 to 18%':'0 to 8%'):'',range:range(B.brokering.range)});
