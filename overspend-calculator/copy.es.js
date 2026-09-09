@@ -38,7 +38,10 @@ window.EPCOPY_ES = {
 
   /* ---------- paso 3: factura ---------- */
   "bill.title": "¿Aproximadamente cuánto fue su última factura eléctrica?",
-  "bill.help": "Elija el rango más cercano. Podrá ajustar el número exacto en un momento.",
+  "bill.help": "Elija el rango más cercano. Lo afinará en el siguiente paso.",
+  "bill.narrow": "Bien. Ahora afínelo.",
+  "bill.narrow.help": "Elija el más cercano. Aún podrá ajustar el número exacto en un momento.",
+  "bill.back": "Elegir otro rango",
   "season.title": "¿Ese fue un mes de verano, de invierno, o intermedio?",
   "season.summer": "Verano",
   "season.winter": "Invierno",
@@ -64,6 +67,19 @@ window.EPCOPY_ES = {
   /* ---------- paso 5: horas ---------- */
   "hours.title": "¿Aproximadamente cuántas horas a la semana funciona?",
   "hours.fixed": "Las veinticuatro horas",
+  "hours.d.biz": "Entre semana, horario de oficina",
+  "hours.d.9": "Entre semana, 9 a 10 horas al día",
+  "hours.d.11": "Entre semana, 11 a 12 horas al día",
+  "hours.d.six": "Seis días, 10 a 12 horas al día",
+  "hours.d.12": "Siete días, cerca de 12 horas al día",
+  "hours.d.14": "Siete días, cerca de 14 horas al día",
+  "hours.d.16": "Siete días, cerca de 16 horas al día",
+  "hours.d.18": "Siete días, cerca de 18 horas al día",
+  "hours.d.near": "Casi las veinticuatro horas",
+  "hours.d.all": "Las veinticuatro horas",
+  "hours.d.shift1": "Un turno, entre semana",
+  "hours.d.shift2": "Dos turnos, entre semana",
+  "hours.d.shift3": "Tres turnos, entre semana",
   "hours.reveal.flat": "Funcionar las veinticuatro horas significa una carga plana. Eso es bueno para el equipo y malo para las baterías, así que mantenemos el número de demanda honesto.",
   "hours.reveal.peaky": "Un edificio que funciona {hours} horas a la semana tiene un pico marcado. Es justo ahí donde los cargos por demanda golpean y donde se pueden reducir.",
 

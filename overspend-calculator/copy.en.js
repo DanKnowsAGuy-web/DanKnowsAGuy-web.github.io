@@ -38,7 +38,10 @@ window.EPCOPY_EN = {
 
   /* ---------- step 3: bill ---------- */
   "bill.title": "About how much was your last electric bill?",
-  "bill.help": "Pick the closest band. You can tune the exact number in a moment.",
+  "bill.help": "Pick the closest band. You will narrow it down next.",
+  "bill.narrow": "Good. Now dial it in.",
+  "bill.narrow.help": "Pick the closest. You can still tune the exact number in a moment.",
+  "bill.back": "Pick a different band",
   "season.title": "Was that a summer, winter, or in between month?",
   "season.summer": "Summer",
   "season.winter": "Winter",
@@ -64,6 +67,19 @@ window.EPCOPY_EN = {
   /* ---------- step 5: hours ---------- */
   "hours.title": "About how many hours a week does it run?",
   "hours.fixed": "Around the clock",
+  "hours.d.biz": "Weekdays, business hours",
+  "hours.d.9": "Weekdays, 9 to 10 hours a day",
+  "hours.d.11": "Weekdays, 11 to 12 hours a day",
+  "hours.d.six": "Six days, 10 to 12 hours a day",
+  "hours.d.12": "Seven days, about 12 hours a day",
+  "hours.d.14": "Seven days, about 14 hours a day",
+  "hours.d.16": "Seven days, about 16 hours a day",
+  "hours.d.18": "Seven days, about 18 hours a day",
+  "hours.d.near": "Nearly around the clock",
+  "hours.d.all": "Around the clock",
+  "hours.d.shift1": "One shift, weekdays",
+  "hours.d.shift2": "Two shifts, weekdays",
+  "hours.d.shift3": "Three shifts, weekdays",
   "hours.reveal.flat": "Running around the clock means a flat load. That is good for the equipment and bad for batteries, so we keep the demand number honest.",
   "hours.reveal.peaky": "A building that runs {hours} hours a week has a sharp peak. That is exactly where demand charges bite and where they can be cut.",
 

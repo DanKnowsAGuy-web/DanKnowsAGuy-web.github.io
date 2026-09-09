@@ -71,6 +71,7 @@ main{display:grid;gap:22px;margin-top:22px}
 .choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .choices.three{grid-template-columns:1fr 1fr 1fr}
 .choices.one{grid-template-columns:1fr}
+.linkbtn{appearance:none;background:none;border:0;padding:10px 0 0;font-size:15px;color:var(--fg3);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .choice{appearance:none;background:#fff;border:1px solid var(--hair);border-radius:6px;padding:14px 14px;text-align:left;font-size:17px;font-weight:500;line-height:1.25;min-height:54px;transition:border-color .15s,background .15s,transform .15s var(--ease-over)}
 .choice:hover{border-color:var(--ink2)}
 .choice:active{transform:scale(.985)}
@@ -475,7 +476,7 @@ function renderSteps(){
 function collapse(el){
   const ask = el.querySelector('.ask');
   ask.style.height = ask.offsetHeight+'px'; ask.style.overflow='hidden';
-  requestAnimationFrame(()=>{ el.classList.add('done'); ask.style.height='0px'; ask.style.opacity='0'; });
+  const go=()=>{ el.classList.add('done'); ask.style.height='0px'; ask.style.opacity='0'; }; if(document.hidden) go(); else requestAnimationFrame(go);
   setTimeout(()=>{ ask.hidden=true; ask.style.height=''; ask.style.opacity=''; }, 420);
 }
 function answered(id, fn, btn){
@@ -510,7 +511,7 @@ function sumVal(id){
     case 'season': return S.season?t('season.'+S.season):'';
     case 'occupancy': return S.occupancy?t('occupancy.'+S.occupancy):'';
     case 'heat': return S.heat?t('heat.'+S.heat):'';
-    case 'hours': return S.hoursWeek!=null? t('hours.perWeek',{n:S.hoursWeek}) : '';
+    case 'hours': return S.hoursWeek!=null? hoursDesc(S.hoursWeek)+', '+t('hours.perWeek',{n:S.hoursWeek}) : '';
     case 'age': return S.age? t('age.'+S.age.chip) : '';
   }
 }
@@ -522,9 +523,23 @@ function stepHTML(id){
     case 'season': return `<p class="q">${t('season.title')}</p><div class="body"><div class="choices three">${['summer','winter','mild'].map(s=>`<button class="choice" type="button" data-season="${s}">${t('season.'+s)}</button>`).join('')}</div></div>`;
     case 'occupancy': return `<p class="q">${t('occupancy.title')}</p><div class="body"><div class="choices three">${['busy','slow','typical'].map(s=>`<button class="choice" type="button" data-occ="${s}">${t('occupancy.'+s)}</button>`).join('')}</div></div>`;
     case 'heat': return `<p class="q">${t('heat.title')}</p><div class="body"><div class="choices">${['hp','resistance','gas','unknown'].map(h=>`<button class="choice" type="button" data-heat="${h}">${t('heat.'+h)}</button>`).join('')}</div></div>`;
-    case 'hours': { const chips = C.facilities[S.facility].hoursChips||[50,65,80]; return `<p class="q">${t('hours.title')}</p><div class="body"><div class="choices three">${chips.map(h=>`<button class="choice" type="button" data-hours="${h}">${h}<small>${t('hours.perWeek',{n:''}).trim()}</small></button>`).join('')}</div></div>`; }
+    case 'hours': { const chips = C.facilities[S.facility].hoursChips||[50,65,80]; return `<p class="q">${t('hours.title')}</p><div class="body"><div class="choices one">${chips.map(h=>`<button class="choice" type="button" data-hours="${h}">${hoursDesc(h)}<small>${t('hours.perWeek',{n:h})}</small></button>`).join('')}</div></div>`; }
     case 'age': return `<p class="q">${t('age.title')}</p><p class="help">${t('age.help')}</p><div class="body"><div class="choices">${[['u5',3],['5to10',7],['10to15',12],['o15',17],['unsure',10]].map(([k,v])=>`<button class="choice" type="button" data-age="${k}" data-v="${v}">${t('age.'+k)}</button>`).join('')}</div></div>`;
   }
+}
+function hoursDesc(h){
+  if(S.facility==='manufacturing'){ if(h<=50) return t('hours.d.shift1'); if(h<=95) return t('hours.d.shift2'); if(h<=140) return t('hours.d.shift3'); }
+  const k = h<=42?'biz' : h<=52?'9' : h<=62?'11' : h<=75?'six' : h<=90?'12' : h<=105?'14' : h<=120?'16' : h<=140?'18' : h<168?'near' : 'all';
+  return t('hours.d.'+k);
+}
+function narrowBands(band){
+  /* six narrower bands inside the one just chosen, edges rounded to a friendly step */
+  const lo=band.lo; const top=band.top; const hi = top ? lo*2.5 : band.hi; const n = top?5:6;
+  const raw=(hi-lo)/n; const steps=[100,250,500,1000,2500,5000,10000,25000,50000]; let step=steps[0]; for(const s of steps){ if(s<=raw/2) step=s; }
+  const edges=[lo]; for(let i=1;i<n;i++){ let v=Math.round((lo+raw*i)/step)*step; if(v<=edges[edges.length-1]) v=edges[edges.length-1]+step; edges.push(v); } edges.push(hi);
+  const out=[]; for(let i=0;i<n;i++){ if(edges[i+1]<=edges[i]) continue; out.push({lo:edges[i],hi:edges[i+1],mid:(edges[i]+edges[i+1])/2,label:'$'+EPX.fmtK(edges[i])+' '+t('label.to')+' $'+EPX.fmtK(edges[i+1])}); }
+  if(top) out.push({lo:hi,hi:hi*2,mid:hi*1.3,label:(S.lang==='es'?'Más de $':'More than $')+EPX.fmtK(hi)});
+  return out;
 }
 function niceRound(x){ const step = x<5000?500 : x<20000?1000 : x<100000?5000 : 10000; return Math.max(step, Math.round(x/step)*step); }
 function bandsFor(f){
@@ -535,14 +550,23 @@ function bandsFor(f){
   const base = C.facilities[f].billBands || [1000,2500,6000,15000,40000,100000];
   const edges = []; for(const e of base){ let v=niceRound(e*factor); if(edges.length && v<=edges[edges.length-1]) v=edges[edges.length-1]*1.5; edges.push(v); }
   const out=[]; for(let i=0;i<edges.length-1;i++){ out.push({lo:edges[i],hi:edges[i+1],mid:Math.sqrt(edges[i]*edges[i+1]),label:'$'+EPX.fmtK(edges[i])+' '+t('label.to')+' $'+EPX.fmtK(edges[i+1])}); }
-  const top=edges[edges.length-1]; out.push({lo:top,hi:top*3,mid:top*1.6,label:(S.lang==='es'?'Más de $':'More than $')+EPX.fmtK(top)});
+  const top=edges[edges.length-1]; out.push({lo:top,hi:top*3,mid:top*1.6,top:true,label:(S.lang==='es'?'Más de $':'More than $')+EPX.fmtK(top)});
   return out;
 }
 function wireStepEl(el, id){
   if(id==='zip'){ const inp=el.querySelector('.zipin'), go=el.querySelector('.zipgo'), err=el.querySelector('.ziperr'); const submit=()=>{ const z=(inp.value||'').replace(/\D/g,''); if(z.length!==5){ err.textContent = t('zip.invalid')==='zip.invalid'?'Five digits, please.':t('zip.invalid'); return; } const r=resolveZip(z); if(!r){ err.textContent = t('zip.notfound')==='zip.notfound'?'We could not place that ZIP yet. Try another nearby.':t('zip.notfound'); return; } answered('zip',()=>{ S.zip=z; Object.assign(S,r); }, null); }; go.addEventListener('click',submit); inp.addEventListener('keydown',e=>{ if(e.key==='Enter') submit(); }); if(!S.state) setTimeout(()=>{ try{ inp.focus({preventScroll:true}); }catch(e){} },50); }
   const sel=el.querySelector('.stsel'); if(sel){ sel.addEventListener('change',()=>{ const st=sel.value; if(!st) return; answered('zip',()=>{ S.zip=''; S.state=st; S.util=null; S.utilName=null; S.utilRate=C.states[st].rate; }, null); }); }
   el.querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',()=>answered('facility',()=>{ S.facility=b.dataset.f; S.hoursWeek = C.facilities[S.facility].hoursFixed || null; }, b)));
-  el.querySelectorAll('[data-band]').forEach(b=>b.addEventListener('click',()=>answered('bill',()=>{ const bands=bandsFor(S.facility); S.band=+b.dataset.band; S.billMonthly=Math.round(bands[S.band].mid/100)*100; }, b)));
+  el.querySelectorAll('[data-band]').forEach(b=>b.addEventListener('click',()=>{
+    const bands=bandsFor(S.facility); S.band=+b.dataset.band; const subs=narrowBands(bands[S.band]);
+    b.classList.add('on'); b.closest('.choices').querySelectorAll('.choice').forEach(x=>{ if(x!==b) x.classList.add('dim'); });
+    setTimeout(()=>{
+      el.querySelector('.help').textContent=t('bill.narrow.help'); el.querySelector('.q').textContent=t('bill.narrow');
+      el.querySelector('.body').innerHTML=`<div class="choices">${subs.map((s,i)=>`<button class="choice" type="button" data-sub="${i}">${s.label}<small>${t('label.month')}</small></button>`).join('')}</div><button class="linkbtn" type="button" data-back="1">${t('bill.back')}</button>`;
+      el.querySelectorAll('[data-sub]').forEach(x=>x.addEventListener('click',()=>answered('bill',()=>{ S.billMonthly=Math.round(subs[+x.dataset.sub].mid/100)*100; }, x)));
+      el.querySelector('[data-back]').addEventListener('click',()=>{ el.querySelector('.ask').innerHTML=stepHTML('bill'); wireStepEl(el,'bill'); });
+    },260);
+  }));
   el.querySelectorAll('[data-season]').forEach(b=>b.addEventListener('click',()=>answered('season',()=>{ S.season=b.dataset.season; }, b)));
   el.querySelectorAll('[data-occ]').forEach(b=>b.addEventListener('click',()=>answered('occupancy',()=>{ S.occupancy=b.dataset.occ; }, b)));
   el.querySelectorAll('[data-heat]').forEach(b=>b.addEventListener('click',()=>answered('heat',()=>{ S.heat=b.dataset.heat; }, b)));
