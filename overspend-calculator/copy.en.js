@@ -1,0 +1,155 @@
+/* Energy Plus overspend calculator, buyer facing sentences, English.
+   Edit freely. Keep the {placeholders}. No em or en dashes; ranges use "to".
+   Never "efficiency" or "waste". Mirror any new key in copy.es.js. */
+window.EPCOPY_EN = {
+
+  /* ---------- step 1: ZIP ---------- */
+  "zip.title": "Start with your ZIP code.",
+  "zip.help": "It tells us who sends your bill and what they charge.",
+  "zip.reveal": "{utility} sends your bill. Businesses in {stateName} pay about {rate} cents a kilowatt hour. {compare}",
+  "zip.compare.above": "That is above the national average of {usRate}, so every kilowatt hour you take back is worth more here.",
+  "zip.compare.below": "That is below the national average of {usRate}. The money in your bill is more likely sitting in demand charges than in the rate.",
+  "zip.compare.near": "That is right at the national average of {usRate}.",
+  "zip.unknown": "We could not place that ZIP. We will use the {stateName} average of {stateRate} cents until you tell us otherwise.",
+
+  /* ---------- step 2: facility ---------- */
+  "facility.title": "What kind of building is it?",
+  "facility.reveal.hotel": "A hotel in {stateName} puts about {hvacPct} of its electric bill into cooling and fans. The fans are the part nobody looks at.",
+  "facility.reveal.office": "An office in {stateName} spends more electricity moving air than making it cold. Ventilation is the quiet line on the bill.",
+  "facility.reveal.healthcare": "Healthcare runs air around the clock by code. That makes fans the biggest HVAC line, and the easiest one to tune.",
+  "facility.reveal.coldstorage": "Cold storage is a refrigeration bill with a small building attached. Comfort HVAC is a rounding error here.",
+  "facility.reveal.supermarket": "About half of a supermarket's electricity is refrigeration. Cooling the store is the smaller job.",
+  "facility.reveal.retail": "Retail spends more on fans and lights than on compressors. Both run whether the store is busy or not.",
+  "facility.reveal.qsr": "A restaurant's bill is kitchen exhaust, refrigeration, and cooling fighting each other all day.",
+  "facility.reveal.cstore": "A convenience store is mostly refrigeration and lighting, running twenty four hours a day.",
+  "facility.reveal.warehouse": "Warehouses are cheap to run per square foot, which is why nobody checks. Fans and lights add up.",
+  "facility.reveal.multifamily": "Multifamily bills are a hundred small systems. The common areas and the oldest units are where the overspend lives.",
+  "facility.reveal.education": "Schools run hard nine months and sit empty in summer. The bill often does not notice.",
+  "facility.reveal.fitness": "A gym is a cooling load with people in it. Compressors work harder here than the square footage suggests.",
+  "facility.reveal.manufacturing": "In manufacturing the building is a small part of the bill. Motors and process load are where the money is.",
+  "facility.reveal.datacenter": "A data center pays for cooling twice: once to run the servers, once to remove the heat they make.",
+  "facility.reveal.lab": "Labs move enormous amounts of outside air. Ventilation can be more than half the electric bill.",
+  "facility.reveal.mixeduse": "Mixed use behaves like an office stacked on a store. We will treat it that way until you tell us more.",
+
+  /* ---------- step 3: bill ---------- */
+  "bill.title": "About how much was your last electric bill?",
+  "bill.help": "Pick the closest band. You can tune the exact number in a moment.",
+  "season.title": "Was that a summer, winter, or in between month?",
+  "season.summer": "Summer",
+  "season.winter": "Winter",
+  "season.mild": "In between",
+  "bill.reveal": "That works out to about {annual} a year once we correct for a {season} bill in {stateName}.",
+  "bill.products": "Your bill is three products on one page. Supply about {supply}, delivery about {delivery}, and demand about {demand}, every month.",
+  "occupancy.title": "Was that a busy month, a slow month, or typical?",
+  "occupancy.busy": "Busy",
+  "occupancy.slow": "Slow",
+  "occupancy.typical": "Typical",
+
+  /* ---------- step 4: heat ---------- */
+  "heat.title": "How is the building heated?",
+  "heat.hp": "Heat pump",
+  "heat.resistance": "Electric resistance",
+  "heat.gas": "Gas or other fuel",
+  "heat.unknown": "Not sure",
+  "heat.reveal.hp": "Heat pumps are already the right answer. The gain left is in how they are run, not what they are.",
+  "heat.reveal.resistance": "Electric resistance heat is the most expensive way to make warmth. That line has a real ceiling on it.",
+  "heat.reveal.gas": "Gas heat means the electric bill has no heating overspend in it. We take that line off the table.",
+  "heat.reveal.unknown": "No problem. We will carry a wide range for heating and narrow it when you know.",
+
+  /* ---------- step 5: hours ---------- */
+  "hours.title": "About how many hours a week does it run?",
+  "hours.fixed": "Around the clock",
+  "hours.reveal.flat": "Running around the clock means a flat load. That is good for the equipment and bad for batteries, so we keep the demand number honest.",
+  "hours.reveal.peaky": "A building that runs {hours} hours a week has a sharp peak. That is exactly where demand charges bite and where they can be cut.",
+
+  /* ---------- reveal card ---------- */
+  "assume.title": "Here is what we are assuming.",
+  "assume.help": "Nudge anything that looks off. The number moves as you do.",
+  "assume.rate": "Rate",
+  "assume.sqft": "Square feet",
+  "assume.tons": "Cooling",
+  "assume.age": "Unit age",
+  "assume.hours": "Hours a week",
+  "assume.locations": "Locations",
+  "assume.src.utility": "Source: {utility} average commercial rate, EIA 2024 filing",
+  "assume.src.state": "Source: EIA {stateName} commercial average, June 2026",
+  "assume.src.sqft": "Source: your bill divided by the typical intensity for this building type, CBECS 2018",
+  "assume.src.tons": "Source: square feet divided by the usual square feet per ton for this type",
+  "assume.src.age": "Source: a planning assumption. Rooftop units are replaced around fifteen years",
+  "assume.src.hours": "Source: typical weekly hours for this building type, CBECS 2018",
+  "assume.confirmed": "Set by you",
+
+  /* ---------- results ---------- */
+  "result.title": "Annual overspend",
+  "result.anchor": "About {lo} to {hi} months of your electric bill, every year.",
+  "result.needle": "The needle is where a {facility} your age usually lands.",
+  "result.locations": "Across {n} locations, that is {total} a year.",
+  "result.headline": "{utility} bills you for three products. {n} of them are negotiable.",
+  "result.lede": "Supply, delivery, and demand arrive on one page, and your bill only totals them. This is where a {facility} of your size and age is paying more than it has to, in the order you would explain it to the owner.",
+
+  "bucket.brokering.title": "Brokering",
+  "bucket.brokering.sub": "Supply contract",
+  "bucket.brokering.noChoice": "{stateName} does not let you shop for supply, so there is nothing to negotiate here.",
+  "bucket.brokering.capped": "Michigan caps how much load can shop, and the program has been full for years. Nothing to negotiate here today.",
+  "bucket.brokering.largeOnly": "Virginia only lets sites above five megawatts shop. Unless you are one, nothing to negotiate here.",
+  "bucket.brokering.board": "{stateName} publishes supplier offers. This week the best posted offer beats your default by {headroom}. A contract chosen well is worth {range}. A contract chosen badly costs money, which is the point of having someone choose it.",
+  "bucket.brokering.choice": "{stateName} lets you shop for supply. Whether a contract can beat your default right now depends on where rates are in their reset cycle, so this is a range a review confirms, not a promise.",
+
+  "bucket.peak.title": "Peak demand",
+  "bucket.peak.sub": "Your highest fifteen minutes",
+  "bucket.peak.flat": "{utility} charges about {demandRate} for every kilowatt of your busiest quarter hour. A {facility} runs flat, so staging and a battery earn the low end honestly and the high end only if your profile is peakier than most.",
+  "bucket.peak.peaky": "{utility} charges about {demandRate} for every kilowatt of your busiest quarter hour. A building that runs {hours} hours a week has a sharp peak, which is where a battery and smarter staging do their best work.",
+  "bucket.peak.pf": "{utility} also has a power factor clause. If your equipment is pulling reactive power, there is a line on your bill we can remove entirely. That needs a bill to confirm.",
+
+  "bucket.equipment.title": "Equipment not tuned",
+  "bucket.equipment.sub": "What you already own",
+  "bucket.equipment.fouling": "Units around {age} years old have lost about {lossPct} of their capacity to oil fouling. That comes back without replacing anything.",
+  "bucket.equipment.fouling.new": "Units this new have lost little to fouling yet. The gain here is in how they cycle, not what they have lost.",
+  "bucket.equipment.fans": "The fans, which nobody looks at, move as much electricity as the compressors.",
+  "bucket.equipment.heat.resistance": "Electric resistance heat has the biggest single ceiling on this page.",
+  "bucket.equipment.refrig": "Refrigeration is the largest line on your bill, and it is tuned less often than it is repaired.",
+
+  /* ---------- cost of waiting ---------- */
+  "wait.tenYear": "What ten years of doing nothing costs at the {stateName} rate trend.",
+  "wait.months": "Of your electric bill, back, every year.",
+  "wait.install": "Nothing installs until a witnessed meter proves the number.",
+
+  /* ---------- incentives ---------- */
+  "incentives.title": "Worth knowing in {stateName}",
+  "incentives.note": "These are programs your building may qualify for. We confirm eligibility during the audit and we do not count them in the number above.",
+
+  /* ---------- how we got this ---------- */
+  "how.title": "How we got this",
+  "how.intro": "Every number above is a range, not a promise. Here is each line, what it is based on, and how we combined them.",
+  "how.stack": "Lines that act on the same equipment are combined by multiplying, not adding. Antifouling goes first because it restores what the unit lost. The optimizer then works on what remains, at a discount, because part of its standalone result came from the same fouling.",
+  "how.cap": "The equipment bucket is capped at {capPct} of your bill. That is the range the best documented retrofit programs reach without replacing major equipment.",
+  "how.grade.a": "Public record",
+  "how.grade.b": "Derived from public record",
+  "how.grade.c": "Energy Plus estimate",
+  "how.grade.u": "Planning assumption",
+
+  /* ---------- actions ---------- */
+  "cta.forward": "Send this to whoever pays the bill",
+  "cta.how": "See how we got this",
+  "cta.book": "Book a fifteen minute read of your actual bill",
+  "cta.text": "Text me this page",
+  "cta.print": "Print the one pager",
+  "cta.reset": "Start over",
+  "footer.strategist": "Energy+ is the strategist, not the vendor",
+  "footer.editable": "Every assumption above is editable",
+  "footer.audit": "The bill audit is free",
+  "footer.reviewed": "Assumptions reviewed {date}",
+
+  /* ---------- labels ---------- */
+  "label.supply": "Supply",
+  "label.delivery": "Delivery",
+  "label.demand": "Demand",
+  "label.to": "to",
+  "label.month": "a month",
+  "label.year": "a year",
+  "label.next": "Next",
+  "label.back": "Back",
+  "label.nudge.less": "Less",
+  "label.nudge.more": "More",
+  "label.notSure": "Not sure"
+};

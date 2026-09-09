@@ -1,0 +1,155 @@
+/* Calculadora de sobrecosto de energía de Energy Plus, frases para el comprador, español.
+   Editar libremente. Mantener los {placeholders}. Sin guiones largos ni medios; los rangos usan "a".
+   Nunca "eficiencia energética" ni "desperdicio". Reflejar toda clave nueva en copy.en.js. */
+window.EPCOPY_ES = {
+
+  /* ---------- paso 1: código postal ---------- */
+  "zip.title": "Comience con su código postal.",
+  "zip.help": "Nos dice quién le envía la factura y cuánto le cobra.",
+  "zip.reveal": "{utility} le envía la factura. Las empresas en {stateName} pagan cerca de {rate} centavos por kilovatio hora. {compare}",
+  "zip.compare.above": "Eso está por encima del promedio nacional de {usRate}, así que cada kilovatio hora que recupere vale más aquí.",
+  "zip.compare.below": "Eso está por debajo del promedio nacional de {usRate}. Es más probable que el dinero de su factura esté en los cargos por demanda que en la tarifa.",
+  "zip.compare.near": "Eso está justo en el promedio nacional de {usRate}.",
+  "zip.unknown": "No pudimos ubicar ese código postal. Usaremos el promedio de {stateName} de {stateRate} centavos hasta que nos indique lo contrario.",
+
+  /* ---------- paso 2: instalación ---------- */
+  "facility.title": "¿Qué tipo de edificio es?",
+  "facility.reveal.hotel": "Un hotel en {stateName} destina cerca del {hvacPct} de su factura eléctrica a enfriamiento y ventiladores. Los ventiladores son la parte que nadie revisa.",
+  "facility.reveal.office": "Una oficina en {stateName} gasta más electricidad moviendo aire que enfriándolo. La ventilación es la línea silenciosa de la factura.",
+  "facility.reveal.healthcare": "El sector salud mantiene el aire circulando las veinticuatro horas por normativa. Eso hace que los ventiladores sean la línea de HVAC más grande, y la más fácil de ajustar.",
+  "facility.reveal.coldstorage": "El almacenamiento en frío es una factura de refrigeración con un pequeño edificio anexo. El HVAC de confort aquí es un margen de error.",
+  "facility.reveal.supermarket": "Cerca de la mitad de la electricidad de un supermercado es refrigeración. Enfriar la tienda es el trabajo menor.",
+  "facility.reveal.retail": "El comercio minorista gasta más en ventiladores y luces que en compresores. Ambos funcionan haya o no clientes en la tienda.",
+  "facility.reveal.qsr": "La factura de un restaurante es extracción de cocina, refrigeración y enfriamiento compitiendo entre sí todo el día.",
+  "facility.reveal.cstore": "Una tienda de conveniencia es sobre todo refrigeración e iluminación, funcionando veinticuatro horas al día.",
+  "facility.reveal.warehouse": "Los almacenes son baratos de operar por metro cuadrado, por eso nadie los revisa. Los ventiladores y las luces se acumulan.",
+  "facility.reveal.multifamily": "Las facturas de multifamiliares son cien sistemas pequeños. El sobrecosto vive en las áreas comunes y en las unidades más antiguas.",
+  "facility.reveal.education": "Las escuelas trabajan a fondo nueve meses y quedan vacías en verano. La factura muchas veces no lo nota.",
+  "facility.reveal.fitness": "Un gimnasio es una carga de enfriamiento con gente adentro. Los compresores trabajan más de lo que sugieren los metros cuadrados.",
+  "facility.reveal.manufacturing": "En manufactura, el edificio es una parte pequeña de la factura. Los motores y la carga de proceso son donde está el dinero.",
+  "facility.reveal.datacenter": "Un centro de datos paga el enfriamiento dos veces, una para operar los servidores y otra para retirar el calor que generan.",
+  "facility.reveal.lab": "Los laboratorios mueven enormes cantidades de aire exterior. La ventilación puede ser más de la mitad de la factura eléctrica.",
+  "facility.reveal.mixeduse": "El uso mixto se comporta como una oficina sobre una tienda. Lo trataremos así hasta que usted nos cuente más.",
+
+  /* ---------- paso 3: factura ---------- */
+  "bill.title": "¿Aproximadamente cuánto fue su última factura eléctrica?",
+  "bill.help": "Elija el rango más cercano. Podrá ajustar el número exacto en un momento.",
+  "season.title": "¿Ese fue un mes de verano, de invierno, o intermedio?",
+  "season.summer": "Verano",
+  "season.winter": "Invierno",
+  "season.mild": "Intermedio",
+  "bill.reveal": "Eso equivale a cerca de {annual} al año una vez que corregimos por una factura de {season} en {stateName}.",
+  "bill.products": "Su factura son tres productos en una sola página. Suministro cerca de {supply}, entrega cerca de {delivery}, y demanda cerca de {demand}, cada mes.",
+  "occupancy.title": "¿Ese fue un mes ocupado, uno tranquilo, o típico?",
+  "occupancy.busy": "Ocupado",
+  "occupancy.slow": "Tranquilo",
+  "occupancy.typical": "Típico",
+
+  /* ---------- paso 4: calefacción ---------- */
+  "heat.title": "¿Cómo se calienta el edificio?",
+  "heat.hp": "Bomba de calor",
+  "heat.resistance": "Resistencia eléctrica",
+  "heat.gas": "Gas u otro combustible",
+  "heat.unknown": "No estoy seguro",
+  "heat.reveal.hp": "Las bombas de calor ya son la respuesta correcta. La ganancia que queda está en cómo se operan, no en lo que son.",
+  "heat.reveal.resistance": "La calefacción por resistencia eléctrica es la forma más cara de generar calor. Esa línea tiene un techo real.",
+  "heat.reveal.gas": "La calefacción a gas significa que la factura eléctrica no tiene sobrecosto de calefacción. Quitamos esa línea de la mesa.",
+  "heat.reveal.unknown": "No hay problema. Mantendremos un rango amplio para la calefacción y lo ajustaremos cuando usted lo sepa.",
+
+  /* ---------- paso 5: horas ---------- */
+  "hours.title": "¿Aproximadamente cuántas horas a la semana funciona?",
+  "hours.fixed": "Las veinticuatro horas",
+  "hours.reveal.flat": "Funcionar las veinticuatro horas significa una carga plana. Eso es bueno para el equipo y malo para las baterías, así que mantenemos el número de demanda honesto.",
+  "hours.reveal.peaky": "Un edificio que funciona {hours} horas a la semana tiene un pico marcado. Es justo ahí donde los cargos por demanda golpean y donde se pueden reducir.",
+
+  /* ---------- tarjeta de resultados ---------- */
+  "assume.title": "Esto es lo que estamos asumiendo.",
+  "assume.help": "Ajuste lo que no le parezca correcto. El número se mueve con usted.",
+  "assume.rate": "Tarifa",
+  "assume.sqft": "Metros cuadrados",
+  "assume.tons": "Enfriamiento",
+  "assume.age": "Antigüedad del equipo",
+  "assume.hours": "Horas a la semana",
+  "assume.locations": "Ubicaciones",
+  "assume.src.utility": "Fuente: tarifa comercial promedio de {utility}, informe EIA 2024",
+  "assume.src.state": "Fuente: promedio comercial de EIA {stateName}, junio de 2026",
+  "assume.src.sqft": "Fuente: su factura dividida entre la intensidad típica para este tipo de edificio, CBECS 2018",
+  "assume.src.tons": "Fuente: metros cuadrados divididos entre los metros cuadrados usuales por tonelada para este tipo",
+  "assume.src.age": "Fuente: un supuesto de planeación. Las unidades en azotea se reemplazan alrededor de los quince años",
+  "assume.src.hours": "Fuente: horas semanales típicas para este tipo de edificio, CBECS 2018",
+  "assume.confirmed": "Definido por usted",
+
+  /* ---------- resultados ---------- */
+  "result.title": "Sobrecosto anual",
+  "result.anchor": "Cerca de {lo} a {hi} meses de su factura eléctrica, cada año.",
+  "result.needle": "La aguja marca donde suele caer un {facility} de su antigüedad.",
+  "result.locations": "En {n} ubicaciones, eso es {total} al año.",
+  "result.headline": "{utility} le cobra por tres productos. {n} de ellos son negociables.",
+  "result.lede": "Suministro, entrega y demanda llegan en una sola página, y su factura solo los suma. Aquí es donde un {facility} de su tamaño y antigüedad está pagando más de lo que debería, en el orden en que se lo explicaría al dueño.",
+
+  "bucket.brokering.title": "Intermediación",
+  "bucket.brokering.sub": "Contrato de suministro",
+  "bucket.brokering.noChoice": "{stateName} no le permite elegir proveedor de suministro, así que aquí no hay nada que negociar.",
+  "bucket.brokering.capped": "Michigan limita cuánta carga puede elegir proveedor, y el programa lleva años lleno. Hoy no hay nada que negociar aquí.",
+  "bucket.brokering.largeOnly": "Virginia solo permite elegir proveedor a sitios de más de cinco megavatios. A menos que sea uno de ellos, aquí no hay nada que negociar.",
+  "bucket.brokering.board": "{stateName} publica las ofertas de los proveedores. Esta semana la mejor oferta publicada supera su tarifa por defecto en {headroom}. Un contrato bien elegido vale {range}. Un contrato mal elegido cuesta dinero, que es justo el motivo para que alguien lo elija.",
+  "bucket.brokering.choice": "{stateName} le permite elegir proveedor de suministro. Que un contrato pueda superar su tarifa por defecto en este momento depende de dónde estén las tarifas en su ciclo de reinicio, así que este es un rango que una revisión confirma, no una promesa.",
+
+  "bucket.peak.title": "Demanda pico",
+  "bucket.peak.sub": "Sus quince minutos más altos",
+  "bucket.peak.flat": "{utility} cobra cerca de {demandRate} por cada kilovatio de su cuarto de hora más exigente. Un {facility} funciona de forma plana, así que la secuencia de arranque y una batería ganan honestamente el extremo bajo, y el extremo alto solo si su perfil es más pico que la mayoría.",
+  "bucket.peak.peaky": "{utility} cobra cerca de {demandRate} por cada kilovatio de su cuarto de hora más exigente. Un edificio que funciona {hours} horas a la semana tiene un pico marcado, que es donde una batería y una mejor secuencia de arranque rinden más.",
+  "bucket.peak.pf": "{utility} también tiene una cláusula de factor de potencia. Si su equipo está consumiendo potencia reactiva, hay una línea en su factura que podemos eliminar por completo. Eso necesita una factura para confirmarlo.",
+
+  "bucket.equipment.title": "Equipo sin ajustar",
+  "bucket.equipment.sub": "Lo que ya tiene",
+  "bucket.equipment.fouling": "Las unidades de alrededor de {age} años han perdido cerca del {lossPct} de su capacidad por incrustación de aceite. Eso se recupera sin reemplazar nada.",
+  "bucket.equipment.fouling.new": "Las unidades tan nuevas como esta han perdido poco por incrustación todavía. La ganancia aquí está en cómo ciclan, no en lo que han perdido.",
+  "bucket.equipment.fans": "Los ventiladores, que nadie revisa, mueven tanta electricidad como los compresores.",
+  "bucket.equipment.heat.resistance": "La calefacción por resistencia eléctrica tiene el techo individual más alto de esta página.",
+  "bucket.equipment.refrig": "La refrigeración es la línea más grande de su factura, y se ajusta con menos frecuencia de la que se repara.",
+
+  /* ---------- costo de esperar ---------- */
+  "wait.tenYear": "Lo que cuesta no hacer nada durante diez años, según la tendencia de tarifas de {stateName}.",
+  "wait.months": "De su factura eléctrica, de vuelta, cada año.",
+  "wait.install": "Nada se instala hasta que un medidor testigo confirme el número.",
+
+  /* ---------- incentivos ---------- */
+  "incentives.title": "Vale la pena saber en {stateName}",
+  "incentives.note": "Estos son programas para los que su edificio podría calificar. Confirmamos la elegibilidad durante la auditoría y no los incluimos en el número de arriba.",
+
+  /* ---------- cómo llegamos a esto ---------- */
+  "how.title": "Cómo llegamos a este número",
+  "how.intro": "Cada número de arriba es un rango, no una promesa. Aquí está cada línea, en qué se basa, y cómo las combinamos.",
+  "how.stack": "Las líneas que actúan sobre el mismo equipo se combinan multiplicando, no sumando. El tratamiento antiincrustante va primero porque restaura lo que la unidad perdió. El optimizador luego trabaja sobre lo que queda, con un descuento, porque parte de su resultado individual venía de la misma incrustación.",
+  "how.cap": "El rubro de equipo tiene un tope del {capPct} de su factura. Ese es el rango que alcanzan los mejores programas de renovación documentados sin reemplazar equipo mayor.",
+  "how.grade.a": "Registro público",
+  "how.grade.b": "Derivado de registro público",
+  "how.grade.c": "Estimación de Energy Plus",
+  "how.grade.u": "Supuesto de planeación",
+
+  /* ---------- acciones ---------- */
+  "cta.forward": "Envíe esto a quien paga la factura",
+  "cta.how": "Vea cómo llegamos a este número",
+  "cta.book": "Agende una lectura de quince minutos de su factura real",
+  "cta.text": "Envíeme esta página por mensaje de texto",
+  "cta.print": "Imprima la hoja resumen",
+  "cta.reset": "Empezar de nuevo",
+  "footer.strategist": "Energy+ es el estratega de energía, no el proveedor",
+  "footer.editable": "Cada supuesto de arriba se puede editar",
+  "footer.audit": "La auditoría de factura es gratis",
+  "footer.reviewed": "Supuestos revisados el {date}",
+
+  /* ---------- etiquetas ---------- */
+  "label.supply": "Suministro",
+  "label.delivery": "Entrega",
+  "label.demand": "Demanda",
+  "label.to": "a",
+  "label.month": "al mes",
+  "label.year": "al año",
+  "label.next": "Siguiente",
+  "label.back": "Atrás",
+  "label.nudge.less": "Menos",
+  "label.nudge.more": "Más",
+  "label.notSure": "No estoy seguro"
+};

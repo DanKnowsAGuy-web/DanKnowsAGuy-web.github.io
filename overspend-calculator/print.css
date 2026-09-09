@@ -1,0 +1,24 @@
+/* Energy+ overspend one pager, simple register, letter size */
+@page { size: letter; margin: 0.6in; }
+body { background: #fff !important; color: #101416 !important; font-size: 12px; }
+.shell { padding: 0 !important; max-width: none; }
+header.top .prog, .stick, .step .sum button, .nudge, .assume .help, details.how summary:after, .cta, #placeholder, .step:not(.done) { display: none !important; }
+main { display: block !important; }
+.card { box-shadow: none !important; border: 1px solid #101416; padding: 14px 16px !important; position: static !important; margin-bottom: 14px; page-break-inside: avoid; }
+.reveal { display: none; }
+.step { padding: 6px 0; }
+.step.done .sum { display: flex; }
+.f { padding: 5px 0; }
+.f .src { display: block !important; }
+.total .n { font-size: 24px; }
+.story { display: block !important; }
+.story h2 { font-size: 22px !important; color: #101416 !important; }
+.story h2 em { color: #174e58 !important; }
+.bk { page-break-inside: avoid; padding: 9px 0; }
+.wait { grid-template-columns: 1fr 1fr 1fr !important; }
+details.how { display: block; }
+details.how[open] summary, details.how summary { font-size: 12px; }
+details.how table { font-size: 10.5px; }
+footer.foot { margin-top: 18px; border-top: 1px solid #d3d9dd; padding-top: 8px; }
+a { text-decoration: none; }
+.inc li a { display: none; }
