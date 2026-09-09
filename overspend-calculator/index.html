@@ -335,7 +335,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 /* ---------- config ---------- */
 const CTA_BOOK_URL = "#book"; /* replace with the booking link; hidden while it is the placeholder */
 const CTA_TEXT_NUMBER = "+18647770688";   /* Energy+ texting number */
-const LEAD_ENDPOINT = "https://formsubmit.co/ajax/dan@yourenergyplus.com"; /* every completed reading and every contact goes here */
+const LEAD_ENDPOINT = "https://formsubmit.co/ajax/dan@yourenergyplus.com"; /* every completed reading and every contact goes here (email) */
+const SHEET_ENDPOINT = ""; /* Google Apps Script web app URL (ends in /exec); every reading is also appended to the sheet. See ../backend/apps-script.gs */
 
 /* ---------- state ---------- */
 const S = { lang:'en', zip:'', state:null, lines:{}, age:null, contact:{name:'',mobile:''}, sentKey:null, utilName:null, utilRate:null, util:null, facility:null, band:null, billMonthly:null, season:null, heat:null, hoursWeek:null, occupancy:null, locations:1, nudges:{}, result:null, active:'zip' };
@@ -608,7 +609,11 @@ function readingPayload(extra){
     overspend_low:money(r.total[0]), overspend_high:money(r.total[1]), months_of_bill:Math.max(1,Math.round(r.months[0]))+' to '+Math.max(1,Math.round(r.months[1])), program:money(r.cash.program,1000), link:shareURL(), language:S.lang }, extra||{});
 }
 function postLead(payload){
-  try{ return fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)}).catch(()=>{}); }catch(e){ return Promise.resolve(); }
+  const p = Object.assign({}, payload, { user_agent: navigator.userAgent.slice(0,120) });
+  const jobs = [];
+  try{ jobs.push(fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(p)}).catch(()=>{})); }catch(e){}
+  if(SHEET_ENDPOINT){ try{ jobs.push(fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(p)}).catch(()=>{})); }catch(e){} }
+  return Promise.all(jobs);
 }
 function sendReading(){
   if(!S.result || !complete()) return;
