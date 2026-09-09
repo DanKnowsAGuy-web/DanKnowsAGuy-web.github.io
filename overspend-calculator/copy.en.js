@@ -129,6 +129,8 @@ window.EPCOPY_EN = {
   "cash.sub": "Cash flow from day one",
   "cash.lede": "The simple work usually pays for itself inside a year, and the whole program in about two. We finance it so the payment is half the savings. The other half is yours from the first month, and all of it is yours after payoff.",
   "cash.line": "The low end of your overspend is about {floor} a month. Two years of that is a program of about {program}. With the payment set at about {payment} a month, you keep about {keep} a month from day one and the program is paid off in about {months} months. After that the full {floor} a month is yours.",
+  "cash.chart": "Your {floor} a month of overspend, month by month",
+  "cash.toutility": "Paid to the utility",
   "cash.today": "Today",
   "cash.during": "While financing",
   "cash.afterpay": "After payoff",

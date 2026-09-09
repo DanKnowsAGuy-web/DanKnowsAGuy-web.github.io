@@ -116,6 +116,8 @@ window.EPCOPY_ES = {
   "cash.sub": "Flujo de caja desde el primer día",
   "cash.lede": "El trabajo sencillo normalmente se paga solo en menos de un año, y el programa completo en unos dos. Lo financiamos para que el pago sea la mitad del ahorro. La otra mitad es suya desde el primer mes, y todo es suyo después de liquidarlo.",
   "cash.line": "El extremo bajo de su sobrecosto es cerca de {floor} al mes. Dos años de eso es un programa de cerca de {program}. Con el pago fijado en cerca de {payment} al mes, usted se queda con cerca de {keep} al mes desde el primer día y el programa se liquida en unos {months} meses. Después, los {floor} completos al mes son suyos.",
+  "cash.chart": "Sus {floor} al mes de sobrecosto, mes a mes",
+  "cash.toutility": "Pagado a la compañía eléctrica",
   "cash.today": "Hoy",
   "cash.during": "Mientras se financia",
   "cash.afterpay": "Después de liquidar",
