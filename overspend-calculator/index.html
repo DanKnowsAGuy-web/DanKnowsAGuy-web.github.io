@@ -68,6 +68,7 @@ main{display:grid;gap:22px;margin-top:22px}
 .step.done .reveal{margin-top:10px}
 @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
+@media (max-width:1099px){.card .head{display:none}}
 .choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .choices.three{grid-template-columns:1fr 1fr 1fr}
 .choices.one{grid-template-columns:1fr}
@@ -486,7 +487,20 @@ function answered(id, fn, btn){
 function settleView(id){
   if(window.matchMedia('(min-width:1100px)').matches) return;
   const el = stepEls[id]; if(!el) return;
-  setTimeout(()=>{ glide(el.getBoundingClientRect().top + window.scrollY - 10); }, 700);
+  setTimeout(()=>{ settleTo(el); }, 700);
+}
+function settleTo(el){
+  /* add empty room below so the step can sit at the top of the screen, then check against the real scroll limit */
+  const se = document.scrollingElement || document.documentElement;
+  const pageTop = (n)=>{ let y=0; while(n){ y+=n.offsetTop; n=n.offsetParent; } return y; };
+  document.body.style.paddingBottom='0px';
+  const top = Math.max(0, pageTop(el) - 10);
+  let need = Math.max(0, Math.ceil(top + window.innerHeight - se.scrollHeight));
+  document.body.style.paddingBottom = need+'px';
+  const max = se.scrollHeight - window.innerHeight; if(top > max){ need += Math.ceil(top - max); document.body.style.paddingBottom = need+'px'; }
+  glide(top);
+  /* one quiet correction once the glide has ended, unless the reader has scrolled on their own */
+  setTimeout(()=>{ const cur = pageTop(el) - 10; const drift = cur - top; if(Math.abs(drift) > 4 && Math.abs(window.scrollY - top) < 3){ const m = se.scrollHeight - window.innerHeight; if(cur > m) document.body.style.paddingBottom = (need + Math.ceil(cur - m))+'px'; window.scrollTo(0, cur); } }, 800);
 }
 /* JS driven smooth scroll: reliable everywhere, honors reduced motion */
 function glide(to){
@@ -505,7 +519,7 @@ function reopen(id){
 function sumKey(id){ return {age:t('assume.age'),zip:S.zip?'ZIP':t('label.location'),facility:t('facility.k')==='facility.k'?'Facility':t('facility.k'),bill:t('label.bill')==='label.bill'?'Bill':t('label.bill'),season:t('label.season')==='label.season'?'Season':t('label.season'),occupancy:t('label.occ')==='label.occ'?'Month':t('label.occ'),heat:t('label.heat')==='label.heat'?'Heat':t('label.heat'),hours:t('label.hours')==='label.hours'?'Hours':t('label.hours')}[id]; }
 function sumVal(id){
   switch(id){
-    case 'zip': return S.zip ? S.zip + (S.util? ' · '+utilName():'') : (S.state? stateName() : '');
+    case 'zip': return S.zip ? S.zip : (S.state? stateName() : '');
     case 'facility': return S.facility?facLabel(S.facility):'';
     case 'bill': return S.billMonthly!=null ? money(S.billMonthly)+' '+t('label.month') : '';
     case 'season': return S.season?t('season.'+S.season):'';
@@ -575,15 +589,17 @@ function wireStepEl(el, id){
 }
 
 /* ---------- reveals ---------- */
+const B = (x)=>'<b>'+x+'</b>';
+function emph(html, label){ if(!label) return html; const i = html.toLowerCase().indexOf(String(label).toLowerCase()); if(i<0) return html; return html.slice(0,i)+'<b>'+html.slice(i,i+label.length)+'</b>'+html.slice(i+label.length); }
 function revealHTML(id){
   const st = S.state?C.states[S.state]:null;
   switch(id){
-    case 'zip': { if(!st) return ''; const rate = st.rate; const us = (C.meta.usRate||14.19); const cmp = rate>us*1.05?'above':rate<us*0.95?'below':'near'; const vars={utility:utilName(),stateName:st.name,rate:rate.toFixed(1),compare:t('zip.compare.'+cmp,{usRate:us.toFixed(1)})}; return t(S.util? 'zip.reveal' : 'zip.reveal.state', vars); }
-    case 'facility': { const fac=C.facilities[S.facility]; const hv=Math.round((fac.hvac.cooling+fac.hvac.heat+fac.hvac.ventilation)*100), rf=Math.round((fac.refrigShare||0)*100), li=Math.round((fac.lightingShare||0)*100), rest=Math.max(0,100-hv-rf-li); const segs=[['a','mover.hvac',hv],['b','mover.refrig',rf],['c','mover.lighting',li],['d','mover.other',rest]].filter(x=>x[2]>0); return t('facility.reveal.'+S.facility,{stateName:st.name,hvacPct:hv+'%'})+`<div class="bar">${segs.map(x=>`<i class="${x[0]}" style="width:${x[2]}%"></i>`).join('')}</div><p class="legend">${segs.map(x=>`<span class="${x[0]}">${t(x[1])}<b>${x[2]}%</b></span>`).join('')}</p>`; }
-    case 'bill': { if(!S.result) return ''; const r=S.result; const cls=['a','b','c']; return t('bill.reveal',{annual:money(r.annual),season:t('season.'+S.season).toLowerCase(),stateName:st.name})+`<div class="rows">${r.movers.map((m,i)=>`<div class="row ${cls[i]}"><span class="l">${t('mover.'+m.key)}</span><span class="n">${money(m.value/12)}<small>${t('label.month')} · ${Math.round(m.value/r.annual*100)}%</small></span><span class="t"><i style="width:${Math.min(100,Math.round(m.value/r.annual*100))}%"></i></span></div>`).join('')}</div><p style="margin:6px 0 0">${t('bill.products')}</p>${monthsHTML()}`; }
-    case 'heat': return t('heat.reveal.'+S.heat);
-    case 'hours': { if(!S.result) return ''; return t(S.result.flat?'hours.reveal.flat':'hours.reveal.peaky',{hours:S.hoursWeek}); }
-    case 'age': { if(!S.age) return ''; if(!S.age.sure) return t('age.reveal.unsure'); if(S.age.value<5) return t('age.reveal.new'); return t('age.reveal',{age:S.age.value,lossPct:pct(EPX.lossByAge(S.age.value))}); }
+    case 'zip': { if(!st) return ''; const rate = st.rate; const us = (C.meta.usRate||14.19); const cmp = rate>us*1.05?'above':rate<us*0.95?'below':'near'; const vars={utility:B(utilName()),stateName:B(st.name),rate:rate.toFixed(1),compare:t('zip.compare.'+cmp,{usRate:us.toFixed(1)})}; return t(S.util? 'zip.reveal' : 'zip.reveal.state', vars); }
+    case 'facility': { const fac=C.facilities[S.facility]; const hv=Math.round((fac.hvac.cooling+fac.hvac.heat+fac.hvac.ventilation)*100), rf=Math.round((fac.refrigShare||0)*100), li=Math.round((fac.lightingShare||0)*100), rest=Math.max(0,100-hv-rf-li); const segs=[['a','mover.hvac',hv],['b','mover.refrig',rf],['c','mover.lighting',li],['d','mover.other',rest]].filter(x=>x[2]>0); return emph(t('facility.reveal.'+S.facility,{stateName:B(st.name),hvacPct:hv+'%'}), facLabel(S.facility))+`<div class="bar">${segs.map(x=>`<i class="${x[0]}" style="width:${x[2]}%"></i>`).join('')}</div><p class="legend">${segs.map(x=>`<span class="${x[0]}">${t(x[1])}<b>${x[2]}%</b></span>`).join('')}</p>`; }
+    case 'bill': { if(!S.result) return ''; const r=S.result; const cls=['a','b','c']; return t('bill.reveal',{annual:money(r.annual),season:B(t('season.'+S.season).toLowerCase()),stateName:B(st.name)})+`<div class="rows">${r.movers.map((m,i)=>`<div class="row ${cls[i]}"><span class="l">${t('mover.'+m.key)}</span><span class="n">${money(m.value/12)}<small>${t('label.month')} · ${Math.round(m.value/r.annual*100)}%</small></span><span class="t"><i style="width:${Math.min(100,Math.round(m.value/r.annual*100))}%"></i></span></div>`).join('')}</div><p style="margin:6px 0 0">${t('bill.products')}</p>${monthsHTML()}`; }
+    case 'heat': return emph(t('heat.reveal.'+S.heat), S.heat==='unknown'?'':t('heat.'+S.heat));
+    case 'hours': { if(!S.result) return ''; return t(S.result.flat?'hours.reveal.flat':'hours.reveal.peaky',{hours:B(S.hoursWeek)}); }
+    case 'age': { if(!S.age) return ''; if(!S.age.sure) return t('age.reveal.unsure'); if(S.age.value<5) return t('age.reveal.new'); return t('age.reveal',{age:B(S.age.value),lossPct:pct(EPX.lossByAge(S.age.value))}); }
     default: return '';
   }
 }
