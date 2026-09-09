@@ -210,6 +210,7 @@ window.EPCOPY_EN = {
   "label.supply": "Supply",
   "label.delivery": "Delivery",
   "label.demand": "Demand",
+  "label.about": "about",
   "label.to": "to",
   "label.month": "a month",
   "label.year": "a year",

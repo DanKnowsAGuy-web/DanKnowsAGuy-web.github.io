@@ -350,7 +350,8 @@ const EXTRA_ES = { "prog.name":"Sobrecosto de energía","prog.sub":"diagnóstico
 function COPY(){ return S.lang==='es' && window.EPCOPY_ES ? Object.assign({},window.EPCOPY_EN,EXTRA_EN,window.EPCOPY_ES,EXTRA_ES) : Object.assign({},window.EPCOPY_EN,EXTRA_EN); }
 function t(key, vars){ let s = COPY()[key]; if(s==null) return key; if(vars) for(const k in vars) s = s.split('{'+k+'}').join(vars[k]); return s; }
 const $ = (id)=>document.getElementById(id);
-const money = (x,step)=>EPX.fmtMoney(x,step), range=(r)=>EPX.fmtRange(r);
+const money = (x,step)=>EPX.fmtMoney(x,step);
+function range(r,step){ const a=money(r[0],step), b=money(r[1],step); return a===b ? t('label.about')+' '+a : a+' '+t('label.to')+' '+b; }
 const pct = (x)=>Math.round(x*100)+'%';
 const fmtN = (x)=>Math.round(x).toLocaleString('en-US');
 function facLabel(f){ const fac=C.facilities[f]; return S.lang==='es'&&fac.labelEs?fac.labelEs:fac.label; }
@@ -600,7 +601,7 @@ function renderResults(){
   const brokerWhy = t('bucket.brokering.'+B.brokering.reason,{stateName:st.name,headroom:st.publicBoard?(S.state==='OH'?'7 to 18%':'0 to 8%'):'',range:range(B.brokering.range)});
   const peakWhy = t(B.peak.flat?'bucket.peak.flat':'bucket.peak.peaky',{utility:utilName(),demandRate,facility:facLabel(S.facility).toLowerCase(),hours:S.hoursWeek}) + (B.peak.pfPossible?' '+t('bucket.peak.pf',{utility:utilName()}):'');
   const eqWhy = (r.age>=4 ? t('bucket.equipment.fouling',{age:Math.round(r.age),lossPct:pct(r.hvac.loss)}) : t('bucket.equipment.fouling.new')) + ' ' + (fac.refrigShare>0.3 ? t('bucket.equipment.refrig') : t('bucket.equipment.fans')) + (S.heat==='resistance'?' '+t('bucket.equipment.heat.resistance'):'');
-  const rows=[['brokering',B.brokering.range,brokerWhy,B.brokering.range[1]>0?'':t('bucket.brokering.na')==='bucket.brokering.na'?(S.lang==='es'?'No disponible en '+st.name:'Not available in '+st.name):t('bucket.brokering.na')],['peak',B.peak.range,peakWhy,(S.lang==='es'?'La demanda es cerca del ':'Demand is about ')+pct(r.demandShare)+(S.lang==='es'?' de su factura':' of your bill')],['equipment',B.equipment.range,eqWhy,(S.lang==='es'?'Sin reemplazar equipo':'No replacement of major equipment')]];
+  const rows=[]; if(B.brokering.range[1]>0) rows.push(['brokering',B.brokering.range,brokerWhy,'']); rows.push(['peak',B.peak.range,peakWhy,(S.lang==='es'?'La demanda es cerca del ':'Demand is about ')+pct(r.demandShare)+(S.lang==='es'?' de su factura':' of your bill')],['equipment',B.equipment.range,eqWhy,(S.lang==='es'?'Sin reemplazar equipo':'No replacement of major equipment')]);
   $('buckets').innerHTML = rows.map(([id,rg,why,sub])=>`<div class="bk"><div class="row"><div class="name">${t('bucket.'+id+'.title')}<i>${t('bucket.'+id+'.sub')}</i></div><div class="r">${rg[1]>0?range(rg):'$0'}<small>${sub}</small></div></div><p>${why}</p></div>`).join('');
   $('wait').innerHTML = `<div><b>${range(r.tenYear)}</b>${t('wait.tenYear',{stateName:st.name})}</div><div><b>${Math.max(1,Math.round(r.months[0]))} ${t('label.to')} ${Math.max(1,Math.round(r.months[1]))} ${S.lang==='es'?'meses':'months'}</b>${t('wait.months')}</div><div><b>${S.lang==='es'?'Nada se instala':'Nothing installs'}</b>${t('wait.install')}</div>`;
   renderMore(); renderCash(); renderContact(); renderIncentives(); renderHow(); renderCTA(); sendReading();
@@ -673,7 +674,7 @@ function renderHow(){
   const lines=[]; const grade={supply:'A',staging:'U',battery:'B',antifouling:'C',optimizer:'C',harmonization:'A',refrigeration:'C',heating:'B',lighting:'B',ventilation:'B',motors:'B'};
   const more=[];
   const push=(l)=>{ if(l.applies===false) return; const off = l.optional && !l.on; const shown = off ? l.potential : l.range; const toggle = l.optional ? `<label class="tog"><input type="checkbox" data-line="${l.id}" ${l.on?'checked':''}><span>${l.on?t('how.on'):t('how.off')}</span></label>` : ''; const row=`<tr class="${off?'off':''}"><td>${t('how.line.'+l.id)}${toggle}</td><td class="r">${shown[1]>0?range(shown):'$0'}</td><td class="g">${gradeWord(grade[l.id])}</td></tr>`; (off?more:lines).push(row); };
-  push({id:'supply',range:r.buckets.brokering.range});
+  if(r.buckets.brokering.range[1]>0) push({id:'supply',range:r.buckets.brokering.range});
   r.buckets.peak.lines.forEach(push);
   r.buckets.equipment.lines.forEach(push);
   const head=`<tr><td>${t('how.rows')}</td><td class="r">${t('how.range')}</td><td class="g">${t('how.basis')}</td></tr>`;
