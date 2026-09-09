@@ -4,12 +4,17 @@
 window.EPCOPY_ES = {
 
   /* ---------- paso 1: código postal ---------- */
-  "zip.title": "Comience con su código postal.",
-  "zip.help": "Nos dice quién le envía la factura y cuánto le cobra.",
+  "zip.title": "¿Dónde está el edificio?",
+  "zip.help": "El código postal nos dice quién le envía la factura y cuánto cobra. Su estado también sirve.",
   "zip.reveal": "{utility} le envía la factura. Las empresas en {stateName} pagan cerca de {rate} centavos por kilovatio hora, {compare}",
   "zip.compare.above": "por encima del promedio nacional de {usRate}. Cada kilovatio hora que recupere vale más aquí.",
   "zip.compare.below": "por debajo del promedio nacional de {usRate}. Es más probable que el dinero esté en sus cargos por demanda que en la tarifa.",
   "zip.compare.near": "justo en el promedio nacional de {usRate}.",
+  "zip.or": "O elija su estado",
+  "zip.state.placeholder": "Elija un estado",
+  "zip.reveal.state": "Las empresas en {stateName} pagan cerca de {rate} centavos por kilovatio hora, {compare}",
+  "label.yourUtility": "Su compañía eléctrica",
+  "label.location": "Ubicación",
   "zip.unknown": "No pudimos ubicar ese código postal. Usaremos el promedio de {stateName} de {stateRate} centavos hasta que nos indique lo contrario.",
 
   /* ---------- paso 2: instalación ---------- */

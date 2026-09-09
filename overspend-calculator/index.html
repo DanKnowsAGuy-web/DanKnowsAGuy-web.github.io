@@ -77,6 +77,9 @@ main{display:grid;gap:22px;margin-top:22px}
 .choice.on{border-color:var(--prim);background:color-mix(in srgb,var(--prim) 7%,#fff);box-shadow:inset 0 0 0 1px var(--prim)}
 .choice small{display:block;color:var(--mute);font-weight:400;font-size:13.5px;margin-top:3px}
 .zipwrap{display:flex;gap:8px;flex-wrap:wrap}
+.orstate{display:flex;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+.orstate .or{font-size:15px;color:var(--mute);white-space:nowrap}
+.orstate select{flex:1 1 200px;appearance:none;-webkit-appearance:none;border:1px solid var(--hair);border-radius:6px;padding:13px 40px 13px 14px;font:inherit;font-size:17px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M3 5l4 4 4-4' fill='none' stroke='%23101416' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;color:var(--ink);min-height:48px}
 .zipwrap .btn{flex:1 1 100%}
 @media (min-width:480px){.zipwrap .btn{flex:0 0 auto}}
 .card .head .badge{font-size:9.5px;padding:4px 6px;letter-spacing:.06em}
@@ -269,7 +272,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 -->
 <div class="shell">
 <header class="top">
-  <img id="logo" src="assets/logo-ink.png" alt="Energy+">
+  <picture><source srcset="assets/logo-paper.png" media="(min-width:1100px)"><img id="logo" src="assets/logo-ink.png" alt="Energy+"></picture>
   <div class="prog">
     <span class="live"><i></i><b data-t="prog.name">Energy Overspend</b>&nbsp;<span class="desk" data-t="prog.sub">diagnostic</span></span>
     <span class="desk" id="reviewed"></span>
@@ -352,7 +355,7 @@ const pct = (x)=>Math.round(x*100)+'%';
 const fmtN = (x)=>Math.round(x).toLocaleString('en-US');
 function facLabel(f){ const fac=C.facilities[f]; return S.lang==='es'&&fac.labelEs?fac.labelEs:fac.label; }
 function stateName(){ return C.states[S.state].name; }
-function utilName(){ return S.util&&S.util.name ? S.util.name : (S.utilName || stateName()+' utilities'); }
+function utilName(){ return S.util&&S.util.name ? S.util.name : (S.utilName || t('label.yourUtility')); }
 
 /* ---------- number sweep (the meter motion) ---------- */
 function sweep(el, to, fmt){
@@ -459,10 +462,10 @@ function reopen(id){
   clear[id](); S.result=null; render();
   const el=stepEls[id]; if(el && !window.matchMedia('(min-width:1100px)').matches){ setTimeout(()=>glide(el.getBoundingClientRect().top+window.scrollY-10), 60); }
 }
-function sumKey(id){ return {age:t('assume.age'),zip:'ZIP',facility:t('facility.k')==='facility.k'?'Facility':t('facility.k'),bill:t('label.bill')==='label.bill'?'Bill':t('label.bill'),season:t('label.season')==='label.season'?'Season':t('label.season'),occupancy:t('label.occ')==='label.occ'?'Month':t('label.occ'),heat:t('label.heat')==='label.heat'?'Heat':t('label.heat'),hours:t('label.hours')==='label.hours'?'Hours':t('label.hours')}[id]; }
+function sumKey(id){ return {age:t('assume.age'),zip:S.zip?'ZIP':t('label.location'),facility:t('facility.k')==='facility.k'?'Facility':t('facility.k'),bill:t('label.bill')==='label.bill'?'Bill':t('label.bill'),season:t('label.season')==='label.season'?'Season':t('label.season'),occupancy:t('label.occ')==='label.occ'?'Month':t('label.occ'),heat:t('label.heat')==='label.heat'?'Heat':t('label.heat'),hours:t('label.hours')==='label.hours'?'Hours':t('label.hours')}[id]; }
 function sumVal(id){
   switch(id){
-    case 'zip': return S.zip + (S.util? ' · '+utilName():'');
+    case 'zip': return S.zip ? S.zip + (S.util? ' · '+utilName():'') : (S.state? stateName() : '');
     case 'facility': return S.facility?facLabel(S.facility):'';
     case 'bill': return S.billMonthly!=null ? money(S.billMonthly)+' '+t('label.month') : '';
     case 'season': return S.season?t('season.'+S.season):'';
@@ -474,7 +477,7 @@ function sumVal(id){
 }
 function stepHTML(id){
   switch(id){
-    case 'zip': return `<p class="q">${t('zip.title')}</p><p class="help">${t('zip.help')}</p><div class="body"><div class="zipwrap"><input class="zipin" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="${t('zip.placeholder')}" autocomplete="postal-code" value="${S.zip||''}"><button class="btn zipgo" type="button">${t('zip.next')}</button></div><p class="help ziperr" style="margin:8px 0 0"></p></div>`;
+    case 'zip': { const states=Object.keys(C.states).map(k=>[k,C.states[k].name]).sort((a,b)=>a[1].localeCompare(b[1])); return `<p class="q">${t('zip.title')}</p><p class="help">${t('zip.help')}</p><div class="body"><div class="zipwrap"><input class="zipin" inputmode="numeric" pattern="[0-9]*" maxlength="5" placeholder="${t('zip.placeholder')}" autocomplete="postal-code" value="${S.zip||''}"><button class="btn zipgo" type="button">${t('zip.next')}</button></div><p class="help ziperr" style="margin:8px 0 0"></p><div class="orstate"><span class="or">${t('zip.or')}</span><select class="stsel" aria-label="${t('zip.or')}"><option value="">${t('zip.state.placeholder')}</option>${states.map(([k,n])=>`<option value="${k}">${n}</option>`).join('')}</select></div></div>`; }
     case 'facility': return `<p class="q">${t('facility.title')}</p><div class="body"><div class="choices">${(C.facilityOrder||Object.keys(C.facilities)).map(f=>`<button class="choice" type="button" data-f="${f}">${facLabel(f)}</button>`).join('')}</div></div>`;
     case 'bill': { const bands = bandsFor(S.facility); return `<p class="q">${t('bill.title')}</p><p class="help">${t('bill.help')}</p><div class="body"><div class="choices">${bands.map((b,i)=>`<button class="choice" type="button" data-band="${i}">${b.label}<small>${t('label.month')}</small></button>`).join('')}</div></div>`; }
     case 'season': return `<p class="q">${t('season.title')}</p><div class="body"><div class="choices three">${['summer','winter','mild'].map(s=>`<button class="choice" type="button" data-season="${s}">${t('season.'+s)}</button>`).join('')}</div></div>`;
@@ -498,6 +501,7 @@ function bandsFor(f){
 }
 function wireStepEl(el, id){
   if(id==='zip'){ const inp=el.querySelector('.zipin'), go=el.querySelector('.zipgo'), err=el.querySelector('.ziperr'); const submit=()=>{ const z=(inp.value||'').replace(/\D/g,''); if(z.length!==5){ err.textContent = t('zip.invalid')==='zip.invalid'?'Five digits, please.':t('zip.invalid'); return; } const r=resolveZip(z); if(!r){ err.textContent = t('zip.notfound')==='zip.notfound'?'We could not place that ZIP yet. Try another nearby.':t('zip.notfound'); return; } answered('zip',()=>{ S.zip=z; Object.assign(S,r); }, null); }; go.addEventListener('click',submit); inp.addEventListener('keydown',e=>{ if(e.key==='Enter') submit(); }); if(!S.state) setTimeout(()=>{ try{ inp.focus({preventScroll:true}); }catch(e){} },50); }
+  const sel=el.querySelector('.stsel'); if(sel){ sel.addEventListener('change',()=>{ const st=sel.value; if(!st) return; answered('zip',()=>{ S.zip=''; S.state=st; S.util=null; S.utilName=null; S.utilRate=C.states[st].rate; }, null); }); }
   el.querySelectorAll('[data-f]').forEach(b=>b.addEventListener('click',()=>answered('facility',()=>{ S.facility=b.dataset.f; S.hoursWeek = C.facilities[S.facility].hoursFixed || null; }, b)));
   el.querySelectorAll('[data-band]').forEach(b=>b.addEventListener('click',()=>answered('bill',()=>{ const bands=bandsFor(S.facility); S.band=+b.dataset.band; S.billMonthly=Math.round(bands[S.band].mid/100)*100; }, b)));
   el.querySelectorAll('[data-season]').forEach(b=>b.addEventListener('click',()=>answered('season',()=>{ S.season=b.dataset.season; }, b)));
@@ -511,7 +515,7 @@ function wireStepEl(el, id){
 function revealHTML(id){
   const st = S.state?C.states[S.state]:null;
   switch(id){
-    case 'zip': { if(!st) return ''; const rate = st.rate; const us = (C.meta.usRate||14.19); const cmp = rate>us*1.05?'above':rate<us*0.95?'below':'near'; return t('zip.reveal',{utility:utilName(),stateName:st.name,rate:rate.toFixed(1),compare:t('zip.compare.'+cmp,{usRate:us.toFixed(1)})}); }
+    case 'zip': { if(!st) return ''; const rate = st.rate; const us = (C.meta.usRate||14.19); const cmp = rate>us*1.05?'above':rate<us*0.95?'below':'near'; const vars={utility:utilName(),stateName:st.name,rate:rate.toFixed(1),compare:t('zip.compare.'+cmp,{usRate:us.toFixed(1)})}; return t(S.util? 'zip.reveal' : 'zip.reveal.state', vars); }
     case 'facility': { const fac=C.facilities[S.facility]; const hv=Math.round((fac.hvac.cooling+fac.hvac.heat+fac.hvac.ventilation)*100), rf=Math.round((fac.refrigShare||0)*100), li=Math.round((fac.lightingShare||0)*100), rest=Math.max(0,100-hv-rf-li); const segs=[['a','mover.hvac',hv],['b','mover.refrig',rf],['c','mover.lighting',li],['d','mover.other',rest]].filter(x=>x[2]>0); return t('facility.reveal.'+S.facility,{stateName:st.name,hvacPct:hv+'%'})+`<div class="bar">${segs.map(x=>`<i class="${x[0]}" style="width:${x[2]}%"></i>`).join('')}</div><p class="legend">${segs.map(x=>`<span class="${x[0]}">${t(x[1])}<b>${x[2]}%</b></span>`).join('')}</p>`; }
     case 'bill': { if(!S.result) return ''; const r=S.result; const cls=['a','b','c']; return t('bill.reveal',{annual:money(r.annual),season:t('season.'+S.season).toLowerCase(),stateName:st.name})+`<div class="rows">${r.movers.map((m,i)=>`<div class="row ${cls[i]}"><span class="l">${t('mover.'+m.key)}</span><span class="n">${money(m.value/12)}<small>${t('label.month')} · ${Math.round(m.value/r.annual*100)}%</small></span><span class="t"><i style="width:${Math.min(100,Math.round(m.value/r.annual*100))}%"></i></span></div>`).join('')}</div><p style="margin:6px 0 0">${t('bill.products')}</p>`; }
     case 'heat': return t('heat.reveal.'+S.heat);
@@ -605,7 +609,7 @@ function renderResults(){
 function readingPayload(extra){
   const r=S.result, st=C.states[S.state];
   return Object.assign({ _subject: 'Overspend reading: '+facLabel(S.facility)+' in '+st.name+', '+range(r.total)+' a year', _template:'table', _captcha:'false',
-    zip:S.zip, utility:utilName(), state:st.name, facility:facLabel(S.facility), bill_monthly:money(S.billMonthly), season:S.season, occupancy:S.occupancy||'', heat:S.heat, hours_week:S.hoursWeek, unit_age:S.age?t('age.'+S.age.chip):'', locations:S.locations,
+    zip:S.zip||'', utility:S.util?utilName():'', state:st.name, facility:facLabel(S.facility), bill_monthly:money(S.billMonthly), season:S.season, occupancy:S.occupancy||'', heat:S.heat, hours_week:S.hoursWeek, unit_age:S.age?t('age.'+S.age.chip):'', locations:S.locations,
     overspend_low:money(r.total[0]), overspend_high:money(r.total[1]), months_of_bill:Math.max(1,Math.round(r.months[0]))+' to '+Math.max(1,Math.round(r.months[1])), program:money(r.cash.program,1000), link:shareURL(), language:S.lang }, extra||{});
 }
 function postLead(payload){
@@ -687,12 +691,12 @@ function renderCTA(){
 
 /* ---------- deep link ---------- */
 function shareURL(){
-  const p=new URLSearchParams(); p.set('z',S.zip); p.set('f',S.facility); p.set('b',S.billMonthly); p.set('s',S.season); if(S.occupancy)p.set('o',S.occupancy); p.set('h',S.heat||''); if(S.hoursWeek)p.set('w',S.hoursWeek); if(S.locations>1)p.set('n',S.locations); if(S.age)p.set('a',S.age.chip); for(const k in S.nudges)p.set('x'+k,Math.round(S.nudges[k]*100)/100); for(const k in S.lines)p.set('l'+k,S.lines[k]?'1':'0'); if(S.lang==='es')p.set('lang','es');
+  const p=new URLSearchParams(); if(S.zip) p.set('z',S.zip); else p.set('st',S.state); p.set('f',S.facility); p.set('b',S.billMonthly); p.set('s',S.season); if(S.occupancy)p.set('o',S.occupancy); p.set('h',S.heat||''); if(S.hoursWeek)p.set('w',S.hoursWeek); if(S.locations>1)p.set('n',S.locations); if(S.age)p.set('a',S.age.chip); for(const k in S.nudges)p.set('x'+k,Math.round(S.nudges[k]*100)/100); for(const k in S.lines)p.set('l'+k,S.lines[k]?'1':'0'); if(S.lang==='es')p.set('lang','es');
   return location.origin+location.pathname+'#'+p.toString();
 }
 function loadURL(){
-  const h=location.hash.slice(1); if(!h) return false; const p=new URLSearchParams(h); const z=p.get('z'); if(!z) return false;
-  const r=resolveZip(z); if(!r) return false; S.zip=z; Object.assign(S,r);
+  const h=location.hash.slice(1); if(!h) return false; const p=new URLSearchParams(h); const z=p.get('z'); const stOnly=p.get('st');
+  if(z){ const r=resolveZip(z); if(!r) return false; S.zip=z; Object.assign(S,r); } else if(stOnly && C.states[stOnly]){ S.zip=''; S.state=stOnly; S.util=null; S.utilName=null; S.utilRate=C.states[stOnly].rate; } else return false;
   S.facility=p.get('f')||null; S.billMonthly=p.get('b')?+p.get('b'):null; S.season=p.get('s')||null; S.occupancy=p.get('o')||null; S.heat=p.get('h')||null; S.hoursWeek=p.get('w')?+p.get('w'):(S.facility&&C.facilities[S.facility].hoursFixed)||null; S.locations=p.get('n')?+p.get('n'):1; if(p.get('lang')==='es')S.lang='es';
   const ageMap={u5:3,'5to10':7,'10to15':12,o15:17,unsure:10}; if(p.get('a') && ageMap[p.get('a')]!=null){ S.age={chip:p.get('a'),value:ageMap[p.get('a')],sure:p.get('a')!=='unsure'}; if(S.age.sure) S.nudges.age=S.age.value; }
   for(const [k,v] of p.entries()){ if(k.startsWith('x')) S.nudges[k.slice(1)]=+v; if(k.startsWith('l')&&k.length>1&&k!=='lang') S.lines[k.slice(1)]=(v==='1'); }

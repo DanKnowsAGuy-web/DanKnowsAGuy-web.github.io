@@ -4,12 +4,17 @@
 window.EPCOPY_EN = {
 
   /* ---------- step 1: ZIP ---------- */
-  "zip.title": "Start with your ZIP code.",
-  "zip.help": "It tells us who sends your bill and what they charge.",
+  "zip.title": "Where is the building?",
+  "zip.help": "A ZIP code tells us who sends your bill and what they charge. Your state works too.",
   "zip.reveal": "{utility} sends your bill. Businesses in {stateName} pay about {rate} cents a kilowatt hour, {compare}",
   "zip.compare.above": "above the national average of {usRate}. Every kilowatt hour you take back is worth more here.",
   "zip.compare.below": "below the national average of {usRate}. The money is more likely in your demand charges than in the rate.",
   "zip.compare.near": "right at the national average of {usRate}.",
+  "zip.or": "Or pick your state",
+  "zip.state.placeholder": "Choose a state",
+  "zip.reveal.state": "Businesses in {stateName} pay about {rate} cents a kilowatt hour, {compare}",
+  "label.yourUtility": "Your utility",
+  "label.location": "Location",
   "zip.unknown": "We could not place that ZIP. We will use the {stateName} average of {stateRate} cents until you tell us otherwise.",
 
   /* ---------- step 2: facility ---------- */
