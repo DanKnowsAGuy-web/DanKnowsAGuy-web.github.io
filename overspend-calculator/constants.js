@@ -497,7 +497,7 @@
       src: "strOccupancy", grade: "U" // pending a monthly occupancy pull; labeled a planning assumption
     },
 
-    finance: { rate: 0.08, years: 7, src: null, grade: "C", note: "planning assumption for equipment finance; C-PACE runs longer at lower payments" },
+    finance: { paybackYears: 2, termYears: 3, rate: 0.08, src: null, grade: "C", note: "illustration: program sized at two years of low end savings, financed over three years; rate is not shown to the buyer" },
     ageDefault: 10,
     ageDefaultSrc: null, ageDefaultGrade: "U"
 

@@ -111,6 +111,8 @@ main{display:grid;gap:22px;margin-top:22px}
 .cash .name i{font-style:normal;display:block;font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--fg3);font-weight:500;margin-top:3px}
 .cash p{margin:8px 0 0;font-size:16px;color:var(--fg2);line-height:1.5}
 .cash .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:14px 0 6px;align-items:end}
+.cash .cols.three{grid-template-columns:1fr 1fr 1fr;gap:10px}
+.cash .cols.three .seg{padding:0 7px;font-size:12.5px}
 .cash .col{display:flex;flex-direction:column;justify-content:flex-end;height:150px}
 .cash .seg{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 10px;font-size:13.5px;color:#fff;font-weight:600;border-radius:3px;margin-top:3px;min-height:24px;white-space:nowrap;overflow:hidden}
 .cash .seg b{font-family:"Geist Mono",monospace;font-weight:600;letter-spacing:-.02em}
@@ -192,6 +194,10 @@ details.how table{width:100%;border-collapse:collapse;font-size:14px;margin-top:
 details.how td{padding:6px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--fg2)}
 details.how td.r{text-align:right;font-family:"Geist Mono",monospace;white-space:nowrap;color:var(--fg)}
 details.how td.g{color:var(--fg3);font-size:13px}
+details.how tr.off td{color:var(--fg3)}
+details.how tr.off td.r{text-decoration:line-through;text-decoration-color:var(--fg3);color:var(--fg3)}
+.tog{display:inline-flex;align-items:center;gap:6px;margin-left:8px;font-size:12.5px;color:var(--fg2);cursor:pointer;vertical-align:middle}
+.tog input{width:18px;height:18px;accent-color:var(--prim);margin:0}
 .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
 .cta .btn{flex:1 1 auto;text-align:center;text-decoration:none;display:inline-block}
 .cta .btn:first-child{flex-basis:100%;font-size:15.5px;padding:15px 18px}
@@ -304,10 +310,10 @@ const CTA_BOOK_URL = "#book"; /* replace with the booking link */
 const CTA_TEXT_NUMBER = "";  /* optional: sms number for "Text me this page" */
 
 /* ---------- state ---------- */
-const S = { lang:'en', zip:'', state:null, utilName:null, utilRate:null, util:null, facility:null, band:null, billMonthly:null, season:null, heat:null, hoursWeek:null, occupancy:null, locations:1, nudges:{}, result:null, active:'zip' };
+const S = { lang:'en', zip:'', state:null, lines:{}, utilName:null, utilRate:null, util:null, facility:null, band:null, billMonthly:null, season:null, heat:null, hoursWeek:null, occupancy:null, locations:1, nudges:{}, result:null, active:'zip' };
 const EPX = window.EPEngine, C = window.EP;
-const EXTRA_EN = { "prog.name":"Energy Overspend","prog.sub":"diagnostic","card.title":"Overspend reading","card.sub":"One bill, four taps","card.sub.done":"Your reading","card.badge":"Measured, not promised","result.headline.one":"{utility} bills you for three products. One of them is negotiable.","result.headline.two":"{utility} bills you for three products. Two of them are negotiable.","assume.nudge":"Nudge any","stick.go":"See where it goes","placeholder.h":"Your bill is three products on one page. Your utility only totals them.","placeholder.p":"Supply, delivery, and demand. Two of them can usually be negotiated, and the third is decided by equipment you already own. Give us a ZIP code and one bill, and we will show you which is which.","zip.next":"Read my bill","zip.placeholder":"ZIP code","hours.perWeek":"{n} hours a week","label.change":"Change","how.line.antifouling":"Antifouling, restores capacity lost to oil fouling","how.line.optimizer":"Compressor optimizer, stacked after antifouling","how.line.rcx":"Retro commissioning of what remains","how.line.ventilation":"Fans and ventilation drives","how.line.motors":"Process motors","how.line.heating":"Heating conversion","how.line.lighting":"Lighting not yet LED","how.line.refrigeration":"Refrigeration tuning","how.line.harmonization":"Power quality, kWh only (shown, not counted)","how.line.staging":"Staging and soft start","how.line.battery":"Battery peak shaving","how.line.supply":"Supply contract","how.products":"Three products","how.hvac":"Cooling {cooling}, fans {vent}, electric heat {heat} of the bill in this building type in {stateName}","how.rows":"Line","how.range":"Range","how.basis":"Basis","fmt.month":"{n} months","fmt.locations":"{n} locations" };
-const EXTRA_ES = { "prog.name":"Sobrecosto de energía","prog.sub":"diagnóstico","card.title":"Lectura de sobrecosto","card.sub":"Una factura, cuatro toques","card.sub.done":"Su lectura","card.badge":"Medido, no prometido","result.headline.one":"{utility} le cobra por tres productos. Uno de ellos es negociable.","result.headline.two":"{utility} le cobra por tres productos. Dos de ellos son negociables.","assume.nudge":"Ajuste cualquiera","stick.go":"Ver a dónde va","placeholder.h":"Su factura son tres productos en una página. Su compañía eléctrica solo los suma.","placeholder.p":"Suministro, entrega y demanda. Dos de ellos normalmente se pueden negociar, y el tercero lo decide el equipo que usted ya tiene. Denos un código postal y una factura y le mostramos cuál es cuál.","zip.next":"Leer mi factura","zip.placeholder":"Código postal","hours.perWeek":"{n} horas a la semana","label.change":"Cambiar","how.line.antifouling":"Antiincrustante, recupera capacidad perdida por incrustación de aceite","how.line.optimizer":"Optimizador de compresor, después del antiincrustante","how.line.rcx":"Puesta a punto de lo que queda","how.line.ventilation":"Ventiladores y variadores","how.line.motors":"Motores de proceso","how.line.heating":"Conversión de calefacción","how.line.lighting":"Iluminación que aún no es LED","how.line.refrigeration":"Ajuste de refrigeración","how.line.harmonization":"Calidad de energía, solo kWh (se muestra, no se cuenta)","how.line.staging":"Escalonamiento y arranque suave","how.line.battery":"Batería para recorte de picos","how.line.supply":"Contrato de suministro","how.products":"Tres productos","how.hvac":"Enfriamiento {cooling}, ventiladores {vent}, calefacción eléctrica {heat} de la factura en este tipo de edificio en {stateName}","how.rows":"Línea","how.range":"Rango","how.basis":"Base","fmt.month":"{n} meses","fmt.locations":"{n} ubicaciones" };
+const EXTRA_EN = { "prog.name":"Energy Overspend","prog.sub":"diagnostic","card.title":"Overspend reading","card.sub":"One bill, four taps","card.sub.done":"Your reading","card.badge":"Measured, not promised","result.headline.one":"{utility} bills you for three products. One of them is negotiable.","result.headline.two":"{utility} bills you for three products. Two of them are negotiable.","assume.nudge":"Nudge any","stick.go":"See where it goes","placeholder.h":"Your bill is three products on one page. Your utility only totals them.","placeholder.p":"Supply, delivery, and demand. Two of them can usually be negotiated, and the third is decided by equipment you already own. Give us a ZIP code and one bill, and we will show you which is which.","zip.next":"Read my bill","zip.placeholder":"ZIP code","hours.perWeek":"{n} hours a week","label.change":"Change","how.line.antifouling":"Antifouling, restores capacity lost to oil fouling","how.line.optimizer":"Compressor optimizer, stacked after antifouling","how.line.rcx":"Retro commissioning","how.line.ventilation":"Fans and ventilation drives","how.line.motors":"Process motors","how.line.heating":"Heating conversion","how.line.lighting":"Lighting not yet LED","how.line.refrigeration":"Refrigeration tuning","how.line.harmonization":"Power quality, kWh only","how.line.staging":"Staging and soft start (motor heavy buildings only)","how.line.battery":"Battery peak shaving","how.line.supply":"Supply contract","how.products":"Three products","how.hvac":"Cooling {cooling}, fans {vent}, electric heat {heat} of the bill in this building type in {stateName}","how.rows":"Line","how.range":"Range","how.basis":"Basis","fmt.month":"{n} months","fmt.locations":"{n} locations" };
+const EXTRA_ES = { "prog.name":"Sobrecosto de energía","prog.sub":"diagnóstico","card.title":"Lectura de sobrecosto","card.sub":"Una factura, cuatro toques","card.sub.done":"Su lectura","card.badge":"Medido, no prometido","result.headline.one":"{utility} le cobra por tres productos. Uno de ellos es negociable.","result.headline.two":"{utility} le cobra por tres productos. Dos de ellos son negociables.","assume.nudge":"Ajuste cualquiera","stick.go":"Ver a dónde va","placeholder.h":"Su factura son tres productos en una página. Su compañía eléctrica solo los suma.","placeholder.p":"Suministro, entrega y demanda. Dos de ellos normalmente se pueden negociar, y el tercero lo decide el equipo que usted ya tiene. Denos un código postal y una factura y le mostramos cuál es cuál.","zip.next":"Leer mi factura","zip.placeholder":"Código postal","hours.perWeek":"{n} horas a la semana","label.change":"Cambiar","how.line.antifouling":"Antiincrustante, recupera capacidad perdida por incrustación de aceite","how.line.optimizer":"Optimizador de compresor, después del antiincrustante","how.line.rcx":"Puesta a punto","how.line.ventilation":"Ventiladores y variadores","how.line.motors":"Motores de proceso","how.line.heating":"Conversión de calefacción","how.line.lighting":"Iluminación que aún no es LED","how.line.refrigeration":"Ajuste de refrigeración","how.line.harmonization":"Calidad de energía, solo kWh","how.line.staging":"Escalonamiento y arranque suave (solo edificios con motores grandes)","how.line.battery":"Batería para recorte de picos","how.line.supply":"Contrato de suministro","how.products":"Tres productos","how.hvac":"Enfriamiento {cooling}, ventiladores {vent}, calefacción eléctrica {heat} de la factura en este tipo de edificio en {stateName}","how.rows":"Línea","how.range":"Rango","how.basis":"Base","fmt.month":"{n} meses","fmt.locations":"{n} ubicaciones" };
 
 function COPY(){ return S.lang==='es' && window.EPCOPY_ES ? Object.assign({},window.EPCOPY_EN,EXTRA_EN,window.EPCOPY_ES,EXTRA_ES) : Object.assign({},window.EPCOPY_EN,EXTRA_EN); }
 function t(key, vars){ let s = COPY()[key]; if(s==null) return key; if(vars) for(const k in vars) s = s.split('{'+k+'}').join(vars[k]); return s; }
@@ -487,7 +493,7 @@ function canCompute(){ return S.state && S.facility && S.billMonthly!=null && S.
 function compute(){
   if(!canCompute()){ S.result=null; return; }
   const fac=C.facilities[S.facility];
-  S.result = EPX.compute({ state:S.state, utility:S.util, facility:S.facility, billMonthly:S.billMonthly, season:S.season, heat:S.heat||'unknown', hoursWeek:S.hoursWeek||fac.hoursFixed||(fac.hoursChips?fac.hoursChips[1]:60), occupancy:S.occupancy, locations:S.locations, nudges:S.nudges });
+  S.result = EPX.compute({ state:S.state, utility:S.util, facility:S.facility, billMonthly:S.billMonthly, season:S.season, heat:S.heat||'unknown', hoursWeek:S.hoursWeek||fac.hoursFixed||(fac.hoursChips?fac.hoursChips[1]:60), occupancy:S.occupancy, locations:S.locations, nudges:S.nudges, lines:S.lines });
 }
 
 /* ---------- assumptions ---------- */
@@ -564,15 +570,16 @@ function renderResults(){
 }
 function renderCash(){
   const r=S.result, c=r.cash; if(!c || c.floorMonthly<=0){ $('cash').hidden=true; return; } $('cash').hidden=false;
-  const scale = 140 / c.todayMonthly; const hpx=(x)=>Math.max(22, Math.round(x*scale));
+  const scale = 140 / c.todayMonthly; const hpx=(x)=>Math.max(24, Math.round(x*scale));
   $('cash').innerHTML = `<div class="name">${t('cash.title')}<i>${t('cash.sub')}</i></div><p>${t('cash.lede')}</p>
-  <div class="cols">
+  <div class="cols three">
     <div><div class="col"><div class="seg bill" style="height:${hpx(c.todayMonthly)}px"><span>${t('cash.bill')}</span><b>${money(c.todayMonthly)}</b></div></div><div class="cap">${t('cash.today')}</div></div>
-    <div><div class="col"><div class="seg keep" style="height:${hpx(c.keepMonthly)}px"><span>${t('cash.keep')}</span><b>${money(c.keepMonthly)}</b></div><div class="seg pay" style="height:${hpx(c.payment)}px"><span>${t('cash.payment')}</span><b>${money(c.payment)}</b></div><div class="seg bill" style="height:${hpx(c.afterBillMonthly)}px"><span>${t('cash.bill')}</span><b>${money(c.afterBillMonthly)}</b></div></div><div class="cap">${t('cash.after')}</div></div>
+    <div><div class="col"><div class="seg keep" style="height:${hpx(c.keepMonthly)}px"><span>${t('cash.keep')}</span><b>${money(c.keepMonthly)}</b></div><div class="seg pay" style="height:${hpx(c.payment)}px"><span>${t('cash.payment')}</span><b>${money(c.payment)}</b></div><div class="seg bill" style="height:${hpx(c.afterBillMonthly)}px"><span>${t('cash.bill')}</span><b>${money(c.afterBillMonthly)}</b></div></div><div class="cap">${t('cash.during')}</div></div>
+    <div><div class="col"><div class="seg keep" style="height:${hpx(c.afterPayoffMonthly)}px"><span>${t('cash.keep')}</span><b>${money(c.afterPayoffMonthly)}</b></div><div class="seg bill" style="height:${hpx(c.afterBillMonthly)}px"><span>${t('cash.bill')}</span><b>${money(c.afterBillMonthly)}</b></div></div><div class="cap">${t('cash.afterpay')}</div></div>
   </div>
-  <p>${t('cash.line',{floor:money(c.floorMonthly),carry:money(c.carry,1000),years:c.years,keep:money(c.keepMonthly)})}</p>
+  <p>${t('cash.line',{floor:money(c.floorMonthly),program:money(c.program,1000),years:c.termYears,payment:money(c.payment),keep:money(c.keepMonthly)})}</p>
   <p>${t('cash.shrink')}</p>
-  <p class="fine">${t('cash.note',{rate:Math.round(c.rate*100),years:c.years})}</p>`;
+  <p class="fine">${t('cash.note',{years:c.termYears})}</p>`;
 }
 function renderIncentives(){
   const st=S.state; const isSolar=(i)=>/solar/i.test(i.id)||((i.measures||[]).every(m=>/solar/i.test(m))); const list=(C.incentives||[]).filter(i=> !isSolar(i) && (i.states==='all'||(Array.isArray(i.states)&&i.states.includes(st))) && (!i.utilities || (S.util && i.utilities.includes(S.util.id))) ).slice(0,3);
@@ -582,11 +589,13 @@ function renderIncentives(){
 function gradeWord(g){ return t('how.grade.'+(g||'c').toLowerCase()); }
 function renderHow(){
   const r=S.result, st=C.states[S.state], fac=C.facilities[S.facility];
-  const lines=[]; const push=(id,rg,g)=>lines.push(`<tr><td>${t('how.line.'+id)}</td><td class="r">${rg[1]>0?range(rg):'$0'}</td><td class="g">${gradeWord(g)}</td></tr>`);
-  push('supply',r.buckets.brokering.range,'A');
-  r.buckets.peak.lines.forEach(l=>push(l.id,l.range,l.id==='staging'?'U':'B'));
-  r.buckets.equipment.lines.forEach(l=>push(l.id,l.range,l.id==='antifouling'?'C':l.id==='optimizer'?'C':l.id==='harmonization'?'A':'B'));
-  $('howbody').innerHTML = `<p>${t('how.intro')}</p><p>${t('how.hvac',{cooling:pct(r.hvac.cooling/r.annual),vent:pct(r.hvac.vent/r.annual),heat:pct(r.hvac.heat/r.annual),stateName:st.name})}</p><p>${t('how.stack')}</p><p>${t('how.cap',{capPct:pct(r.buckets.equipment.cap[1]/r.annual)})}</p><table><tr><td>${t('how.rows')}</td><td class="r">${t('how.range')}</td><td class="g">${t('how.basis')}</td></tr>${lines.join('')}</table>`;
+  const lines=[]; const grade={supply:'A',staging:'U',battery:'B',antifouling:'C',optimizer:'C',harmonization:'A',refrigeration:'C',heating:'B',lighting:'B',ventilation:'B',motors:'B'};
+  const push=(l)=>{ if(l.applies===false) return; const shown = l.optional && !l.on ? l.potential : l.range; const toggle = l.optional ? `<label class="tog"><input type="checkbox" data-line="${l.id}" ${l.on?'checked':''}><span>${l.on?t('how.on'):t('how.off')}</span></label>` : ''; lines.push(`<tr class="${l.optional&&!l.on?'off':''}"><td>${t('how.line.'+l.id)}${toggle}</td><td class="r">${shown[1]>0?range(shown):'$0'}</td><td class="g">${gradeWord(grade[l.id])}</td></tr>`); };
+  push({id:'supply',range:r.buckets.brokering.range});
+  r.buckets.peak.lines.forEach(push);
+  r.buckets.equipment.lines.forEach(push);
+  $('howbody').innerHTML = `<p>${t('how.intro')}</p><p>${t('how.hvac',{cooling:pct(r.hvac.cooling/r.annual),vent:pct(r.hvac.vent/r.annual),heat:pct(r.hvac.heat/r.annual),stateName:st.name})}</p><p>${t('how.stack')}</p><p>${t('how.cap',{capPct:pct(r.buckets.equipment.cap[1]/r.annual)})}</p><p>${t('how.optional')}</p><table><tr><td>${t('how.rows')}</td><td class="r">${t('how.range')}</td><td class="g">${t('how.basis')}</td></tr>${lines.join('')}</table>`;
+  $('howbody').querySelectorAll('[data-line]').forEach(cb=>cb.addEventListener('change',()=>{ S.lines[cb.dataset.line]=cb.checked; const open=$('how').open; render(); $('how').open=open; }));
 }
 function renderCTA(){
   const url = shareURL(); const r=S.result;
@@ -598,14 +607,15 @@ function renderCTA(){
 
 /* ---------- deep link ---------- */
 function shareURL(){
-  const p=new URLSearchParams(); p.set('z',S.zip); p.set('f',S.facility); p.set('b',S.billMonthly); p.set('s',S.season); if(S.occupancy)p.set('o',S.occupancy); p.set('h',S.heat||''); if(S.hoursWeek)p.set('w',S.hoursWeek); if(S.locations>1)p.set('n',S.locations); for(const k in S.nudges)p.set('x'+k,Math.round(S.nudges[k]*100)/100); if(S.lang==='es')p.set('lang','es');
+  const p=new URLSearchParams(); p.set('z',S.zip); p.set('f',S.facility); p.set('b',S.billMonthly); p.set('s',S.season); if(S.occupancy)p.set('o',S.occupancy); p.set('h',S.heat||''); if(S.hoursWeek)p.set('w',S.hoursWeek); if(S.locations>1)p.set('n',S.locations); for(const k in S.nudges)p.set('x'+k,Math.round(S.nudges[k]*100)/100); for(const k in S.lines)p.set('l'+k,S.lines[k]?'1':'0'); if(S.lang==='es')p.set('lang','es');
   return location.origin+location.pathname+'#'+p.toString();
 }
 function loadURL(){
   const h=location.hash.slice(1); if(!h) return false; const p=new URLSearchParams(h); const z=p.get('z'); if(!z) return false;
   const r=resolveZip(z); if(!r) return false; S.zip=z; Object.assign(S,r);
   S.facility=p.get('f')||null; S.billMonthly=p.get('b')?+p.get('b'):null; S.season=p.get('s')||null; S.occupancy=p.get('o')||null; S.heat=p.get('h')||null; S.hoursWeek=p.get('w')?+p.get('w'):(S.facility&&C.facilities[S.facility].hoursFixed)||null; S.locations=p.get('n')?+p.get('n'):1; if(p.get('lang')==='es')S.lang='es';
-  for(const [k,v] of p.entries()) if(k.startsWith('x')) S.nudges[k.slice(1)]=+v;
+  for(const [k,v] of p.entries()){ if(k.startsWith('x')) S.nudges[k.slice(1)]=+v; if(k.startsWith('l')&&k.length>1&&k!=='lang') S.lines[k.slice(1)]=(v==='1'); }
+  if(p.get('how')==='1') S.openHow=true;
   return true;
 }
 
@@ -617,6 +627,7 @@ function render(){
   document.body.classList.toggle('done', !!(S.result && complete()));
   renderSteps(); renderAssume(); renderTotal(); renderResults();
   $('reviewed').textContent = t('footer.reviewed',{date:C.meta.reviewed}); $('footdate').textContent = t('footer.reviewed',{date:C.meta.reviewed});
+  if(S.openHow){ $('how').open=true; }
   if(S.result && complete()) history.replaceState(null,'',shareURL());
 }
 $('lang').addEventListener('click',()=>{ S.lang = S.lang==='es'?'en':'es'; render(); });

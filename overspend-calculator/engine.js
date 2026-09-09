@@ -60,6 +60,8 @@
     const util = input.utility || null;
     const n = input.nudges || {};
     const locations = Math.max(1, input.locations || 1);
+    // optional lines: off unless the buyer turns them on in "How we got this"
+    const L = Object.assign({ heating: false, lighting: false, ventilation: false, motors: false, refrigeration: true, harmonization: true }, input.lines || {});
     const flags = [];
 
     // rate
@@ -134,26 +136,30 @@
     const antifouling = [cooling$ * loss, cooling$ * loss];
     const remainder = cooling$ * (1 - loss);
     const optimizer = R.mul(S.optimizer.standalone, remainder * S.optimizer.stackedFactor);
-    const rcxBase = Math.max(0, cooling$ - antifouling[1] - R.mid(optimizer));
-    const rcx = R.mul(S.rcx.range || S.rcx, rcxBase);
-    let compressor = R.sum([antifouling, optimizer, rcx]);
+    let compressor = R.sum([antifouling, optimizer]);
     compressor = R.cap(compressor, cooling$ * S.compressorCeiling);
 
     const motorsRange = S.motorsBlended.range || S.motorsBlended;
-    const ventilation = R.mul(motorsRange, vent$);
+    const ventilationAll = R.mul(motorsRange, vent$);
+    const ventilation = L.ventilation ? ventilationAll : [0, 0];
     const motorsBase = fac.motorShare > 0.1 ? annual * fac.motorShare * demandShare : 0; // process motors only, fans already counted
-    const motors = R.mul(motorsRange, motorsBase);
+    const motorsAll = R.mul(motorsRange, motorsBase);
+    const motors = L.motors ? motorsAll : [0, 0];
 
     const heatRange = input.heat === 'resistance' ? S.heating.resistance
       : input.heat === 'hp' ? S.heating.heatPump
       : input.heat === 'gas' ? S.heating.gas : S.heating.unknown;
-    const heating = R.mul(heatRange, heatElectric$);
+    const heatingAll = R.mul(heatRange, heatElectric$);
+    const heating = L.heating ? heatingAll : [0, 0];
 
-    const lighting = R.mul(S.lighting.retrofit, annual * (fac.lightingShare || 0) * (1 - S.lighting.ledDone));
-    const harmon = R.mul(S.harmonization.kwh, annual);
-    const refrigTune = R.mul([0.05, 0.12], refrig$); // refrigeration tuning, conservative, grade C
+    const lightingAll = R.mul(S.lighting.retrofit, annual * (fac.lightingShare || 0) * (1 - S.lighting.ledDone));
+    const lighting = L.lighting ? lightingAll : [0, 0];
+    const harmonAll = R.mul(S.harmonization.kwh, annual);
+    const harmon = L.harmonization ? harmonAll : [0, 0];
+    const refrigAll = R.mul([0.05, 0.12], refrig$); // refrigeration tuning, conservative, grade C
+    const refrigTune = (L.refrigeration && refrig$ > 0) ? refrigAll : [0, 0];
 
-    let equipment = R.sum([compressor, ventilation, motors, heating, lighting, refrigTune]);
+    let equipment = R.sum([compressor, ventilation, motors, heating, lighting, refrigTune, harmon]);
     const capRange = age >= S.caps.deferredAge ? [S.caps.equipment[0], S.caps.equipmentDeferred] : S.caps.equipment;
     const eqCap = [annual * capRange[0], annual * capRange[1]];
     const equipmentCapped = [Math.min(equipment[0], eqCap[0]), Math.min(equipment[1], eqCap[1])];
@@ -162,7 +168,9 @@
 
     /* ---------- Peak demand ---------- */
     const demandPool = products.demand;
-    const staging = [demandPool * S.demand.stagingFloor, demandPool * S.demand.stagingFloor];
+    // staging and soft start only where large motors and compressors actually start in steps: motor heavy buildings
+    const stagingApplies = (fac.motorShare || 0) >= 0.3;
+    const staging = stagingApplies ? [demandPool * S.demand.stagingFloor, demandPool * S.demand.stagingFloor] : [0, 0];
     const flat = isFlat(fac, hoursWeek);
     const battery = R.mul(flat ? S.demand.batteryFlat : S.demand.batteryPeaky, demandPool - staging[0]);
     let peak = R.sum([staging, battery]);
@@ -188,15 +196,15 @@
     const tenYear = R.mul(total, esc);
     const meterMax = cleanMax(Math.max(150000, perSite[1] * 1.6));
 
-    // cash flow day one: a program whose payment sits below the low end of monthly savings costs nothing out of pocket
-    const fin = S.finance || { rate: 0.08, years: 7 };
-    const i = fin.rate / 12, nper = fin.years * 12;
-    const annuity = (1 - Math.pow(1 + i, -nper)) / i;          // program dollars per dollar of monthly payment
+    // cash flow illustration: the program is sized at two years of low end savings and financed over three,
+    // so the payment stays under the savings while it runs and the whole amount is theirs after payoff
+    const fin = S.finance || { paybackYears: 2, termYears: 3, rate: 0.08 };
     const floorMonthly = perSite[0] / 12;
-    const payment = floorMonthly * 0.85;                        // leave a 15 percent cushion under the low end
-    const carry = payment * annuity;
-    const cash = { floorMonthly, payment, carry, rate: fin.rate, years: fin.years,
-      todayMonthly: monthlyAvg, afterBillMonthly: monthlyAvg - floorMonthly, keepMonthly: floorMonthly - payment };
+    const program = floorMonthly * 12 * fin.paybackYears;
+    const i = fin.rate / 12, nper = fin.termYears * 12;
+    const payment = program * i / (1 - Math.pow(1 + i, -nper));
+    const cash = { floorMonthly, program, payment, paybackYears: fin.paybackYears, termYears: fin.termYears,
+      todayMonthly: monthlyAvg, afterBillMonthly: monthlyAvg - floorMonthly, keepMonthly: Math.max(0, floorMonthly - payment), afterPayoffMonthly: floorMonthly };
 
     const assumptions = [
       { key: 'rate', value: rate, unit: 'c/kWh', confirmed: n.rate != null, src: rateSrc === 'utility' ? 'eia861' : (rateSrc === 'state' ? 'eia561' : 'you'), grade: rateSrc === 'you' ? 'A' : 'A' },
@@ -215,17 +223,16 @@
       movers, shares,
       buckets: {
         brokering: { range: brokering, reason: brokeringReason, lines: [{ id: 'supply', range: brokering }] },
-        peak: { range: peak, flat, pfPossible, lines: [{ id: 'staging', range: staging }, { id: 'battery', range: battery }] },
+        peak: { range: peak, flat, pfPossible, lines: [{ id: 'staging', range: staging, applies: stagingApplies }, { id: 'battery', range: battery }] },
         equipment: { range: equipment, cap: eqCap, lines: [
           { id: 'antifouling', range: antifouling, note: { loss } },
           { id: 'optimizer', range: optimizer },
-          { id: 'rcx', range: rcx },
-          { id: 'ventilation', range: ventilation },
-          { id: 'motors', range: motors },
-          { id: 'heating', range: heating },
-          { id: 'lighting', range: lighting },
-          { id: 'refrigeration', range: refrigTune },
-          { id: 'harmonization', range: harmon, excluded: true }
+          { id: 'refrigeration', range: refrigTune, optional: refrig$ > 0, on: L.refrigeration, applies: refrig$ > 0, potential: refrigAll },
+          { id: 'harmonization', range: harmon, optional: true, on: L.harmonization, applies: true, potential: harmonAll },
+          { id: 'heating', range: heating, optional: heatElectric$ > 0, on: L.heating, applies: heatElectric$ > 0, potential: heatingAll },
+          { id: 'lighting', range: lighting, optional: true, on: L.lighting, applies: (fac.lightingShare || 0) > 0, potential: lightingAll },
+          { id: 'ventilation', range: ventilation, optional: true, on: L.ventilation, applies: vent$ > 0, potential: ventilationAll },
+          { id: 'motors', range: motors, optional: motorsBase > 0, on: L.motors, applies: motorsBase > 0, potential: motorsAll }
         ] }
       },
       perSite, total, typical, months, tenYear, escRate: st.escRate,
