@@ -62,6 +62,29 @@ window.EPCOPY_EN = {
   "hours.reveal.flat": "Running around the clock means a flat load. That is good for the equipment and bad for batteries, so we keep the demand number honest.",
   "hours.reveal.peaky": "A building that runs {hours} hours a week has a sharp peak. That is exactly where demand charges bite and where they can be cut.",
 
+  /* ---------- step 6: unit age ---------- */
+  "age.title": "About how old is the cooling equipment?",
+  "age.help": "The rooftop units or the chillers. A rough guess is fine.",
+  "age.u5": "Under 5 years",
+  "age.5to10": "5 to 10 years",
+  "age.10to15": "10 to 15 years",
+  "age.o15": "Over 15 years",
+  "age.unsure": "Not sure",
+  "age.reveal": "Units around {age} years old have usually lost about {lossPct} of their cooling capacity to oil fouling. That comes back without replacing anything.",
+  "age.reveal.new": "Units this new have lost little to fouling yet. The gain is in how they cycle, not what they have lost.",
+  "age.reveal.unsure": "No problem. We will assume ten years, which is typical, and you can change it on the next card.",
+
+  /* ---------- contact ---------- */
+  "contact.title": "Want to know if this is real?",
+  "contact.lede": "Text us. No pitch. We tell you what one bill would show and what it would take to check it on site.",
+  "contact.name": "First name",
+  "contact.mobile": "Mobile number",
+  "contact.button": "Text us what is next",
+  "contact.sent": "Thanks, {name}. Your message is drafted. Send it and we will answer from this number.",
+  "contact.fallback": "Or text us at {phone}. Here is the message, ready to paste:",
+  "contact.sms": "Hi, this is {name}. I ran the overspend reading for my {facility} in {stateName}. It shows about {range} a year. What would you need from me to see if that is real? {link}",
+  "contact.privacy": "One text back from us. No list, no calls unless you ask.",
+
   /* ---------- reveal card ---------- */
   "assume.title": "Here is what we are assuming.",
   "assume.help": "Nudge anything that looks off. The number moves as you do.",

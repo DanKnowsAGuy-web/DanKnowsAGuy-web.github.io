@@ -664,6 +664,7 @@
     papuc: { label: "PA PUC PAPowerSwitch, small business shopping site", url: "https://www.papowerswitch.com" }
   };
 
-  window.EP = EP;
+  EP.facilityOrder = ["hotel","qsr","supermarket","cstore","retail","office","coldstorage","warehouse","healthcare","manufacturing","multifamily","education","fitness","datacenter","lab","mixeduse"];
+window.EP = EP;
 
 })();
