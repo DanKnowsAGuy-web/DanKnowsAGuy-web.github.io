@@ -86,8 +86,10 @@ window.EPCOPY_EN = {
   "contact.mobile": "Mobile number",
   "contact.button": "Text us what is next",
   "contact.sent": "Thanks, {name}. Your message is drafted. Send it and we will answer from this number.",
-  "contact.fallback": "Or text us at {phone}. Here is the message, ready to paste:",
-  "contact.sms": "Hi, this is {name}. I ran the overspend reading for my {facility} in {stateName}. It shows about {range} a year. What would you need from me to see if that is real? {link}",
+  "contact.fallback": "Or text {phone} yourself. Here is the message, ready to paste:",
+  "contact.sms": "Hi Dan, this is {name}. I ran the overspend reading for my {facility} in {stateName}. It shows about {range} a year, and I just sent my details. What do I need to do to know if this is real?",
+  "contact.qr": "Point your phone camera at this code. It opens a text to us with the message already written.",
+  "contact.sent.desktop": "Thanks, {name}. Your details are on their way. To start the conversation, text us from your phone:",
   "contact.privacy": "One text back from us. No list, no calls unless you ask.",
 
   /* ---------- reveal card ---------- */

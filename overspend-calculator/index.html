@@ -160,9 +160,9 @@ details.how h4{margin:16px 0 4px;font-size:14px;font-weight:600;letter-spacing:.
 .meter .axis{position:absolute;left:0;right:0;top:16px;height:1px;background:var(--hair)}
 .meter .tick{position:absolute;top:12px;width:1px;height:9px;background:var(--hair2);opacity:.45}
 .meter .tick b{position:absolute;top:12px;left:50%;transform:translateX(-50%);font:500 10px "Geist Mono",monospace;color:var(--mute);white-space:nowrap}
-.meter .tick:first-child b{transform:none;left:0}.meter .tick:last-of-type b{transform:translateX(-100%);left:0}
+.meter .tick:first-child b{transform:none;left:0}.meter .tick.last b{transform:translateX(-100%);left:0}
 .meter .range{position:absolute;top:14px;left:0;width:100%;height:5px;background:var(--mark);border-radius:2px;transform-origin:left center;transform:translateX(0) scaleX(0);transition:transform .7s var(--ease-over)}
-.meter .needle{position:absolute;top:8px;left:0;width:2px;height:17px;background:var(--prim);border-radius:1px;transform:translateX(0);transition:transform .7s var(--ease-over)}
+.meter .needle{position:absolute;top:8px;left:0;width:2px;height:17px;background:var(--prim);border-radius:1px;margin-left:-1px;transition:left .7s var(--ease-over)}
 .total .a{font-size:15.5px;color:var(--ink2);margin-top:10px}
 .total .loc{font-size:15.5px;color:var(--ink2);margin-top:4px}
 
@@ -234,6 +234,10 @@ details.how h4{margin:16px 0 4px;font-size:14px;font-weight:600;letter-spacing:.
 .contact .btn{width:100%}
 .contact .fine{font-size:13px;color:var(--fg3);margin:10px 0 0}
 .contact .draft{margin-top:12px;padding:12px 14px;border:1px dashed var(--line2);border-radius:6px;font-size:15px;color:var(--fg2);line-height:1.5;user-select:all}
+.qrwrap{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:start;margin-top:8px}
+.qr{background:#fff;padding:8px;border-radius:6px;line-height:0}
+.qr svg{width:134px;height:134px;display:block}
+@media (max-width:599px){.qrwrap{grid-template-columns:1fr}}
 @media (min-width:1100px){.contact{background:rgba(244,247,248,.06)}.contact input{border-color:rgba(244,247,248,.35)}}
 .inc{margin-top:16px;padding-top:12px;border-top:1px solid var(--line)}
 .inc h3{margin:0 0 6px;font-size:14px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--fg2)}
@@ -362,6 +366,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 <script src="constants.js"></script>
 <script src="engine.js"></script>
 <script src="viz.js"></script>
+<script src="assets/qrcode.min.js"></script>
 <script src="copy.en.js"></script>
 <script src="copy.es.js" defer></script>
 <script src="zip/utilities.js" defer></script>
@@ -612,9 +617,9 @@ function renderTotal(){
   $('stick').classList.toggle('on', !complete() || !$('results').hidden===false);
   $('stick').classList.toggle('on', true);
   const m=r.meter, max=m.max; const ticks=[0,.25,.5,.75,1];
-  $('meter').innerHTML = `<div class="axis"></div>`+ticks.map(p=>`<div class="tick" style="left:${p*100}%"><b>$${EPX.fmtK(Math.round(max*p))}</b></div>`).join('')+`<div class="range" id="mrange"></div><div class="needle" id="mneedle"></div>`;
-  const w=$('meter').clientWidth||300;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{ $('mrange').style.transform=`translateX(${m.lo/max*100}%) scaleX(${Math.max(0.01,(m.hi-m.lo)/max)})`; $('mneedle').style.transform=`translateX(${m.needle/max*w}px)`; }));
+  $('meter').innerHTML = `<div class="axis"></div>`+ticks.map((p,i)=>`<div class="tick${i===ticks.length-1?' last':''}" style="left:${p*100}%"><b>$${EPX.fmtK(Math.round(max*p))}</b></div>`).join('')+`<div class="range" id="mrange"></div><div class="needle" id="mneedle"></div>`;
+  const place=()=>{ $('mrange').style.transform=`translateX(${m.lo/max*100}%) scaleX(${Math.max(0.01,(m.hi-m.lo)/max)})`; $('mneedle').style.left=`${m.needle/max*100}%`; };
+  if(document.hidden) place(); else requestAnimationFrame(()=>requestAnimationFrame(place));
   $('anchor').textContent = t('result.anchor',{lo:r.months[0]<1?'1':Math.round(r.months[0]),hi:Math.max(1,Math.round(r.months[1]))}) + ' ' + t('result.needle',{facility:facLabel(S.facility).toLowerCase()});
   $('locline').hidden = S.locations<=1; if(S.locations>1) $('locline').textContent = t('result.locations',{n:S.locations,total:range(r.total)});
 }
@@ -697,8 +702,15 @@ function renderContact(){
     const body=msg();
     postLead(readingPayload({ kind:'contact', first_name:S.contact.name, mobile:S.contact.mobile, _subject:'Text me: '+(S.contact.name||'someone')+', '+facLabel(S.facility)+' in '+st.name+', '+range(r.total) }));
     const sms=`sms:${CTA_TEXT_NUMBER}?&body=${encodeURIComponent(body)}`;
-    $('cdone').innerHTML=`<p style="margin-top:12px">${t('contact.sent',{name:S.contact.name||''})}</p><a class="btn" href="${sms}" style="display:block;text-align:center;text-decoration:none">${t('contact.button')}</a><p class="fine">${t('contact.fallback',{phone:'(864) 777-0688'})}</p><div class="draft">${body}</div>`;
-    if(/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent)) setTimeout(()=>{ window.location.href=sms; },250);
+    const mobile=/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
+    if(mobile){
+      $('cdone').innerHTML=`<p style="margin-top:12px">${t('contact.sent',{name:S.contact.name||''})}</p><a class="btn" href="${sms}" style="display:block;text-align:center;text-decoration:none">${t('contact.button')}</a><p class="fine">${t('contact.fallback',{phone:'(864) 777-0688'})}</p><div class="draft">${body}</div>`;
+      setTimeout(()=>{ window.location.href=sms; },250);
+    } else {
+      let qr='';
+      try{ const q=qrcode(0,'M'); q.addData(sms); q.make(); qr=q.createSvgTag({cellSize:4,margin:0,scalable:true}); }catch(e){ qr=''; }
+      $('cdone').innerHTML=`<p style="margin-top:12px">${t('contact.sent.desktop',{name:S.contact.name||''})}</p><div class="qrwrap">${qr?`<div class="qr">${qr}</div>`:''}<div><p class="fine" style="margin:0 0 8px">${t('contact.qr')}</p><p class="fine">${t('contact.fallback',{phone:'(864) 777-0688'})}</p><div class="draft">${body}</div></div></div>`;
+    }
   });
 }
 function renderMore(){
@@ -776,6 +788,10 @@ function render(){
   if(S.result && complete()) history.replaceState(null,'',shareURL());
 }
 $('lang').addEventListener('click',()=>{ S.lang = S.lang==='es'?'en':'es'; render(); });
+/* the printout shows the counted lines table open */
+let howWasOpen=false;
+window.addEventListener('beforeprint',()=>{ howWasOpen=$('how').open; $('how').open=true; });
+window.addEventListener('afterprint',()=>{ $('how').open=howWasOpen; });
 $('stickgo').addEventListener('click',()=>{ const target = complete()? $('results') : $('steps').querySelector('.step:not(.done)'); (target||$('card')).scrollIntoView({behavior:'smooth',block:'start'}); });
 window.addEventListener('load',()=>{ if(!loadURL()) { /* nothing */ } render(); });
 render();
