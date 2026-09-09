@@ -119,7 +119,7 @@ window.EPCOPY_ES = {
   "cash.today": "Hoy",
   "cash.after": "Después",
   "cash.bill": "Factura eléctrica",
-  "cash.payment": "Pago del programa",
+  "cash.payment": "Pago",
   "cash.keep": "Le queda",
   "cash.shrink": "Lo que reduce el monto financiado: depreciación total el primer año, el crédito federal de almacenamiento cuando hay batería, reembolsos de la compañía eléctrica y financiamiento PACE donde su condado lo ofrece. Confirmamos cada uno durante la auditoría.",
   "cash.note": "Los términos de financiamiento son un supuesto de planeación de {rate} por ciento a {years} años. PACE es más largo con pagos más bajos.",

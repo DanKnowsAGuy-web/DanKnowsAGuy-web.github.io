@@ -58,7 +58,7 @@ main{display:grid;gap:22px;margin-top:22px}
 .step .sum .kv{flex:1 1 auto;min-width:0;line-height:1.35}
 .step .sum .k{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:500;margin-right:10px;white-space:nowrap}
 .step .sum .v{font-weight:500;font-size:18px}
-.step .sum button{appearance:none;background:transparent;border:0;color:var(--prim);font-size:15px;font-weight:600;padding:4px 0;min-height:36px;margin-left:auto;flex:0 0 auto}
+.step .sum button{appearance:none;background:transparent;border:0;color:var(--prim);font-size:15px;font-weight:600;padding:4px 0;min-height:36px;flex:0 0 auto}
 @media (min-width:600px){.step .sum{flex-wrap:nowrap;align-items:center}.step .sum .kv{display:flex;align-items:baseline;gap:10px}.step .sum .k{width:104px;flex:none;margin-right:0}.step .sum button{min-height:44px}}
 .step[hidden]{display:none}
 .reveal{margin:12px 0 0;padding:14px 16px 14px 18px;background:#f3f5f6;border-radius:6px;font-size:17px;color:var(--ink2);line-height:1.55;animation:rise .5s var(--ease-out);position:relative}
@@ -104,7 +104,7 @@ main{display:grid;gap:22px;margin-top:22px}
 .cash p{margin:8px 0 0;font-size:16px;color:var(--fg2);line-height:1.5}
 .cash .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:14px 0 6px;align-items:end}
 .cash .col{display:flex;flex-direction:column;justify-content:flex-end;height:150px}
-.cash .seg{display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:13.5px;color:#fff;font-weight:600;border-radius:3px;margin-top:3px;min-height:22px}
+.cash .seg{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 10px;font-size:13.5px;color:#fff;font-weight:600;border-radius:3px;margin-top:3px;min-height:24px;white-space:nowrap;overflow:hidden}
 .cash .seg b{font-family:"Geist Mono",monospace;font-weight:600;letter-spacing:-.02em}
 .cash .seg.bill{background:var(--prim)}.cash .seg.pay{background:color-mix(in srgb,var(--prim) 50%,#fff);color:var(--ink)}.cash .seg.keep{background:var(--mark);color:var(--mark-ink)}
 .cash .cap{font-size:14px;color:var(--fg3);margin-top:6px;text-align:center}
@@ -117,7 +117,8 @@ main{display:grid;gap:22px;margin-top:22px}
 @media (min-width:600px){.assume .bank{flex-wrap:nowrap}.assume .bank b{flex:1 1 auto}}
 .f{display:grid;grid-template-columns:100px 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--hair)}
 .f .k{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:500}
-.f .v{font-size:18px;font-weight:500;display:inline-block;padding-bottom:2px;border-bottom:1px dashed var(--ink2);transition:border-color .2s}
+.f .v{font-size:18px;font-weight:500;display:inline-block;padding-bottom:2px;border-bottom:1px dashed var(--ink2);transition:border-color .2s;cursor:text}
+.f .v input{appearance:none;border:0;border-bottom:1px solid var(--prim);background:transparent;font:inherit;font-family:"Geist Mono",monospace;width:120px;padding:0 0 2px;outline:none;font-size:18px}
 .f.set .v{border-bottom:1px solid var(--ink)}
 .f .src{grid-column:1/-1;font-size:13.5px;color:var(--mute);margin-top:-4px;display:none}
 .f.open .src{display:block}
@@ -489,12 +490,26 @@ function renderAssume(){
   rows.push({key:'locations',val:S.locations,confirmed:true,src:''});
   host.innerHTML = rows.map(a=>`<div class="f${a.confirmed?' set':''}" data-key="${a.key}"><span class="k"><button type="button" data-src="${a.key}">${t('assume.'+a.key)}</button></span><span class="v">${NUDGE[a.key].fmt(a.val)}</span><span class="nudge"><button type="button" data-n="${a.key}" data-d="-1" aria-label="${t('label.nudge.less')}">&minus;</button><button type="button" data-n="${a.key}" data-d="1" aria-label="${t('label.nudge.more')}">+</button></span><span class="src">${a.src}</span></div>`).join('');
   host.querySelectorAll('[data-n]').forEach(b=>b.addEventListener('click',()=>nudge(b.dataset.n,+b.dataset.d)));
+  host.querySelectorAll('.f .v').forEach(v=>v.addEventListener('click',()=>editValue(v)));
   host.querySelectorAll('[data-src]').forEach(b=>b.addEventListener('click',()=>b.closest('.f').classList.toggle('open')));
 }
 function srcLine(a){
   if(a.key==='rate') return a.confirmed? t('assume.confirmed') : (S.util&&S.util.commRate? t('assume.src.utility',{utility:utilName()}) : t('assume.src.state',{stateName:stateName()}));
   if(a.confirmed) return t('assume.confirmed');
   return t('assume.src.'+a.key);
+}
+/* tap a value to type it exactly; Enter or leaving the field commits, Escape cancels */
+function editValue(v){
+  if(v.querySelector('input')) return;
+  const key=v.closest('.f').dataset.key; const cur = key==='locations'? S.locations : (S.nudges[key]!=null? S.nudges[key] : S.result.assumptions.find(a=>a.key===key).value);
+  const shown = v.textContent; const n=NUDGE[key];
+  const inp=document.createElement('input'); inp.type='text'; inp.inputMode = key==='rate'?'decimal':'numeric'; inp.value = key==='rate'? (+cur).toFixed(1) : String(Math.round(cur)); inp.setAttribute('aria-label', t('assume.'+key));
+  v.textContent=''; v.appendChild(inp); inp.focus(); inp.select();
+  let done=false;
+  const commit=()=>{ if(done) return; done=true; const raw=parseFloat((inp.value||'').replace(/[^0-9.]/g,'')); if(isNaN(raw)){ v.textContent=shown; return; } const val=Math.max(n.min,Math.min(n.max,raw)); if(key==='locations') S.locations=Math.round(val); else S.nudges[key]=val; render(); };
+  const cancel=()=>{ if(done) return; done=true; v.textContent=shown; };
+  inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); commit(); } else if(e.key==='Escape'){ cancel(); } });
+  inp.addEventListener('blur',commit); inp.addEventListener('change',commit);
 }
 function nudge(key,dir){
   const cur = key==='locations'? S.locations : (S.nudges[key]!=null? S.nudges[key] : S.result.assumptions.find(a=>a.key===key).value);

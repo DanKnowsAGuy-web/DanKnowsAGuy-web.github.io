@@ -124,7 +124,7 @@ window.EPCOPY_EN = {
   "cash.today": "Today",
   "cash.after": "After",
   "cash.bill": "Electric bill",
-  "cash.payment": "Program payment",
+  "cash.payment": "Payment",
   "cash.keep": "Kept",
   "cash.shrink": "What shrinks the amount financed: full first year depreciation, the federal storage credit where a battery is part of it, utility rebates, and PACE financing where your county offers it. We confirm each one during the audit.",
   "cash.note": "Finance terms are a planning assumption of {rate} percent over {years} years. PACE runs longer with lower payments.",
