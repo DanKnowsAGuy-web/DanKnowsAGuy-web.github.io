@@ -198,13 +198,14 @@
 
     // cash flow illustration: the program is sized at two years of low end savings and financed over three,
     // so the payment stays under the savings while it runs and the whole amount is theirs after payoff
-    const fin = S.finance || { paybackYears: 2, termYears: 3, rate: 0.08 };
+    const fin = S.finance || { paybackYears: 2, paymentShare: 0.5, rate: 0.08 };
     const floorMonthly = perSite[0] / 12;
     const program = floorMonthly * 12 * fin.paybackYears;
-    const i = fin.rate / 12, nper = fin.termYears * 12;
-    const payment = program * i / (1 - Math.pow(1 + i, -nper));
-    const cash = { floorMonthly, program, payment, paybackYears: fin.paybackYears, termYears: fin.termYears,
-      todayMonthly: monthlyAvg, afterBillMonthly: monthlyAvg - floorMonthly, keepMonthly: Math.max(0, floorMonthly - payment), afterPayoffMonthly: floorMonthly };
+    const payment = floorMonthly * fin.paymentShare;                       // half the savings goes to the payment
+    const i = fin.rate / 12;
+    const termMonths = payment > 0 ? Math.ceil(-Math.log(1 - i * program / payment) / Math.log(1 + i)) : 0;  // months to pay it off at that payment
+    const cash = { floorMonthly, program, payment, paybackYears: fin.paybackYears, paymentShare: fin.paymentShare, termMonths, termYears: Math.round(termMonths / 12 * 10) / 10,
+      todayMonthly: monthlyAvg, afterBillMonthly: monthlyAvg - floorMonthly, keepMonthly: floorMonthly - payment, afterPayoffMonthly: floorMonthly };
 
     const assumptions = [
       { key: 'rate', value: rate, unit: 'c/kWh', confirmed: n.rate != null, src: rateSrc === 'utility' ? 'eia861' : (rateSrc === 'state' ? 'eia561' : 'you'), grade: rateSrc === 'you' ? 'A' : 'A' },

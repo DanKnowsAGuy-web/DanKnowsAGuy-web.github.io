@@ -127,8 +127,8 @@ window.EPCOPY_EN = {
   /* ---------- how it gets paid for ---------- */
   "cash.title": "How it gets paid for",
   "cash.sub": "Cash flow from day one",
-  "cash.lede": "The simple work usually pays for itself inside a year. The whole program is sized to pay for itself in about two. Financed, the payment sits below the savings while it runs, and after payoff the whole amount is yours.",
-  "cash.line": "The low end of your overspend is about {floor} a month. Two years of that is a program of about {program}. Financed over {years} years, the payment is about {payment} a month, which leaves about {keep} a month in your pocket while it runs and the full {floor} a month after that.",
+  "cash.lede": "The simple work usually pays for itself inside a year, and the whole program in about two. We finance it so the payment is half the savings. The other half is yours from the first month, and all of it is yours after payoff.",
+  "cash.line": "The low end of your overspend is about {floor} a month. Two years of that is a program of about {program}. With the payment set at about {payment} a month, you keep about {keep} a month from day one and the program is paid off in about {months} months. After that the full {floor} a month is yours.",
   "cash.today": "Today",
   "cash.during": "While financing",
   "cash.afterpay": "After payoff",
@@ -137,7 +137,7 @@ window.EPCOPY_EN = {
   "cash.payment": "Payment",
   "cash.keep": "Kept",
   "cash.shrink": "What shrinks the amount financed: full first year depreciation, the federal storage credit where a battery is part of it, and utility rebates. We confirm each one during the audit.",
-  "cash.note": "This illustration assumes a program sized at about two years of savings, financed over {years} years. Actual terms vary with creditworthiness.",
+  "cash.note": "This illustration assumes a program sized at about two years of savings with the payment set at half the savings. Actual terms vary with creditworthiness.",
 
   /* ---------- cost of waiting ---------- */
   "wait.tenYear": "What ten years of doing nothing costs at the {stateName} rate trend.",
@@ -153,7 +153,10 @@ window.EPCOPY_EN = {
   "how.intro": "Every number above is a range, not a promise. Here is each line, what it is based on, and how we combined them.",
   "how.stack": "Lines that act on the same equipment are combined by multiplying, not adding. Antifouling goes first because it restores what the unit lost. The optimizer then works on what remains, at a discount, because part of its standalone result came from the same fouling.",
   "how.cap": "The equipment bucket is capped at {capPct} of your bill. That is the range the best documented retrofit programs reach without replacing major equipment.",
-  "how.optional": "Optional lines. Turn on the ones that apply to this building and the number updates.",
+  "how.optional": "Worth a closer look. These are other places savings may be hiding in this building. Each one needs a little more diagnosis before we would count it. Switch one on to see what it would add.",
+  "how.counted": "Counted in your number",
+  "more.title": "Worth a closer look",
+  "more.line": "Savings may also be hiding in {list}. Each needs a little more diagnosis. Switched on, they would add about {range} a year. See how we got this to try them.",
   "how.on": "On",
   "how.off": "Off",
   "how.grade.a": "Public record",

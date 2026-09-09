@@ -497,7 +497,7 @@
       src: "strOccupancy", grade: "U" // pending a monthly occupancy pull; labeled a planning assumption
     },
 
-    finance: { paybackYears: 2, termYears: 3, rate: 0.08, src: null, grade: "C", note: "illustration: program sized at two years of low end savings, financed over three years; rate is not shown to the buyer" },
+    finance: { paybackYears: 2, paymentShare: 0.5, rate: 0.08, src: null, grade: "C", note: "illustration: program sized at two years of low end savings; payment set at half the savings so half is free cash flow from day one; the term falls out of that; rate is not shown to the buyer" },
     ageDefault: 10,
     ageDefaultSrc: null, ageDefaultGrade: "U"
 
