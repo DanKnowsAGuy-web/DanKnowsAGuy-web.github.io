@@ -175,6 +175,16 @@
     const tenYear = R.mul(total, esc);
     const meterMax = cleanMax(Math.max(150000, perSite[1] * 1.6));
 
+    // cash flow day one: a program whose payment sits below the low end of monthly savings costs nothing out of pocket
+    const fin = S.finance || { rate: 0.08, years: 7 };
+    const i = fin.rate / 12, nper = fin.years * 12;
+    const annuity = (1 - Math.pow(1 + i, -nper)) / i;          // program dollars per dollar of monthly payment
+    const floorMonthly = perSite[0] / 12;
+    const payment = floorMonthly * 0.85;                        // leave a 15 percent cushion under the low end
+    const carry = payment * annuity;
+    const cash = { floorMonthly, payment, carry, rate: fin.rate, years: fin.years,
+      todayMonthly: monthlyAvg, afterBillMonthly: monthlyAvg - floorMonthly, keepMonthly: floorMonthly - payment };
+
     const assumptions = [
       { key: 'rate', value: rate, unit: 'c/kWh', confirmed: n.rate != null, src: rateSrc === 'utility' ? 'eia861' : (rateSrc === 'state' ? 'eia561' : 'you'), grade: rateSrc === 'you' ? 'A' : 'A' },
       { key: 'sqft', value: sqft, unit: 'sqft', confirmed: n.sqft != null, src: 'cbecs2018', grade: fac.grades ? fac.grades.eui : 'B' },
@@ -206,6 +216,7 @@
       },
       perSite, total, typical, months, tenYear, escRate: st.escRate,
       meter: { max: meterMax, lo: perSite[0], hi: perSite[1], needle: R.geo(perSite) },
+      cash,
       assumptions, flags
     };
   }

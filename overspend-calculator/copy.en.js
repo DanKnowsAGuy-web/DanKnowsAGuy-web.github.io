@@ -6,10 +6,10 @@ window.EPCOPY_EN = {
   /* ---------- step 1: ZIP ---------- */
   "zip.title": "Start with your ZIP code.",
   "zip.help": "It tells us who sends your bill and what they charge.",
-  "zip.reveal": "{utility} sends your bill. Businesses in {stateName} pay about {rate} cents a kilowatt hour. {compare}",
-  "zip.compare.above": "That is above the national average of {usRate}, so every kilowatt hour you take back is worth more here.",
-  "zip.compare.below": "That is below the national average of {usRate}. The money in your bill is more likely sitting in demand charges than in the rate.",
-  "zip.compare.near": "That is right at the national average of {usRate}.",
+  "zip.reveal": "{utility} sends your bill. Businesses in {stateName} pay about {rate} cents a kilowatt hour, {compare}",
+  "zip.compare.above": "above the national average of {usRate}. Every kilowatt hour you take back is worth more here.",
+  "zip.compare.below": "below the national average of {usRate}. The money is more likely in your demand charges than in the rate.",
+  "zip.compare.near": "right at the national average of {usRate}.",
   "zip.unknown": "We could not place that ZIP. We will use the {stateName} average of {stateRate} cents until you tell us otherwise.",
 
   /* ---------- step 2: facility ---------- */
@@ -38,8 +38,8 @@ window.EPCOPY_EN = {
   "season.summer": "Summer",
   "season.winter": "Winter",
   "season.mild": "In between",
-  "bill.reveal": "That works out to about {annual} a year once we correct for a {season} bill in {stateName}.",
-  "bill.products": "Your bill is three products on one page. Supply about {supply}, delivery about {delivery}, and demand about {demand}, every month.",
+  "bill.reveal": "About {annual} a year once we correct for a {season} bill in {stateName}. Here is what that bill is made of.",
+  "bill.products": "Three products on one page. Two of them can be negotiated.",
   "occupancy.title": "Was that a busy month, a slow month, or typical?",
   "occupancy.busy": "Busy",
   "occupancy.slow": "Slow",
@@ -51,10 +51,10 @@ window.EPCOPY_EN = {
   "heat.resistance": "Electric resistance",
   "heat.gas": "Gas or other fuel",
   "heat.unknown": "Not sure",
-  "heat.reveal.hp": "Heat pumps are already the right answer. The gain left is in how they are run, not what they are.",
+  "heat.reveal.hp": "Heat pumps are already the right answer. What is left is how they are run.",
   "heat.reveal.resistance": "Electric resistance heat is the most expensive way to make warmth. That line has a real ceiling on it.",
   "heat.reveal.gas": "Gas heat means the electric bill has no heating overspend in it. We take that line off the table.",
-  "heat.reveal.unknown": "No problem. We will carry a wide range for heating and narrow it when you know.",
+  "heat.reveal.unknown": "No problem. We carry a wide range for heating until you know.",
 
   /* ---------- step 5: hours ---------- */
   "hours.title": "About how many hours a week does it run?",
@@ -76,6 +76,9 @@ window.EPCOPY_EN = {
   "assume.src.sqft": "Source: your bill divided by the typical intensity for this building type, CBECS 2018",
   "assume.src.tons": "Source: square feet divided by the usual square feet per ton for this type",
   "assume.src.age": "Source: a planning assumption. Rooftop units are replaced around fifteen years",
+  "chart.cooling": "Cooling",
+  "chart.fans": "Fans",
+  "chart.rest": "Everything else",
   "assume.src.hours": "Source: typical weekly hours for this building type, CBECS 2018",
   "assume.confirmed": "Set by you",
 
@@ -108,6 +111,23 @@ window.EPCOPY_EN = {
   "bucket.equipment.fans": "The fans, which nobody looks at, move as much electricity as the compressors.",
   "bucket.equipment.heat.resistance": "Electric resistance heat has the biggest single ceiling on this page.",
   "bucket.equipment.refrig": "Refrigeration is the largest line on your bill, and it is tuned less often than it is repaired.",
+
+  /* ---------- opener, before the ZIP ---------- */
+  "opener.h": "Your electric bill is three products on one page.",
+  "opener.p": "Supply, delivery, and demand. Two can usually be negotiated, and the third is set by equipment you already own. Four taps and we show you which is which, and what it is costing you.",
+
+  /* ---------- how it gets paid for ---------- */
+  "cash.title": "How it gets paid for",
+  "cash.sub": "Cash flow from day one",
+  "cash.lede": "We size the program so its payment sits below the low end of your savings. Your bill goes down more than the payment goes up, from the first month, whatever the program costs.",
+  "cash.line": "The low end of your overspend is about {floor} a month. That carries a program of about {carry}, financed over {years} years, with nothing out of pocket and about {keep} a month left over.",
+  "cash.today": "Today",
+  "cash.after": "After",
+  "cash.bill": "Electric bill",
+  "cash.payment": "Program payment",
+  "cash.keep": "Kept",
+  "cash.shrink": "What shrinks the amount financed: full first year depreciation, the federal storage credit where a battery is part of it, utility rebates, and PACE financing where your county offers it. We confirm each one during the audit.",
+  "cash.note": "Finance terms are a planning assumption of {rate} percent over {years} years. PACE runs longer with lower payments.",
 
   /* ---------- cost of waiting ---------- */
   "wait.tenYear": "What ten years of doing nothing costs at the {stateName} rate trend.",

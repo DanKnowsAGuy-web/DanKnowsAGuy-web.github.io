@@ -497,6 +497,7 @@
       src: "strOccupancy", grade: "U" // pending a monthly occupancy pull; labeled a planning assumption
     },
 
+    finance: { rate: 0.08, years: 7, src: null, grade: "C", note: "planning assumption for equipment finance; C-PACE runs longer at lower payments" },
     ageDefault: 10,
     ageDefaultSrc: null, ageDefaultGrade: "U"
 
@@ -518,7 +519,7 @@
     },
     {
       id: "itc48e-storage", level: "Federal", measures: ["Battery storage"], states: "all", utilities: null,
-      display: "May qualify for a federal tax credit on battery storage, up to 30 percent, longer runway than solar",
+      display: "May qualify for a federal tax credit on battery storage, up to 30 percent",
       url: "https://www.irs.gov/credits-deductions/clean-electricity-investment-credit",
       verified: "2026-09-09", confidence: "High"
     },
