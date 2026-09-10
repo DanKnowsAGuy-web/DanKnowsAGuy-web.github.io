@@ -298,7 +298,7 @@ footer.foot span+span:before{content:"·";margin:0 8px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 /* embedded in a landing page: no chrome, the parent scrolls */
 html.embed header.top, html.embed footer.foot, html.embed .stick{display:none!important}
-html.embed body{min-height:0}
+html.embed body{min-height:0;overflow:hidden}
 html.embed .shell{padding:0 0 24px}
 html.embed main{margin-top:0}
 </style>
@@ -837,7 +837,7 @@ function render(){
   if(S.result && complete()) history.replaceState(null,'',shareURL());
 }
 $('lang').addEventListener('click',()=>{ S.lang = S.lang==='es'?'en':'es'; render(); });
-if(EMBED){ const post=()=>{ try{ parent.postMessage({height: document.documentElement.scrollHeight}, '*'); }catch(e){} }; if('ResizeObserver' in window) new ResizeObserver(post).observe(document.body); window.addEventListener('load', post); setInterval(post, 1500); }
+if(EMBED){ let last=0; const post=()=>{ const h=Math.ceil(document.body.getBoundingClientRect().height); if(h && Math.abs(h-last)>1){ last=h; try{ parent.postMessage({height: h}, '*'); }catch(e){} } }; if('ResizeObserver' in window) new ResizeObserver(post).observe(document.body); window.addEventListener('load', post); setInterval(post, 800); }
 /* the printout shows the counted lines table open */
 let howWasOpen=false;
 window.addEventListener('beforeprint',()=>{ howWasOpen=$('how').open; $('how').open=true; });

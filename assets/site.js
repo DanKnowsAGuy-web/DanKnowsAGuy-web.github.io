@@ -90,7 +90,7 @@
       let h = null;
       if (typeof e.data === "number") h = e.data;
       else if (e.data && typeof e.data === "object" && typeof e.data.height === "number") h = e.data.height;
-      if (h && h > 300 && h < 20000) calcFrame.style.height = h + "px";
+      if (h && h > 200 && h < 20000) calcFrame.style.height = h + "px";
       /* the embedded calculator asks the page to scroll a step to the top of the screen */
       if (e.data && typeof e.data === "object" && typeof e.data.scrollTo === "number") {
         const y = calcFrame.getBoundingClientRect().top + window.scrollY + e.data.scrollTo - 72;
