@@ -207,6 +207,37 @@ details.how h4{margin:16px 0 4px;font-size:14px;font-weight:600;letter-spacing:.
 @keyframes growbar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
 .mnote{margin:6px 0 0;font-size:14px;color:var(--ink2)}
 @media (prefers-reduced-motion:reduce){.dcurve .load,.dcurve .shaved{stroke-dashoffset:0;animation:none}.dcurve .peak,.dcurve .capline{opacity:1;animation:none}.mbars .mbar rect{animation:none}.spots li{opacity:1;transform:none}}
+/* ---------- distortion figure ---------- */
+.distort{padding:14px 0 6px;border-top:1px solid var(--line)}
+.distort .name{font-weight:600;font-size:16px}
+.distort p{margin:6px 0 0;font-size:15px;color:var(--fg2);line-height:1.5}
+.distort p.fine{font-size:13px;color:var(--fg3);margin-top:10px}
+.dz{display:block;width:100%;max-width:520px;height:auto;margin:12px 0 4px;color:var(--fg)}
+.dz .dz-wash{fill:#fbf1d9;stroke:none}
+.dz text{font-family:"Archivo",sans-serif;fill:var(--fg2);stroke:none}
+.dz .dz-lbl{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;fill:var(--fg)}
+.dz .dz-cap{font-size:10px;fill:var(--fg3)}
+.dz .dz-hot .dz-cap{fill:#5a3f00}
+.dz .dz-wave{stroke-width:1.8;stroke-dasharray:6 3;animation:dzflow 2.2s linear infinite}
+.dz .dz-clean{stroke:var(--prim)}
+.dz .dz-dirty{stroke:var(--fg2);animation-duration:1.4s}
+.dz .dz-arrow{stroke-width:1.2}
+.dz .dz-machine rect:first-child{fill:#fff}
+.dz .dz-led{fill:var(--prim);stroke:none}
+.dz .dz-hot .dz-led{fill:#5a3f00}
+.dz .dz-fan{transform-box:fill-box;transform-origin:center;animation:dzspin 2.4s linear infinite}
+.dz .dz-hot .dz-fan{animation-duration:3.6s}
+.dz .dz-heat path{stroke:var(--mark);stroke-width:1.6;animation:dzheat 1.8s ease-out infinite}
+.dz .dz-heat path:nth-child(2){animation-delay:.3s}
+.dz .dz-heat path:nth-child(3){animation-delay:.6s}
+@keyframes dzflow{to{stroke-dashoffset:-18}}
+@keyframes dzspin{to{transform:rotate(360deg)}}
+@keyframes dzheat{0%{opacity:0;transform:translateY(6px)}30%{opacity:1}100%{opacity:0;transform:translateY(-10px)}}
+.dz-takes{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:600px){.dz-takes{grid-template-columns:1fr 1fr 1fr;gap:14px}}
+.dz-takes li{font-size:14px;color:var(--fg2);line-height:1.45}
+.dz-takes b{display:block;color:var(--fg);font-weight:600;font-size:15px}
+@media (prefers-reduced-motion:reduce){.dz .dz-wave,.dz .dz-fan,.dz .dz-heat path{animation:none}.dz .dz-heat path{opacity:.8}}
 /* ---------- story ---------- */
 .story{display:none}
 .story.on{display:block}
@@ -351,6 +382,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
       <p class="lede" id="lede"></p>
       <div class="bldgwrap" id="bldg" hidden></div>
       <div id="buckets"></div>
+      <div class="distort" id="distort" hidden></div>
       <div class="more" id="more" hidden></div>
       <div class="wait" id="wait"></div>
       <div class="cash" id="cash"></div>
@@ -691,7 +723,15 @@ function renderResults(){
   const rows=[]; if(B.brokering.range[1]>0) rows.push(['brokering',B.brokering.range,brokerWhy,'']); rows.push(['peak',B.peak.range,peakWhy,(S.lang==='es'?'La demanda es cerca del ':'Demand is about ')+pct(r.demandShare)+(S.lang==='es'?' de su factura':' of your bill')],['equipment',B.equipment.range,eqWhy,(S.lang==='es'?'Sin reemplazar equipo':'No replacement of major equipment')]);
   $('buckets').innerHTML = rows.map(([id,rg,why,sub])=>`<div class="bk"><div class="row"><div class="name">${t('bucket.'+id+'.title')}<i>${t('bucket.'+id+'.sub')}</i></div><div class="r">${rg[1]>0?range(rg):'$0'}<small>${sub}</small></div></div><p>${why}</p>${id==='peak'?demandCurveHTML(r):''}</div>`).join('');
   $('wait').innerHTML = `<div><b>${range(r.tenYear)}</b>${t('wait.tenYear',{stateName:st.name})}</div><div><b>${Math.max(1,Math.round(r.months[0]))} ${t('label.to')} ${Math.max(1,Math.round(r.months[1]))} ${S.lang==='es'?'meses':'months'}</b>${t('wait.months')}</div><div><b>${S.lang==='es'?'Nada se instala':'Nothing installs'}</b>${t('wait.install')}</div>`;
-  renderBuilding(); renderMore(); renderCash(); renderContact(); renderIncentives(); renderHow(); renderCTA(); sendReading();
+  renderBuilding(); renderDistort(); renderMore(); renderCash(); renderContact(); renderIncentives(); renderHow(); renderCTA(); sendReading();
+}
+let dzKey=null;
+function renderDistort(){
+  const host=$('distort'); const f=S.facility; if(!f){ host.hidden=true; return; }
+  const key=f+'|'+S.lang; host.hidden=false; if(dzKey===key) return; dzKey=key;
+  const tier=(C.nonlinearHigh||[]).includes(f)?'high':'medium'; const kind=(C.machineKind||{})[f]||'unit';
+  const fig=window.EPViz.distortion({kind, cleanLabel:t('distort.clean'), dirtyLabel:t('distort.dirty'), coolCap:t('distort.cool'), hotCap:t('distort.hot'), aria:t('distort.aria')});
+  host.innerHTML=`<div class="name">${t('distort.title',{facility:facLabel(f).toLowerCase()})}</div><p>${t('distort.lede.'+tier,{loads:t('distort.loads.'+f)})}</p>${fig}<ul class="dz-takes"><li><b>${t('distort.heat.h')}</b>${t('distort.heat.p')}</li><li><b>${t('distort.service.h')}</b>${t('distort.service.p')}</li><li><b>${t('distort.life.h')}</b>${t('distort.life.p')}</li></ul><p class="fine">${t('distort.note')}</p>`;
 }
 let bldgKey=null;
 function renderBuilding(){

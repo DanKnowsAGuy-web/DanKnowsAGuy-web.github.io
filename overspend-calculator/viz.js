@@ -125,5 +125,47 @@
     return `<svg class="mbars" viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${opts.aria || ''}"><line x1="${L}" y1="${S(H - B)}" x2="${S(W - R)}" y2="${S(H - B)}" stroke="currentColor" stroke-width="1" opacity=".35"/>${bars}</svg>`;
   }
 
-  root.EPViz = { building, demandCurve, months, SPOT_CLASS };
+  /* ---------- distortion: clean power on the left, distorted on the right, the same machine in both ---------- */
+  // 320 x 150. Each panel: a wave, an arrow, the facility's typical machine. The right panel runs hot.
+  function machine(kind, x, y) {
+    // x,y = bottom-left of the machine; ~64 wide, ~44 tall
+    if (kind === 'rack') {
+      const g = [rect(x, y - 52, 44, 52, 'rx="2"')];
+      for (let i = 0; i < 4; i++) { g.push(rect(x + 5, y - 46 + i * 12, 34, 8, 'rx="1"')); g.push(circle(x + 34, y - 42 + i * 12, 1.3, 'class="dz-led"')); }
+      return `<g class="dz-machine">${g.join('')}</g>`;
+    }
+    if (kind === 'motor') {
+      return `<g class="dz-machine">${rect(x, y - 30, 48, 30, 'rx="4"')}${line(x + 8, y - 24, x + 8, y - 6)}${line(x + 16, y - 24, x + 16, y - 6)}${line(x + 24, y - 24, x + 24, y - 6)}${rect(x + 48, y - 20, 12, 10)}${rect(x - 4, y - 2, 56, 2)}<g class="dz-fan">${circle(x + 38, y - 15, 7)}${line(x + 38, y - 22, x + 38, y - 8)}${line(x + 31, y - 15, x + 45, y - 15)}</g></g>`;
+    }
+    if (kind === 'case') {
+      const g = [rect(x, y - 44, 60, 44, 'rx="1.5"'), line(x + 4, y - 30, x + 40, y - 30), line(x + 4, y - 18, x + 40, y - 18)];
+      g.push(`<g class="dz-fan">${circle(x + 50, y - 12, 6)}${line(x + 50, y - 18, x + 50, y - 6)}${line(x + 44, y - 12, x + 56, y - 12)}</g>`);
+      return `<g class="dz-machine">${g.join('')}</g>`;
+    }
+    // default: a packaged unit with a fan
+    return `<g class="dz-machine">${rect(x, y - 40, 64, 40, 'rx="2"')}${line(x + 6, y - 30, x + 30, y - 30)}${line(x + 6, y - 22, x + 30, y - 22)}${line(x + 6, y - 14, x + 30, y - 14)}<g class="dz-fan">${circle(x + 48, y - 20, 11)}${line(x + 48, y - 31, x + 48, y - 9)}${line(x + 37, y - 20, x + 59, y - 20)}</g></g>`;
+  }
+  function wave(x, y, w, dirty) {
+    if (!dirty) { const a = 9, seg = w / 4; let d = `M${S(x)} ${S(y)}`; for (let i = 0; i < 4; i++) { const sx = x + i * seg; d += ` C ${S(sx + seg * 0.25)} ${S(y - a * 2.2 * (i % 2 ? -1 : 1))}, ${S(sx + seg * 0.75)} ${S(y - a * 2.2 * (i % 2 ? -1 : 1))}, ${S(sx + seg)} ${S(y)}`; } return d; }
+    // the distorted wave: the same rhythm with spikes and notches on it
+    const pts = [[0, 0], [4, -14], [8, -6], [12, -22], [16, -9], [20, -19], [24, -4], [28, 2], [32, 18], [36, 7], [40, 21], [44, 11], [48, 16], [52, 3], [56, -2], [60, -16], [64, -8], [68, -20], [72, -5], [76, 1], [80, 14], [84, 20], [88, 9], [92, 17], [96, 4], [100, 0]];
+    return 'M' + pts.map(p => `${S(x + p[0] / 100 * w)} ${S(y + p[1] * 0.85)}`).join(' L ');
+  }
+  function distortion(opts) {
+    const o = opts || {}; const kind = o.kind || 'unit';
+    const panel = (x0, dirty) => {
+      const wx = x0 + 10, wy = 62, ww = 60; const mx = x0 + 88, my = 108;
+      const heat = dirty ? `<g class="dz-heat">${['M-12 -46 c-3 -6 3 -10 0 -16', 'M0 -50 c-3 -6 3 -10 0 -16', 'M12 -46 c-3 -6 3 -10 0 -16'].map(d => `<path d="${d}" transform="translate(${S(mx + 32)} ${S(my)})"/>`).join('')}</g>` : '';
+      return `<g class="dz-panel ${dirty ? 'dz-hot' : 'dz-cool'}">${dirty ? rect(x0, 0, 160, 150, 'class="dz-wash"') : ''}
+        <text class="dz-lbl" x="${S(x0 + 10)}" y="20">${dirty ? o.dirtyLabel : o.cleanLabel}</text>
+        <path class="dz-wave ${dirty ? 'dz-dirty' : 'dz-clean'}" d="${wave(wx, wy, ww, dirty)}"/>
+        ${line(wx + ww + 4, wy, mx - 6, wy)}<path class="dz-arrow" d="M${S(mx - 11)} ${S(wy - 4)} L${S(mx - 6)} ${S(wy)} L${S(mx - 11)} ${S(wy + 4)}"/>
+        ${machine(kind, mx, my)}${heat}
+        <text class="dz-cap" x="${S(x0 + 10)}" y="138">${dirty ? o.hotCap : o.coolCap}</text>
+      </g>`;
+    };
+    return `<svg class="dz" viewBox="0 0 320 150" role="img" aria-label="${o.aria || ''}" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${panel(0, false)}${line(160, 8, 160, 142)}${panel(160, true)}</svg>`;
+  }
+
+  root.EPViz = { distortion, building, demandCurve, months, SPOT_CLASS };
 })(typeof window !== 'undefined' ? window : globalThis);
