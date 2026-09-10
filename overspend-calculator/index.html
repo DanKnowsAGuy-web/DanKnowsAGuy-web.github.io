@@ -296,6 +296,11 @@ footer.foot span+span:before{content:"·";margin:0 8px}
   .story .placeholder h2{margin-bottom:16px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+/* embedded in a landing page: no chrome, the parent scrolls */
+html.embed header.top, html.embed footer.foot, html.embed .stick{display:none!important}
+html.embed body{min-height:0}
+html.embed .shell{padding:0 0 24px}
+html.embed main{margin-top:0}
 </style>
 </head>
 <body>
@@ -376,6 +381,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 <script src="zip/zip-index.js" defer></script>
 <script>
 /* ---------- config ---------- */
+const EMBED = new URLSearchParams(location.search).has("embed"); /* inside a landing page iframe */
+if(EMBED) document.documentElement.classList.add("embed");
 const CTA_BOOK_URL = "#book"; /* replace with the booking link; hidden while it is the placeholder */
 const CTA_TEXT_NUMBER = "+18647770688";   /* Energy+ texting number */
 const LEAD_ENDPOINT = "https://formsubmit.co/ajax/dan@yourenergyplus.com"; /* every completed reading and every contact goes here (email) */
@@ -493,6 +500,7 @@ function settleTo(el){
   /* add empty room below so the step can sit at the top of the screen, then check against the real scroll limit */
   const se = document.scrollingElement || document.documentElement;
   const pageTop = (n)=>{ let y=0; while(n){ y+=n.offsetTop; n=n.offsetParent; } return y; };
+  if(EMBED){ glide(Math.max(0, pageTop(el) - 10)); return; }
   document.body.style.paddingBottom='0px';
   const top = Math.max(0, pageTop(el) - 10);
   let need = Math.max(0, Math.ceil(top + window.innerHeight - se.scrollHeight));
@@ -504,6 +512,7 @@ function settleTo(el){
 }
 /* JS driven smooth scroll: reliable everywhere, honors reduced motion */
 function glide(to){
+  if(EMBED){ try{ parent.postMessage({scrollTo: Math.round(to)}, '*'); }catch(e){} return; }
   const from = window.scrollY, dist = to - from; if(Math.abs(dist) < 4) return;
   if(document.hidden || window.matchMedia('(prefers-reduced-motion: reduce)').matches){ window.scrollTo(0,to); return; }
   const dur = Math.min(650, 300 + Math.abs(dist) * 0.35), t0 = performance.now();
@@ -744,8 +753,8 @@ function renderContact(){
     const sms=`sms:${CTA_TEXT_NUMBER}?&body=${encodeURIComponent(body)}`;
     const mobile=/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
     if(mobile){
-      $('cdone').innerHTML=`<p style="margin-top:12px">${t('contact.sent',{name:S.contact.name||''})}</p><a class="btn" href="${sms}" style="display:block;text-align:center;text-decoration:none">${t('contact.button')}</a><p class="fine">${t('contact.fallback',{phone:'(864) 777-0688'})}</p><div class="draft">${body}</div>`;
-      setTimeout(()=>{ window.location.href=sms; },250);
+      $('cdone').innerHTML=`<p style="margin-top:12px">${t('contact.sent',{name:S.contact.name||''})}</p><a class="btn" href="${sms}" target="_top" style="display:block;text-align:center;text-decoration:none">${t('contact.button')}</a><p class="fine">${t('contact.fallback',{phone:'(864) 777-0688'})}</p><div class="draft">${body}</div>`;
+      setTimeout(()=>{ (EMBED?window.top:window).location.href=sms; },250);
     } else {
       let qr='';
       try{ const q=qrcode(0,'M'); q.addData(sms); q.make(); qr=q.createSvgTag({cellSize:4,margin:0,scalable:true}); }catch(e){ qr=''; }
@@ -798,7 +807,7 @@ function renderCTA(){
   const body = encodeURIComponent(t('result.headline',{utility:utilName(),n:'Two'})+'\n'+t('result.anchor',{lo:Math.max(1,Math.round(r.months[0])),hi:Math.max(1,Math.round(r.months[1]))})+'\n\n'+url);
   const sms = CTA_TEXT_NUMBER? `sms:${CTA_TEXT_NUMBER}?&body=${body}` : `sms:?&body=${body}`;
   const book = CTA_BOOK_URL && CTA_BOOK_URL!=='#book' ? `<a class="btn ghost" href="${CTA_BOOK_URL}" target="_blank" rel="noopener">${t('cta.book')}</a>` : '';
-  $('cta').innerHTML = `<a class="btn" href="mailto:?subject=${subject}&body=${body}">${t('cta.forward')}</a>${book}<button class="btn ghost" type="button" onclick="window.print()">${t('cta.print')}</button>`;
+  $('cta').innerHTML = `<a class="btn" href="mailto:?subject=${subject}&body=${body}" target="_top">${t('cta.forward')}</a>${book}<button class="btn ghost" type="button" onclick="window.print()">${t('cta.print')}</button>`;
 }
 
 /* ---------- deep link ---------- */
@@ -808,7 +817,7 @@ function shareURL(){
 }
 function loadURL(){
   const h=location.hash.slice(1); if(!h) return false; const p=new URLSearchParams(h); const z=p.get('z'); const stOnly=p.get('st');
-  if(z){ const r=resolveZip(z); if(!r) return false; S.zip=z; Object.assign(S,r); } else if(stOnly && C.states[stOnly]){ S.zip=''; S.state=stOnly; S.util=null; S.utilName=null; S.utilRate=C.states[stOnly].rate; } else return false;
+  if(z){ const r=resolveZip(z); if(!r) return false; S.zip=z; Object.assign(S,r); } else if(stOnly && C.states[stOnly]){ S.zip=''; S.state=stOnly; S.util=null; S.utilName=null; S.utilRate=C.states[stOnly].rate; } else { const f=p.get('f'); if(f && C.facilities[f]){ S.facility=f; S.hoursWeek=C.facilities[f].hoursFixed||null; } if(p.get('lang')==='es') S.lang='es'; return false; }
   S.facility=p.get('f')||null; S.billMonthly=p.get('b')?+p.get('b'):null; S.season=p.get('s')||null; S.occupancy=p.get('o')||null; S.heat=p.get('h')||null; S.hoursWeek=p.get('w')?+p.get('w'):(S.facility&&C.facilities[S.facility].hoursFixed)||null; S.locations=p.get('n')?+p.get('n'):1; if(p.get('lang')==='es')S.lang='es';
   const ageMap={u5:3,'5to10':7,'10to15':12,o15:17,unsure:10}; if(p.get('a') && ageMap[p.get('a')]!=null){ S.age={chip:p.get('a'),value:ageMap[p.get('a')],sure:p.get('a')!=='unsure'}; if(S.age.sure) S.nudges.age=S.age.value; }
   for(const [k,v] of p.entries()){ if(k.startsWith('x')) S.nudges[k.slice(1)]=+v; if(k.startsWith('l')&&k.length>1&&k!=='lang') S.lines[k.slice(1)]=(v==='1'); }
@@ -828,6 +837,7 @@ function render(){
   if(S.result && complete()) history.replaceState(null,'',shareURL());
 }
 $('lang').addEventListener('click',()=>{ S.lang = S.lang==='es'?'en':'es'; render(); });
+if(EMBED){ const post=()=>{ try{ parent.postMessage({height: document.documentElement.scrollHeight}, '*'); }catch(e){} }; if('ResizeObserver' in window) new ResizeObserver(post).observe(document.body); window.addEventListener('load', post); setInterval(post, 1500); }
 /* the printout shows the counted lines table open */
 let howWasOpen=false;
 window.addEventListener('beforeprint',()=>{ howWasOpen=$('how').open; $('how').open=true; });
