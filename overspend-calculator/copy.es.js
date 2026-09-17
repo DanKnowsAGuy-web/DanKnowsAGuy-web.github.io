@@ -246,7 +246,7 @@ window.EPCOPY_ES = {
   /* ---------- acciones ---------- */
   "cta.forward": "Envíe esto a quien paga la factura",
   "cta.how": "Vea cómo llegamos a este número",
-  "cta.book": "Agende una lectura de quince minutos de su factura real",
+  "cta.book": "Reserva quince minutos con Daniel",
   "cta.text": "Envíeme esta página por mensaje de texto",
   "cta.print": "Imprima la hoja resumen",
   "cta.reset": "Empezar de nuevo",

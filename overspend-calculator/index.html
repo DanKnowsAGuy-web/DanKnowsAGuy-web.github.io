@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<link rel="icon" type="image/svg+xml" href="../assets/favicon/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32.png">
-<link rel="apple-touch-icon" href="../assets/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="assets/favicon/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Energy+ Overspend Calculator</title>
 <meta name="description" content="Read your electric bill the way an energy strategist does. Four taps to the overspend in your building, in the order you would explain it to the owner.">
@@ -418,7 +418,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 /* ---------- config ---------- */
 const EMBED = new URLSearchParams(location.search).has("embed"); /* inside a landing page iframe */
 if(EMBED) document.documentElement.classList.add("embed");
-const CTA_BOOK_URL = "#book"; /* replace with the booking link; hidden while it is the placeholder */
+const CTA_BOOK_URL = "https://book.slashyourenergycost.com/"; /* booking scheduler; override locally via localStorage.setItem('ep_book_url', 'http://localhost:8792/') */
 const CTA_TEXT_NUMBER = "+18647770688";   /* Energy+ texting number */
 const LEAD_ENDPOINT = "https://formsubmit.co/ajax/dan@yourenergyplus.com"; /* every completed reading and every contact goes here (email) */
 const SHEET_ENDPOINT = ""; /* Google Apps Script web app URL (ends in /exec); every reading is also appended to the sheet. See ../backend/apps-script.gs */
@@ -788,7 +788,7 @@ function renderContact(){
   const msg=()=>t('contact.sms',{name:S.contact.name||'', facility:facLabel(S.facility).toLowerCase(), stateName:st.name, range:range(r.total), link});
   host.innerHTML=`<div class="name">${t('contact.title')}</div><p>${t('contact.lede')}</p>
   <div class="fields"><div><label for="cname">${t('contact.name')}</label><input id="cname" type="text" autocomplete="given-name" value="${(S.contact.name||'').replace(/"/g,'&quot;')}"></div><div><label for="cmobile">${t('contact.mobile')}</label><input id="cmobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 555-5555" value="${(S.contact.mobile||'').replace(/"/g,'&quot;')}"></div><div><button class="btn" id="csend" type="button">${t('contact.button')}</button></div></div>
-  <p class="fine">${t('contact.privacy')}</p><div id="cdone"></div>`;
+  <p class="fine">${t('contact.privacy')}</p><a class="btn" href="${bookURL()}" target="_top" style="display:block;text-align:center;text-decoration:none;margin-top:12px">${t('cta.book')}</a><div id="cdone"></div>`;
   $('csend').addEventListener('click',()=>{
     S.contact.name=$('cname').value.trim(); S.contact.mobile=$('cmobile').value.trim();
     const body=msg();
@@ -844,13 +844,35 @@ function renderHow(){
   $('howbody').innerHTML = `<p>${t('how.intro')}</p><p>${t('how.hvac',{cooling:pct(r.hvac.cooling/r.annual),vent:pct(r.hvac.vent/r.annual),heat:pct(r.hvac.heat/r.annual),stateName:st.name})}</p><p>${t('how.stack')}</p><p>${t('how.cap',{capPct:pct(r.buckets.equipment.cap[1]/r.annual)})}</p><h4>${t('how.counted')}</h4><table>${head}${lines.join('')}</table>`+(more.length?`<h4>${t('more.title')}</h4><p>${t('how.optional')}</p><table>${head}${more.join('')}</table>`:'');
   $('howbody').querySelectorAll('[data-line]').forEach(cb=>cb.addEventListener('change',()=>{ S.lines[cb.dataset.line]=cb.checked; const open=$('how').open; render(); $('how').open=open; }));
 }
+function bookURL(){
+  const r=S.result; const fac = S.facility ? C.facilities[S.facility] : null;
+  const p=new URLSearchParams();
+  p.set('src','calc');
+  if(S.facility) p.set('f',S.facility);
+  if(S.billMonthly) p.set('b',S.billMonthly);
+  if(S.locations) p.set('n',S.locations);
+  if(S.zip) p.set('z',S.zip);
+  if(S.state) p.set('st',S.state);
+  if(r && r.total){ p.set('est_lo',Math.round(r.total[0])); p.set('est_hi',Math.round(r.total[1])); }
+  if(S.season) p.set('s',S.season);
+  if(S.occupancy) p.set('o',S.occupancy);
+  if(S.heat) p.set('h',S.heat);
+  const hoursWeek = S.hoursWeek || (fac&&fac.hoursFixed) || (fac&&fac.hoursChips?fac.hoursChips[1]:60);
+  if(hoursWeek) p.set('w',hoursWeek);
+  if(S.age) p.set('a',S.age.chip);
+  const util = (S.util&&S.util.name) || S.utilName || '';
+  if(util) p.set('util',util);
+  if(S.lang==='es') p.set('lang','es');
+  if(S.contact.name) p.set('name',S.contact.name);
+  if(S.contact.mobile) p.set('phone',S.contact.mobile);
+  const base = (typeof localStorage!=='undefined' && localStorage.getItem('ep_book_url')) || CTA_BOOK_URL;
+  return base + (base.includes('?')?'&':'?') + p.toString();
+}
 function renderCTA(){
   const url = shareURL(); const r=S.result;
   const subject = encodeURIComponent((S.lang==='es'?'Sobrecosto de energía: ':'Energy overspend: ')+range(r.total)+' '+t('label.year'));
   const body = encodeURIComponent(t('result.headline',{utility:utilName(),n:'Two'})+'\n'+t('result.anchor',{lo:Math.max(1,Math.round(r.months[0])),hi:Math.max(1,Math.round(r.months[1]))})+'\n\n'+url);
-  const sms = CTA_TEXT_NUMBER? `sms:${CTA_TEXT_NUMBER}?&body=${body}` : `sms:?&body=${body}`;
-  const book = CTA_BOOK_URL && CTA_BOOK_URL!=='#book' ? `<a class="btn ghost" href="${CTA_BOOK_URL}" target="_blank" rel="noopener">${t('cta.book')}</a>` : '';
-  $('cta').innerHTML = `<a class="btn" href="mailto:?subject=${subject}&body=${body}" target="_top">${t('cta.forward')}</a>${book}<button class="btn ghost" type="button" onclick="window.print()">${t('cta.print')}</button>`;
+  $('cta').innerHTML = `<a class="btn" href="${bookURL()}" target="_top">${t('cta.book')}</a><a class="btn ghost" href="mailto:?subject=${subject}&body=${body}" target="_top">${t('cta.forward')}</a><button class="btn ghost" type="button" onclick="window.print()">${t('cta.print')}</button>`;
 }
 
 /* ---------- deep link ---------- */

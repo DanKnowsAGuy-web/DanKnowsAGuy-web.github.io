@@ -258,7 +258,7 @@ window.EPCOPY_EN = {
   /* ---------- actions ---------- */
   "cta.forward": "Send this to whoever pays the bill",
   "cta.how": "See how we got this",
-  "cta.book": "Book a fifteen minute read of your actual bill",
+  "cta.book": "Book fifteen minutes with Daniel",
   "cta.text": "Text me this page",
   "cta.print": "Print the one pager",
   "cta.reset": "Start over",
