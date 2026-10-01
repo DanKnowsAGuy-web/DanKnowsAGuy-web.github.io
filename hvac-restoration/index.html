@@ -77,6 +77,11 @@ th:first-child,td:first-child{text-align:left;font-family:var(--font-sans)}
 tr.pb td{background:var(--amber-wash);font-weight:700}
 .note{font-size:1.05rem;color:var(--body-c);max-width:75ch;margin:0;line-height:1.6}
 .note b{color:var(--ink)}
+.legal{display:grid;gap:12px;padding-block:8px 0;border-top:1.5px solid var(--rule);margin-top:8px}
+.legal h2{font-size:1.15rem;border-top:0;padding-top:16px;margin:0;color:var(--ink)}
+.legal ol{margin:0;padding-left:1.4em;display:grid;gap:10px}
+.legal li,.legal p{font-size:.95rem;line-height:1.6;color:var(--faint);max-width:90ch;margin:0}
+.legal b{color:var(--body-c)}
 .contact{font-family:var(--font-mono);font-weight:600;color:var(--petrol);user-select:all}
 </style>
 </head>
@@ -155,9 +160,24 @@ tr.pb td{background:var(--amber-wash);font-weight:700}
   <section class="panel" aria-label="Year by year">
     <h2>Year by year</h2>
     <div class="tablewrap"><table id="years"></table></div>
-    <p class="note">Savings grow each year with the rate increase you set. Estimates use your inputs and the CryoGenX4 capacity recovery model by unit age. Your proposal is built from your actual bills and equipment list.</p>
+    <p class="note">Savings grow each year with the rate increase you set. Estimates use your inputs and a capacity recovery model based on unit age. Your proposal is built from your actual bills and equipment list.</p>
     <p class="note">Questions? Text Dan at <span class="contact">(864) 777-0688</span></p>
   </section>
+  <footer class="legal" aria-label="Important disclosures">
+    <h2>Important disclosures</h2>
+    <ol>
+      <li><b>Estimates only.</b> This calculator is for general information. Every figure it shows, including savings, investment, payback, net return and return per dollar, is an illustrative estimate built from the inputs you enter and our assumptions. It is not an offer, quote, warranty or guarantee of any result.</li>
+      <li><b>Assumptions.</b> Results assume the run hours, rates, equipment counts, tonnage and unit ages you enter, a capacity recovery rate based on unit age, and the yearly rate increase you select, applied to each year. Savings are held steady from year to year apart from that rate increase. Actual electric rates, weather, occupancy, operating schedules, equipment condition and maintenance will differ and will change results.</li>
+      <li><b>Pricing and terms.</b> The investment shown is a modeled figure, not a price quote. Pricing, minimum order size, scope, schedule and all other terms are set only in a signed written agreement, which governs over anything shown here. Eligibility is determined after a review of your bills and equipment.</li>
+      <li><b>Your results will vary.</b> Actual savings depend on equipment type, age and condition, refrigerant and oil condition, climate, usage and installation. Your results may be lower or higher than the estimates shown. Prior or modeled results do not predict future performance.</li>
+      <li><b>Measurement and verification.</b> Where measurement and verification is performed, it confirms results for that specific site and period only and does not guarantee results at any other site or in any future period.</li>
+      <li><b>Equipment and warranties.</b> Statements about equipment performance assume proper installation, operation and maintenance and are not a warranty. Check your equipment manufacturer's warranty terms before any service. Warranty terms from Energy Plus, if any, are provided separately in writing.</li>
+      <li><b>Third party products.</b> Certain technologies are manufactured or supplied by third parties. All product names and trademarks are the property of their respective owners.</li>
+      <li><b>Forward looking statements.</b> Statements about future savings and outcomes are forward looking and uncertain. Actual results may differ materially.</li>
+      <li><b>Not professional advice.</b> Nothing here is engineering, financial, tax, accounting or legal advice. A formal assessment of your facilities is required before any specific recommendation, scope or projected result can be provided.</li>
+    </ol>
+    <p>Effective October 1, 2026. © 2026 Energy Plus. All rights reserved.</p>
+  </footer>
 </div>
 
 <script>
