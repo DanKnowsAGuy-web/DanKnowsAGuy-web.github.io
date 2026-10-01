@@ -44,6 +44,12 @@ h2:first-child{margin-top:0;padding-top:0;border-top:0}
 .row label{font-weight:600;font-size:1.1rem;color:var(--ink)}
 .val{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-weight:600;font-size:1.3rem;color:var(--petrol);white-space:nowrap}
 .hint{font-size:1rem;color:var(--faint);line-height:1.5}
+.entry{display:flex;align-items:baseline;gap:8px}
+.num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-weight:600;font-size:1.25rem;color:var(--petrol);background:var(--card);border:1.5px solid var(--rule);border-radius:6px;padding:6px 10px;width:7ch;text-align:right;min-height:46px;-moz-appearance:textfield}
+.num::-webkit-outer-spin-button,.num::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.num:hover{border-color:var(--petrol)}
+.num:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-color:var(--petrol)}
+.suffix{font-size:1rem;color:var(--faint);white-space:nowrap}
 input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:32px;background:transparent;margin:0;cursor:pointer}
 input[type=range]::-webkit-slider-runnable-track{height:10px;border-radius:5px;background:var(--rule)}
 input[type=range]::-moz-range-track{height:10px;border-radius:5px;background:var(--rule)}
@@ -115,7 +121,7 @@ tr.pb td{background:var(--amber-wash);font-weight:700}
       <h2>Your equipment</h2>
       <div class="row">
         <div class="top"><label for="units">Number of units</label><span class="val" id="unitsV"></span></div>
-        <input type="range" id="units" min="1" max="1500" step="1" value="200">
+        <input type="range" id="units" min="1" max="1500" step="1" value="200" data-max="50000">
       </div>
       <div class="row">
         <div class="top"><label for="tpu">Average tons per unit</label><span class="val" id="tpuV"></span></div>
@@ -159,7 +165,10 @@ tr.pb td{background:var(--amber-wash);font-weight:700}
   var C=[0,.03,.065,.093,.118,.136,.155,.175,.188,.207,.216,.226,.231,.236,.242,.242,.242,.242,.242,.242,.242,.242,.242,.242,.242,.242];
   var P={y:2,f:110,m:6000,c:Infinity,t:36};
   var $=function(i){return document.getElementById(i)};
-  var v=function(i){return parseFloat($(i).value)};
+  var IDS=["rate","esc","hpd","dpw","wks","units","tpu","age"];
+  var SUF={rate:"¢/kWh",esc:"% a year",hpd:"hrs a day",dpw:"days",wks:"weeks",units:"units",tpu:"tons",age:"years"};
+  var VAL={};
+  var v=function(i){return VAL[i]};
   var usd=function(n){return (n<0?"-$":"$")+Math.round(Math.abs(n)).toLocaleString("en-US")};
   var num=function(n,d){return n.toLocaleString("en-US",{maximumFractionDigits:d||0})};
   function pay(cost,s1,e){
@@ -176,15 +185,7 @@ tr.pb td{background:var(--amber-wash);font-weight:700}
     var ten=0;for(var j=0;j<10;j++)ten+=s1*Math.pow(1+e,j);
     var pb=pay(inv,s1,e);
 
-    $("rateV").textContent=num(rate,1)+"¢/kWh";
-    $("escV").textContent=num(e*100,1)+"% a year";
-    $("hpdV").textContent=num(hpd,1)+" hrs";
-    $("dpwV").textContent=dpw+" days";
-    $("wksV").textContent=wks+" weeks";
     $("hrsV").textContent=num(hrs);
-    $("unitsV").textContent=num(units);
-    $("tpuV").textContent=num(tpu,1)+" tons";
-    $("ageV").textContent=age+(age===1?" year":" years");
     $("tonsV").textContent=num(t);
 
     $("ten").textContent=usd(ten);
@@ -208,7 +209,23 @@ tr.pb td{background:var(--amber-wash);font-weight:700}
     }
     $("years").innerHTML=h+"</tbody>";
   }
-  ["rate","esc","hpd","dpw","wks","units","tpu","age"].forEach(function(i){$(i).addEventListener("input",update)});
+  IDS.forEach(function(i){
+    var r=$(i),span=$(i+"V");
+    var lo=parseFloat(r.min),hi=parseFloat(r.dataset.max||r.max);
+    VAL[i]=parseFloat(r.value);
+    var wrap=document.createElement("span");wrap.className="entry";
+    var n=document.createElement("input");
+    n.type="number";n.className="num";n.id=i+"N";n.min=lo;n.max=hi;n.step=r.step;n.value=VAL[i];n.inputMode="decimal";
+    n.setAttribute("aria-label",r.parentNode.querySelector("label").textContent);
+    var s=document.createElement("span");s.className="suffix";s.textContent=SUF[i];
+    wrap.appendChild(n);wrap.appendChild(s);span.replaceWith(wrap);
+    r.addEventListener("input",function(){VAL[i]=parseFloat(r.value);n.value=VAL[i];update()});
+    n.addEventListener("input",function(){
+      var x=parseFloat(n.value);if(isNaN(x))return;
+      x=Math.min(hi,Math.max(lo,x));VAL[i]=x;r.value=Math.min(x,parseFloat(r.max));update();
+    });
+    n.addEventListener("change",function(){n.value=VAL[i]});
+  });
   update();
 })();
 </script>
