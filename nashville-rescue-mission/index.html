@@ -171,6 +171,11 @@ html.locked body>header,html.locked main,html.locked footer{display:none}
 .gate__card input:focus{outline:2px solid var(--petrol);outline-offset:2px}
 .gate__card .btn{width:100%;margin-top:1rem}
 .gate__err{color:#8a2c0d;margin-top:.75rem;min-height:1.5em;font-size:1.02rem}
+
+/* hero photo */
+.hero--photo{position:relative;background-color:var(--petrol);background-image:linear-gradient(100deg,rgb(23 78 88/.96) 0%,rgb(23 78 88/.90) 45%,rgb(23 78 88/.62) 100%),var(--hero-img);background-size:cover;background-position:center}
+.hero--photo .readout{background:rgb(16 40 46/.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.foot__credit{margin-top:.75rem;font-size:.9rem}
 </style>
 <script>try{if(sessionStorage.getItem('nrm-ok')!=='1')document.documentElement.classList.add('locked')}catch(e){document.documentElement.classList.add('locked')}</script>
 </head>
@@ -197,7 +202,7 @@ html.locked body>header,html.locked main,html.locked footer{display:none}
 
 <main>
 <!-- HERO -->
-<section class="hero">
+<section class="hero hero--photo" style="--hero-img:url('https://nashvillerescuemission.org/content/uploads/2024/01/WomensRescueMission102423_324-Enhanced-NR-2.jpg')">
   <div class="wrap hero__grid">
     <div>
       <h1>Every dollar saved on energy becomes a meal.</h1>
@@ -381,6 +386,7 @@ html.locked body>header,html.locked main,html.locked footer{display:none}
     <img src="energy-plus-lockup-ink.svg" alt="Energy Plus">
     <p class="foot__tag">Run better. Spend less. Proven before it&rsquo;s installed.</p>
     <p class="foot__note" id="note"><strong>* Your building sets your number.</strong> Every figure on this page, including savings, meals, maintenance, equipment life, and cash flow timing, is an estimate based on public information and typical results from other buildings under their own conditions. Weather, equipment age and condition, occupancy, operating hours, and utility rates all change the outcome, so set expectations only by your own buildings. The 10-year figure assumes energy rates rise 4% a year (commercial rates rose 4.3% nationally last year). Meals use the Mission&rsquo;s published $3.11 per meal. Incentive and financing availability depends on the project and is confirmed before any commitment. That is why we measure your buildings and prove the savings on site before you commit.</p>
+    <p class="foot__credit">Hero photo: Nashville Rescue Mission.</p>
   </div>
 </footer>
 
