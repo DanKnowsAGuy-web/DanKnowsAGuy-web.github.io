@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Coffee Franchise Energy Proposal</title>
+<link rel="stylesheet" href="fonts/report-fonts.css">
+<style>
+:root{
+  --petrol:#174e58; --petrol-2:#1f5c67; --ochre:#e0a21c; --ochre-wash:#fbf1d9;
+  --paper:#f3f5f6; --paper-2:#e9edf0; --card:#ffffff;
+  --ink:#101416; --body:#3b4347; --faint:#6b747a; --rule:#d3d9dd; --dark-body:#e6eff0;
+  --sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Geist Mono",ui-monospace,"Cascadia Mono",monospace;
+  --r-card:20px; --r-pill:999px; --wrap:1120px;
+  --h1:clamp(2.6rem,1.8rem + 3.4vw,4.6rem);
+  --h2:clamp(2.1rem,1.6rem + 2.2vw,3.3rem);
+  --sub:clamp(1.25rem,1.1rem + .6vw,1.55rem);
+  --text:clamp(1.15rem,1.08rem + .3vw,1.3rem);
+  --fig:clamp(3.2rem,2.2rem + 4.4vw,6rem);
+  --section:clamp(4.5rem,3rem + 6vw,8.5rem);
+  --ease:cubic-bezier(.19,1,.22,1);
+  --shadow:0 1px 0 rgb(16 20 22/.04),0 20px 44px -24px rgb(16 20 22/.28);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--body);font-family:var(--sans);font-size:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{color:var(--ink);font-weight:700;font-stretch:112%;line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h3{font-stretch:100%;font-weight:600;letter-spacing:-.01em;font-size:clamp(1.4rem,1.2rem + .8vw,1.85rem);line-height:1.15}
+p{margin:0;max-width:60ch;text-wrap:pretty}
+strong{color:var(--ink);font-weight:600}
+a{color:inherit}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:clamp(1.25rem,4vw,2rem)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+section{padding-block:var(--section)}
+.intro{display:grid;gap:1.1rem;margin-bottom:clamp(2.25rem,4vw,3.5rem)}
+.intro h2{font-size:var(--h2)}
+.intro p{font-size:var(--sub);color:var(--body)}
+.fn{font-family:var(--mono);font-size:.7em;vertical-align:super;line-height:0;margin-left:.1em;text-decoration:none;color:inherit;opacity:.8}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:20;background:rgb(243 245 246/.88);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--rule)}
+.bar__in{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:68px}
+.bar img{height:30px;width:auto;display:block}
+.bar__for{font-size:1rem;color:var(--faint);display:none}
+@media (min-width:760px){.bar__for{display:block}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;min-height:56px;padding:.95rem 1.7rem;border-radius:var(--r-pill);background:var(--petrol);color:#fff;border:1px solid var(--petrol);font:600 1.1rem/1 var(--sans);text-decoration:none;cursor:pointer;transition:transform .2s var(--ease),background .2s}
+.btn:hover{background:var(--petrol-2);transform:translateY(-1px)}
+.btn--light{background:#fff;color:var(--petrol);border-color:#fff}
+.btn--light:hover{background:var(--paper)}
+.btn--sm{min-height:46px;padding:.7rem 1.25rem;font-size:1rem}
+.tlink{font-weight:600;font-size:1.1rem;text-underline-offset:.25em}
+
+/* hero (petrol, instrument moment) */
+.hero{background:var(--petrol);color:var(--dark-body);padding-block:clamp(4rem,3rem + 5vw,7.5rem) clamp(4rem,3rem + 5vw,7rem)}
+.hero h1{color:#fff;font-size:var(--h1);max-width:16ch}
+.hero__sub{font-size:var(--sub);margin-top:1.4rem;color:var(--dark-body);max-width:46ch}
+.hero__grid{display:grid;gap:clamp(2.5rem,5vw,4rem);align-items:end}
+@media (min-width:980px){.hero__grid{grid-template-columns:1.25fr 1fr}}
+.readout{background:rgb(255 255 255/.06);border:1px solid rgb(255 255 255/.18);border-radius:var(--r-card);padding:clamp(1.5rem,3vw,2.25rem)}
+.readout__label{font-size:1.05rem;color:var(--dark-body)}
+.readout__fig{font-family:var(--mono);font-size:var(--fig);line-height:1;color:var(--ochre);margin:.6rem 0 .5rem;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.readout__line{font-size:1.05rem;color:var(--dark-body);border-top:1px solid rgb(255 255 255/.18);padding-top:.9rem;margin-top:1rem}
+.readout__line .mono{color:#fff}
+.hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.5rem;margin-top:2.2rem}
+.hero__cta .tlink{color:#fff}
+
+/* facts strip */
+.facts{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.fact{background:var(--card);border-radius:var(--r-card);padding:1.6rem 1.5rem;box-shadow:var(--shadow)}
+.fact__fig{font-family:var(--mono);font-size:clamp(2.2rem,1.8rem + 1.6vw,3rem);color:var(--ink);line-height:1;letter-spacing:-.02em}
+.fact__cap{margin-top:.7rem;font-size:1.05rem}
+.drains{display:grid;gap:1rem;margin-top:1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.drain{background:var(--card);border-radius:var(--r-card);padding:1.75rem 1.6rem;box-shadow:var(--shadow);border-top:3px solid var(--petrol)}
+.drain p{margin-top:.6rem}
+
+/* calculator */
+.calc{display:grid;gap:1.25rem}
+@media (min-width:980px){.calc{grid-template-columns:1fr 1.05fr;align-items:stretch}}
+.panel{background:var(--card);border-radius:var(--r-card);box-shadow:var(--shadow);padding:clamp(1.5rem,3vw,2.25rem)}
+.ctl+.ctl{margin-top:2.25rem;padding-top:2rem;border-top:1px solid var(--rule)}
+.ctl__top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.ctl__name{font-weight:600;color:var(--ink);font-size:1.2rem}
+.ctl__val{font-family:var(--mono);font-size:clamp(1.8rem,1.5rem + 1vw,2.3rem);color:var(--ink);font-variant-numeric:tabular-nums}
+.ctl__help{font-size:1.02rem;color:var(--faint);margin-top:.35rem}
+.ctl__ends{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.95rem;color:var(--faint);margin-top:.4rem}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin-top:1rem;cursor:pointer;--p:50%}
+input[type=range]::-webkit-slider-runnable-track{height:8px;border-radius:8px;background:linear-gradient(to right,var(--petrol) 0 var(--p),var(--paper-2) var(--p) 100%)}
+input[type=range]::-moz-range-track{height:8px;border-radius:8px;background:var(--paper-2)}
+input[type=range]::-moz-range-progress{height:8px;border-radius:8px;background:var(--petrol)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;background:#fff;border:3px solid var(--petrol);margin-top:-13px;box-shadow:0 4px 12px -4px rgb(16 20 22/.4)}
+input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:#fff;border:3px solid var(--petrol);box-shadow:0 4px 12px -4px rgb(16 20 22/.4)}
+input[type=range]:focus-visible{outline:2px solid var(--petrol);outline-offset:4px;border-radius:8px}
+.note{margin-top:2rem;padding:1rem 1.2rem;background:var(--paper);border-radius:12px;font-size:1.02rem;color:var(--body)}
+
+.result{background:var(--petrol);color:var(--dark-body)}
+.result__label{font-size:1.1rem}
+.result__fig{font-family:var(--mono);font-size:var(--fig);line-height:1;color:var(--ochre);margin:.6rem 0 .3rem;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.result__sub{font-size:1.15rem;color:#fff}
+.rows{margin-top:1.75rem;display:grid}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:1rem 0;border-top:1px solid rgb(255 255 255/.18)}
+.row__k{font-size:1.08rem;color:var(--dark-body);max-width:24ch}
+.row__v{font-family:var(--mono);font-size:clamp(1.4rem,1.2rem + .7vw,1.8rem);color:#fff;text-align:right;font-variant-numeric:tabular-nums}
+.meter{margin-top:1.5rem}
+.meter__track{height:12px;border-radius:12px;background:rgb(255 255 255/.14);overflow:hidden}
+.meter__fill{height:100%;width:0;background:var(--ochre);border-radius:12px;transition:width .6s var(--ease)}
+.meter__cap{font-size:1.02rem;margin-top:.6rem;color:var(--dark-body)}
+
+/* per-building plans */
+.plans{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.plan{background:var(--card);border-radius:var(--r-card);box-shadow:var(--shadow);padding:clamp(1.6rem,3vw,2.25rem);display:flex;flex-direction:column;gap:.9rem}
+.plan__where{font-size:1rem;color:var(--faint)}
+.plan ul{margin:.3rem 0 0;padding:0;list-style:none;display:grid;gap:.75rem}
+.plan li{padding-left:1.4rem;position:relative}
+.plan li::before{content:"";position:absolute;left:0;top:.62em;width:.6rem;height:2px;background:var(--petrol)}
+.plan__first{margin-top:auto;padding-top:1rem;border-top:1px solid var(--rule);font-size:1.02rem}
+
+/* benefits */
+.bens{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.ben{background:var(--card);border-radius:var(--r-card);box-shadow:var(--shadow);padding:1.6rem 1.5rem}
+.ben__fig{font-family:var(--mono);font-size:clamp(2rem,1.7rem + 1.2vw,2.6rem);color:var(--ink);line-height:1}
+.ben p{margin-top:.7rem;font-size:1.05rem}
+
+/* funding */
+.fund{display:grid;gap:1.25rem}
+@media (min-width:900px){.fund{grid-template-columns:repeat(3,1fr)}}
+.step{background:var(--card);border-radius:var(--r-card);box-shadow:var(--shadow);padding:clamp(1.6rem,3vw,2rem)}
+.step__n{font-family:var(--mono);font-size:1rem;color:var(--petrol);border-bottom:1px solid var(--rule);padding-bottom:.6rem;margin-bottom:1rem}
+.step p{margin-top:.6rem}
+.promise{max-width:none;margin-top:1.25rem;background:var(--card);border-radius:var(--r-card);box-shadow:var(--shadow);padding:clamp(1.6rem,3vw,2.25rem);border-left:4px solid var(--petrol);font-size:var(--sub);color:var(--ink);font-weight:500}
+
+/* proof */
+.proof{display:grid;gap:1.25rem}
+@media (min-width:900px){.proof{grid-template-columns:1fr 1fr}}
+
+/* close */
+.close{background:var(--petrol);color:var(--dark-body);text-align:center}
+.close h2{color:#fff;font-size:var(--h2);max-width:20ch;margin-inline:auto}
+.close p{margin:1.25rem auto 0;font-size:var(--sub);max-width:48ch}
+.close__steps{list-style:none;padding:0;margin:2.5rem auto 0;display:grid;gap:.8rem;max-width:560px;text-align:left}
+.close__steps li{display:flex;gap:1rem;align-items:baseline;background:rgb(255 255 255/.06);border:1px solid rgb(255 255 255/.16);border-radius:14px;padding:1rem 1.2rem}
+.close__steps .mono{color:var(--ochre)}
+.close__cta{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:1rem 1.5rem;margin-top:2.5rem}
+.close__cta .tlink{color:#fff}
+
+footer{padding-block:3rem 4rem;font-size:1rem;color:var(--faint)}
+footer img{height:26px;width:auto;margin-bottom:1rem}
+.foot__tag{color:var(--ink);font-weight:600}
+.foot__note{margin-top:1.5rem;max-width:80ch}
+.foot__note strong{color:var(--ink)}
+
+/* reveal */
+.rv{opacity:1}
+.anim .rv{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.anim .rv.in{opacity:1;transform:none}
+
+/* light password gate */
+.gate{display:none}
+html.locked .gate{display:flex;position:fixed;inset:0;z-index:100;background:var(--petrol);align-items:center;justify-content:center;padding:1.25rem}
+html.locked body>header,html.locked main,html.locked footer{display:none}
+.gate__card{background:#fff;border-radius:var(--r-card);padding:clamp(1.75rem,4vw,2.75rem);width:min(100%,460px);box-shadow:var(--shadow)}
+.gate__card img{height:30px;width:auto;margin-bottom:1.5rem}
+.gate__card h1{font-size:clamp(1.8rem,1.5rem + 1.2vw,2.3rem)}
+.gate__card p{margin-top:.75rem;color:var(--body)}
+.gate__card label{display:block;margin-top:1.5rem;font-weight:600;color:var(--ink)}
+.gate__card input{width:100%;margin-top:.5rem;min-height:56px;padding:.8rem 1rem;font:inherit;font-size:1.2rem;border:1px solid var(--rule);border-radius:12px;background:var(--paper)}
+.gate__card input:focus{outline:2px solid var(--petrol);outline-offset:2px}
+.gate__card .btn{width:100%;margin-top:1rem}
+.gate__err{color:#8a2c0d;margin-top:.75rem;min-height:1.5em;font-size:1.02rem}
+
+.supply{margin-top:1.25rem;background:var(--card);border-radius:var(--r-card);box-shadow:var(--shadow);padding:clamp(1.6rem,3vw,2.25rem)}
+.supply p{margin-top:.6rem}
+
+/* hero photo */
+.hero--photo{position:relative;background-color:var(--petrol);background-image:linear-gradient(100deg,rgb(23 78 88/.96) 0%,rgb(23 78 88/.90) 45%,rgb(23 78 88/.62) 100%),var(--hero-img);background-size:cover;background-position:center}
+.hero--photo .readout{background:rgb(16 40 46/.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.foot__credit{margin-top:.75rem;font-size:.9rem}
+</style>
+<script>try{if(sessionStorage.getItem('ab-ok')!=='1')document.documentElement.classList.add('locked')}catch(e){document.documentElement.classList.add('locked')}</script>
+</head>
+<body>
+<div class="gate" role="dialog" aria-modal="true" aria-labelledby="gate-h">
+  <form class="gate__card" id="gate-form">
+    <img src="energy-plus-lockup-ink.svg" alt="Energy Plus">
+    <h1 id="gate-h">An energy proposal for your stores</h1>
+    <p>Enter the password you were given to view it.</p>
+    <label for="gate-pw">Password</label>
+    <input id="gate-pw" type="password" autocomplete="off" autocapitalize="none" spellcheck="false">
+    <button class="btn" type="submit">View the proposal</button>
+    <p class="gate__err" id="gate-err" aria-live="polite"></p>
+  </form>
+</div>
+
+<header class="bar">
+  <div class="wrap bar__in">
+    <img src="energy-plus-lockup-ink.svg" alt="Energy Plus">
+    <span class="bar__for">Prepared for a Tim Hortons franchisee</span>
+    <a class="btn btn--sm" href="#next">Next steps</a>
+  </div>
+</header>
+
+<main>
+<section class="hero hero--photo" style="--hero-img:url('https://images.unsplash.com/photo-1511018556340-d16986a1c194?w=2000&q=70&fm=jpg&fit=crop')">
+  <div class="wrap hero__grid">
+    <div>
+      <h1>Every dollar saved on energy is a dollar you don&rsquo;t have to sell.</h1>
+      <p class="hero__sub">Your stores open early, bake all day, and keep walk-ins cold around the clock. We find the energy overspend in every location, fix it, and the savings drop straight to your bottom line, with no capital needed to start.<a class="fn" href="#note">*</a></p>
+      <div class="hero__cta">
+        <a class="btn btn--light" href="#calc">See your numbers</a>
+        <a class="tlink" href="sms:+18647770688">or text Dan</a>
+      </div>
+    </div>
+    <div class="readout rv" aria-live="polite">
+      <div class="readout__label">Sales it would take to earn the same</div>
+      <div class="readout__fig" data-out="sales">0</div>
+      <div class="readout__line">From <span class="mono" data-out="annual">$0</span> a year in estimated savings, at a 10% profit margin.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="intro rv">
+      <h2>Small stores, heavy loads.</h2>
+      <p>A coffee and bakery store packs a lot of equipment into about 1,600 square feet. That makes energy one of the few costs you can cut without touching the guest experience.</p>
+    </div>
+    <div class="facts rv"><div class="fact"><div class="fact__fig">1,600</div><p class="fact__cap">square feet, give or take</p></div><div class="fact"><div class="fact__fig">All day</div><p class="fact__cap">baking, brewing, and keeping things cold</p></div><div class="fact"><div class="fact__fig">Every</div><p class="fact__cap">store runs the same playbook</p></div><div class="fact"><div class="fact__fig">$1</div><p class="fact__cap">saved is $10 earned in sales</p></div></div>
+    <div class="drains rv"><div class="drain"><h3>Walk-in coolers and freezers</h3><p>Compressors run all day and night. Dirty coils and worn parts make them work harder than they need to.</p></div><div class="drain"><h3>Ovens and baking</h3><p>Baking all day drives up your peak demand charge, which is set by your single busiest moment.</p></div><div class="drain"><h3>HVAC and the drive-thru window</h3><p>Heating and cooling fight hot ovens and an open window all day, in a climate that swings hard.</p></div></div>
+  </div>
+</section>
+
+<section id="calc" style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="intro rv">
+      <h2>Move the numbers that matter.</h2>
+      <p>We haven&rsquo;t seen your bills yet, so start with an estimate. Slide your energy spend, your number of stores, and our savings range.</p>
+    </div>
+    <div class="calc rv">
+      <div class="panel">
+        <div class="ctl">
+          <div class="ctl__top"><span class="ctl__name">Monthly energy spend per store</span><span class="ctl__val" data-out="billv">$0</span></div>
+          <p class="ctl__help">Electric and natural gas, one average store.</p>
+          <input type="range" id="bill" min="1500" max="10000" step="250" value="4000" aria-label="Monthly energy spend per store">
+          <div class="ctl__ends"><span>$1.5K</span><span>$10K</span></div>
+        </div>
+        <div class="ctl">
+          <div class="ctl__top"><span class="ctl__name">Number of stores</span><span class="ctl__val" data-out="sitesv">3</span></div>
+          <input type="range" id="sites" min="1" max="20" step="1" value="3" aria-label="Number of stores">
+          <div class="ctl__ends"><span>1</span><span>20</span></div>
+        </div>
+        <div class="ctl">
+          <div class="ctl__top"><span class="ctl__name">Savings we deliver</span><span class="ctl__val" data-out="pct">20%</span></div>
+          <p class="ctl__help">We start you at 20% because we&rsquo;d rather under-promise. Buildings like yours often do better.</p>
+          <input type="range" id="pct" min="10" max="35" step="1" value="20" aria-label="Savings percentage">
+          <div class="ctl__ends"><span>10%</span><span>35%</span></div>
+        </div>
+        <p class="note">These are estimates until we see 12 months of your bills. All figures are in Canadian dollars.</p>
+      </div>
+      <div class="panel result" aria-live="polite">
+        <div class="result__label">Estimated savings each year</div>
+        <div class="result__fig" data-out="annual">$0</div>
+        <div class="result__sub">That is <span class="mono" data-out="sales">$0</span> in sales you don&rsquo;t have to make.</div>
+        <div class="rows"><div class="row"><span class="row__k">Saved per store, each year</span><span class="row__v" data-out="persite">0</span></div><div class="row"><span class="row__k">Saved each month, all stores</span><span class="row__v" data-out="permonth">0</span></div><div class="row"><span class="row__k">Saved over 10 years, as rates rise</span><span class="row__v" data-out="ten">0</span></div><div class="row"><span class="row__k">Sales equivalent over 10 years</span><span class="row__v" data-out="tensales">0</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="intro rv">
+      <h2>One playbook, every store.</h2>
+      <p>Your stores are built the same, so the plan is too. We prove it in one store, then roll it out to the rest.</p>
+    </div>
+    <div class="plans rv"><article class="plan"><span class="plan__where">Step one</span><h3>A pilot store</h3><p>We measure one store before and after, the same day.</p><ul><li>Heating and cooling optimization on existing units</li><li>Electric panel harmonization to cut wasted power</li><li>Coil work on walk-in coolers and freezers</li><li>Peak demand management for the morning rush</li></ul><p class="plan__first"><strong>Where we start.</strong> One store, measured, so you see real numbers first.</p></article><article class="plan"><span class="plan__where">Step two</span><h3>Every other store</h3><p>Once the pilot proves out, the same work goes into each location.</p><ul><li>Same equipment, same install, same checklist</li><li>Each store measured and documented</li><li>One proposal covering all locations</li><li>Savings tracked store by store</li></ul><p class="plan__first"><strong>Next.</strong> Scale what worked, with no guesswork.</p></article></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="intro rv"><h2>The savings don&rsquo;t stop at the bill.</h2></div>
+    <div class="bens rv">
+      <div class="ben"><div class="ben__fig">Up to 40%</div><p>less spent on maintenance and repair calls.<a class="fn" href="#note">*</a></p></div>
+      <div class="ben"><div class="ben__fig">5 to 15 yrs</div><p>of added life for the equipment you already own.<a class="fn" href="#note">*</a></p></div>
+      <div class="ben"><div class="ben__fig">Protected</div><p>Your walk-ins stay safe. The optimizer wires into the controls and never opens a refrigerant line, and we arrange warranty and insurance coverage as part of the program.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper-2)">
+  <div class="wrap">
+    <div class="intro rv">
+      <h2>No capital needed to start.</h2>
+      <p>Your cash belongs in your stores, not in equipment. So we build the project to pay for itself.</p>
+    </div>
+    <div class="fund rv"><div class="step"><div class="step__n">01</div><h3>We find every dollar available</h3><p>We apply for every utility incentive, federal clean technology credit, and accelerated write-off your equipment qualifies for.</p></div><div class="step"><div class="step__n">02</div><h3>We finance the rest</h3><p>Whatever those programs don&rsquo;t cover, we arrange financing built around your savings.</p></div><div class="step"><div class="step__n">03</div><h3>You keep more from day one</h3><p>Monthly savings are designed to exceed the monthly payment from the first month.<a class="fn" href="#note">*</a></p></div></div>
+    <div class="supply rv"><h3>Your supply rate is a separate choice</h3><p>If your electricity is on the Rate of Last Resort, a fixed retail contract may lower your rate as well. Our partner Big Rock Power can quote one. We keep that decision separate from this project and measure our savings from your wires owner&rsquo;s meter data, so each result stands on its own.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="intro rv">
+      <h2>Proven before it&rsquo;s installed.</h2>
+      <p>You shouldn&rsquo;t have to take our word for it. We measure first, and we measure carefully.</p>
+    </div>
+    <div class="proof rv">
+      <div class="step"><h3>Measured on site, the same day</h3><p>We measure your equipment before and after the work, the same day, so the result isn&rsquo;t clouded by weather, occupancy, or rate changes.</p></div>
+      <div class="step"><h3>Conservative by design</h3><p>Our methods are built to understate savings, not overstate them. You see a number you can trust before you add a single store.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="close" id="next">
+  <div class="wrap">
+    <h2>Let&rsquo;s replace the estimates with your real numbers.</h2>
+    <p>Three simple steps, at no cost to you.</p>
+    <ol class="close__steps"><li><span class="mono">01</span><span>Share 12 months of electric and gas bills, plus the interval data from your wires owner (FortisAlberta, ATCO, ENMAX, or EPCOR). We&rsquo;ll send a simple authorization form.</span></li><li><span class="mono">02</span><span>Have staff snap photos of the label plates on your HVAC units, walk-ins, and ovens. A phone is all it takes.</span></li><li><span class="mono">03</span><span>We return a store-by-store plan in dollars, starting with one pilot store.</span></li></ol>
+    <div class="close__cta">
+      <a class="btn btn--light" href="sms:+18647770688?&body=Hi%20Dan%2C%20I%27d%20like%20to%20see%20real%20energy%20savings%20numbers%20for%20my%20stores.">Text Dan &middot; (864) 777-0688</a>
+      <a class="tlink" href="mailto:dan@danknowsaguy.org?subject=Energy%20savings%20for%20my%20stores">or email</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="energy-plus-lockup-ink.svg" alt="Energy Plus">
+    <p class="foot__tag">Run better. Spend less. Proven before it&rsquo;s installed.</p>
+    <p class="foot__note" id="note"><strong>* Your building sets your number.</strong> Every figure on this page, including savings, sales equivalents, maintenance, equipment life, and cash flow timing, is an estimate based on typical results from other buildings under their own conditions. Weather, equipment age and condition, occupancy, operating hours, and utility rates all change the outcome, so set expectations only by your own buildings. All figures are in Canadian dollars. The 10-year figure assumes energy costs rise 4% a year. Incentive, tax credit, and financing availability depend on the project and are confirmed before any commitment. That is why we measure your buildings and prove the savings on site before you commit.</p>
+    <p class="foot__credit">Hero photo: Nick Karvounis on Unsplash.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var CFG={monthly:true,margin:0.10}, ESC=0.04, YEARS=10;
+  var bill=document.getElementById('bill'), pct=document.getElementById('pct'), sites=document.getElementById('sites');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cur={};
+  var money=function(n){return '$'+Math.round(n).toLocaleString('en-US')};
+  var num=function(n){return Math.round(n).toLocaleString('en-US')};
+  function fill(el){if(!el)return;var p=(el.value-el.min)/(el.max-el.min)*100;el.style.setProperty('--p',p+'%')}
+  function set(key,val,fmt){
+    var els=document.querySelectorAll('[data-out="'+key+'"]'); if(!els.length)return;
+    var from=cur[key]==null?0:cur[key]; cur[key]=val;
+    if(reduce||from===val){els.forEach(function(e){e.textContent=fmt(val)});return}
+    var t0=performance.now(),d=600;
+    (function step(t){var k=Math.min(1,(t-t0)/d),e=1-Math.pow(1-k,3),v=from+(val-from)*e;
+      els.forEach(function(el){el.textContent=fmt(v)}); if(k<1)requestAnimationFrame(step)})(t0);
+  }
+  function calc(){
+    var b=+bill.value, n=sites?+sites.value:1, p=+pct.value/100;
+    var yearly=CFG.monthly?b*12*n:b;
+    var annual=yearly*p;
+    var ten=0; for(var y=0;y<YEARS;y++) ten+=annual*Math.pow(1+ESC,y);
+    document.querySelector('[data-out="billv"]').textContent=money(b);
+    if(sites) document.querySelector('[data-out="sitesv"]').textContent=n;
+    document.querySelector('[data-out="pct"]').textContent=Math.round(p*100)+'%';
+    set('annual',annual,money); set('permonth',annual/12,money); set('ten',ten,money);
+    set('persite',annual/n,money); set('spend',yearly,money);
+    if(CFG.margin){ set('sales',annual/CFG.margin,money); set('tensales',ten/CFG.margin,money); }
+    fill(bill); fill(pct); fill(sites);
+  }
+  bill.addEventListener('input',calc); pct.addEventListener('input',calc); if(sites) sites.addEventListener('input',calc); calc();
+  if(!reduce && 'IntersectionObserver' in window){
+    document.documentElement.classList.add('anim');
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+    document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var f=document.getElementById('gate-form'); if(!f) return;
+  var HASH='ff060a7012202da6c5c59256eec82c6e6b4239f1a2c92bb999980ab5828357e4';
+  function hex(buf){return Array.prototype.map.call(new Uint8Array(buf),function(b){return ('0'+b.toString(16)).slice(-2)}).join('')}
+  function check(v){
+    v=v.trim().toLowerCase();
+    if(window.crypto&&crypto.subtle){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(v)).then(function(b){return hex(b)===HASH})}
+    return Promise.resolve(v==='alberta');
+  }
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    check(document.getElementById('gate-pw').value).then(function(ok){
+      if(ok){try{sessionStorage.setItem('ab-ok','1')}catch(_){} document.documentElement.classList.remove('locked'); window.scrollTo(0,0); window.dispatchEvent(new Event('scroll'));}
+      else{document.getElementById('gate-err').textContent='That password didn\u2019t match. Please try again.'}
+    });
+  });
+  if(document.documentElement.classList.contains('locked')) document.getElementById('gate-pw').focus();
+})();
+</script>
+</body>
+</html>
