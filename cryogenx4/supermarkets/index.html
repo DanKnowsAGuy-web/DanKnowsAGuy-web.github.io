@@ -7,67 +7,181 @@
 <link rel="icon" href="/cryogenx4/assets/favicon.svg">
 <link rel="stylesheet" href="/cryogenx4/assets/v3.css">
 <style>
+:root{--ease:cubic-bezier(.22,1,.36,1)}
 header.bar{position:sticky;top:0;z-index:var(--z-sticky);background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08)}
 header.bar .wrap{display:flex;justify-content:space-between;align-items:center;min-height:72px;gap:16px}
 header.bar .logo{font-size:21px}
 header.bar .btn{min-height:46px;font-size:18px;padding:0 18px}
-.hero{background:var(--navy);color:var(--on-navy);padding:64px 0 0}
-.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+section.s{padding:96px 0}
+section.s h2{font-size:clamp(30px,3.8vw,46px);margin:0 0 18px;max-width:20em}
+.dark{background:var(--navy);color:var(--on-navy)}
+.dark h2,.dark h3{color:#fff}
+.fignote{font-size:15px;color:var(--muted);margin:12px 0 0}
+.dark .fignote{color:#93A7BB}
+/* hero */
+.hero{position:relative;background:var(--navy);color:var(--on-navy);padding:64px 0 0;overflow:hidden}
+.hero .field{position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none}
+.hero .field path{fill:none;stroke-width:2}
+.hero .field .d1{animation:drift 26s linear infinite}
+.hero .field .d2{animation:drift 34s linear infinite reverse}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-300px)}}
+.hero .grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
 .hero .for{font-size:19px;color:var(--glacier);margin:0 0 14px}
 .hero h1{color:#fff;font-size:clamp(38px,5.2vw,62px);margin:0 0 20px}
 .hero h1 sup{font-size:.4em;color:var(--glacier);vertical-align:super}
 .hero .lead{font-size:21px;margin:0 0 30px;max-width:34em}
 .act{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
 .act a.sms{color:#fff;font-weight:700}
-.hero figure{margin:0;border-radius:14px;overflow:hidden;aspect-ratio:5/4}
-.hero figure img{width:100%;height:100%;object-fit:cover;display:block}
-.flow{display:block;width:100%;height:46px;margin-top:56px}
-.fact{position:relative;color:#fff;overflow:hidden;background:var(--navy-2)}
-.fact img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.28}
-.fact .wrap{position:relative;display:grid;grid-template-columns:auto 1fr;gap:12px 40px;align-items:center;padding-top:64px;padding-bottom:64px}
-.fact .n{font-size:clamp(64px,10vw,124px);color:#fff}
+.hero figure{margin:0;border-radius:14px;overflow:hidden;aspect-ratio:5/4;position:relative}
+.hero figure img{width:100%;height:100%;object-fit:cover;display:block;animation:kb 18s var(--ease) both}
+@keyframes kb{from{transform:scale(1.08)}to{transform:scale(1)}}
+.hero figcaption{position:absolute;left:12px;bottom:10px;font-size:13px;color:#fff;background:rgba(10,26,47,.6);padding:3px 8px;border-radius:4px}
+.flow{display:block;width:100%;height:46px;margin-top:56px;position:relative}
+.flow path{stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 2.2s .4s var(--ease) forwards}
+.flow path+path{animation-delay:1.3s}
+@keyframes draw{to{stroke-dashoffset:0}}
+/* fact */
+.fact{background:var(--navy-2);color:#fff}
+.fact .wrap{display:grid;grid-template-columns:auto 1fr;gap:12px 40px;align-items:center;padding-top:64px;padding-bottom:64px}
+.fact .n{font-size:clamp(64px,10vw,124px)}
 .fact p{margin:0;font-size:clamp(21px,2.4vw,27px);line-height:1.4;max-width:24em}
 .fact small{grid-column:1/-1;font-size:15px;color:var(--on-navy)}
-section.s{padding:88px 0}
-section.s h2{font-size:clamp(30px,3.8vw,44px);margin:0 0 18px;max-width:22em}
+/* night */
+.night{position:relative;color:var(--on-navy);background:#050D18;overflow:hidden}
+.night>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42}
+.night .wrap{position:relative}
+.night .top{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end}
+.night .hrs{font-size:clamp(70px,11vw,140px);color:var(--glacier)}
+.night .hrs+span{display:block;color:#fff;font-weight:700;text-align:right}
+.night p{max-width:36em}
+.chart24{margin-top:40px;background:rgba(5,13,24,.72);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:22px 22px 14px}
+.chart24 svg{width:100%;height:auto;display:block}
+.chart24 .ln{fill:none;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:1200;stroke-dashoffset:1200;transition:stroke-dashoffset 2.4s var(--ease)}
+.chart24.on .ln{stroke-dashoffset:0}
+.chart24 .ln2{transition-delay:.5s}
+.legend{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:16px;margin-top:8px}
+.legend i{display:inline-block;width:22px;height:4px;border-radius:2px;vertical-align:middle;margin-right:8px}
+/* why */
 .why .grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
 .why p{margin:0 0 16px;max-width:36em}
-.pull{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:32px}
-.pull .fig{font-size:clamp(40px,5vw,60px);color:var(--ink)}
-.pull .fig b{color:var(--cobalt);font-weight:800}
-.pull p{margin:12px 0 0;font-size:18px;color:var(--muted)}
+.calc{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:30px}
+.calc .q{font-weight:700;color:var(--ink);margin:0 0 6px}
+.calc output{display:block;font-family:Archivo;font-weight:800;font-stretch:112%;color:var(--ink);font-size:clamp(34px,4vw,48px);line-height:1.1;margin:6px 0 4px}
+.calc output b{color:var(--cobalt);font-weight:800}
+.calc input[type=range]{width:100%;accent-color:var(--cobalt);height:32px;margin:6px 0 2px}
+.calc .row{display:flex;justify-content:space-between;font-size:15px;color:var(--muted)}
+.calc .eq{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--rule)}
+.calc .eq .big{font-family:Archivo;font-weight:800;font-stretch:112%;font-size:clamp(30px,3.4vw,42px);color:var(--cobalt);line-height:1.1}
+.calc .src{font-size:15px;color:var(--muted);margin:12px 0 0}
+/* machine */
 .how{background:#fff}
-.spec{margin-top:30px;border:1px solid var(--rule);border-radius:14px;overflow:hidden}
-.spec dl{margin:0;display:grid;grid-template-columns:220px 1fr}
-.spec dt,.spec dd{margin:0;padding:20px 26px;border-top:1px solid var(--rule)}
+.machine{margin-top:28px;border:1px solid var(--rule);border-radius:16px;overflow:hidden;background:var(--navy)}
+.machine .stage{position:relative}
+.machine svg{display:block;width:100%;height:auto}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);background:#fff;border-top:1px solid var(--rule)}
+.steps button{font:inherit;text-align:left;background:#fff;border:0;border-right:1px solid var(--rule);padding:16px 18px 18px;cursor:pointer;color:var(--body);position:relative}
+.steps button:last-child{border-right:0}
+.steps button b{display:block;color:var(--ink);font-size:18px;margin-bottom:2px}
+.steps button span{font-size:16px;line-height:1.4;display:block}
+.steps button:before{content:"";position:absolute;left:0;top:-1px;height:4px;width:0;background:var(--glacier);transition:width .3s var(--ease)}
+.steps button[aria-pressed=true]{background:var(--ice)}
+.steps button[aria-pressed=true]:before{width:100%}
+/* machine states */
+#rig .pipe{fill:none;stroke-width:7;stroke-linecap:round}
+#rig .pipe-base{stroke:#25456B}
+#rig .pipe-flow{stroke:var(--glacier);stroke-dasharray:10 18;animation:flow var(--spd,1.2s) linear infinite}
+@keyframes flow{to{stroke-dashoffset:-28}}
+#rig .film{fill:none;stroke:#C98A2B;stroke-width:13;stroke-linecap:round;opacity:0;transition:opacity .8s var(--ease)}
+#rig .heat circle{fill:var(--ember);opacity:0}
+#rig .heat circle{animation:rise 2.4s linear infinite}
+#rig .heat circle:nth-child(2){animation-delay:.6s}#rig .heat circle:nth-child(3){animation-delay:1.2s}#rig .heat circle:nth-child(4){animation-delay:1.8s}
+@keyframes rise{0%{transform:translateY(0);opacity:0}15%{opacity:var(--ho,.9)}100%{transform:translateY(-70px);opacity:0}}
+#rig .fan{transform-box:fill-box;transform-origin:center;animation:spin var(--fan,.9s) linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#rig .gauge-fill{transition:width 1s var(--ease)}
+#rig .pulse{opacity:0}
+#rig .tech{opacity:0;transition:opacity .5s}
+#rig .lbl{font:600 15px Archivo,sans-serif;fill:#C9D8E6}
+#rig .lbl2{font:700 22px Archivo,sans-serif;fill:#fff}
+#rig[data-step="2"] .film{opacity:.85}
+#rig[data-step="2"]{--spd:3.2s;--ho:.35;--fan:.45s}
+#rig[data-step="3"] .film{opacity:.4}
+#rig[data-step="3"]{--spd:2.2s;--ho:.5;--fan:.6s}
+#rig[data-step="3"] .tech{opacity:1}
+#rig[data-step="3"] .pulse{animation:pulse 2.6s var(--ease) infinite}
+@keyframes pulse{0%{opacity:0;stroke-dashoffset:900}10%{opacity:1}90%{opacity:1}100%{opacity:0;stroke-dashoffset:0}}
+#rig[data-step="4"]{--spd:1.1s;--ho:1;--fan:.95s}
+.spec{margin-top:40px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start}
+.spec dl{margin:0;display:grid;grid-template-columns:190px 1fr;border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.spec dt,.spec dd{margin:0;padding:18px 22px;border-top:1px solid var(--rule)}
 .spec dt:first-of-type,.spec dd:first-of-type{border-top:0}
-.spec dt{font-family:Archivo;font-weight:700;font-stretch:105%;color:var(--ink);background:var(--frost);font-size:18px}
-.spec .foot{display:flex;flex-wrap:wrap;gap:8px 28px;padding:16px 26px;background:var(--ice);font-weight:700;color:var(--navy);font-size:18px}
-.ledger ul{list-style:none;margin:28px 0 0;padding:0;max-width:900px}
-.ledger li{display:flex;align-items:baseline;gap:14px;padding:18px 0;border-bottom:1px solid var(--rule);font-size:21px}
-.ledger li:first-child{border-top:2px solid var(--ink)}
+.spec dt{font-family:Archivo;font-weight:700;color:var(--ink);background:var(--frost);font-size:18px}
+.spec figure{margin:0}
+.spec figure img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;border-radius:14px;display:block}
+.spec figcaption{font-size:16px;color:var(--muted);margin-top:10px}
+/* three ways */
+.pays{display:grid;grid-template-columns:repeat(3,1fr);margin-top:34px;border-top:2px solid var(--ink)}
+.pays>div{padding:26px 26px 6px 0}
+.pays>div+div{padding-left:26px;border-left:1px solid var(--rule)}
+.pays h3{font-size:22px;margin:16px 0 6px}
+.pays p{margin:0;font-size:18px}
+.pays .v{font-family:Archivo;font-weight:800;font-stretch:112%;color:var(--cobalt);font-size:26px;margin-top:10px;display:block}
+.pays svg{width:150px;height:84px;display:block}
+.needle{transform-origin:60px 70px;transform:rotate(55deg);transition:transform 1.6s var(--ease) .2s}
+.pays.on .needle{transform:rotate(-20deg)}
+.calls rect{transform-box:fill-box;transform-origin:bottom;transition:transform 1.2s var(--ease)}
+.pays.on .calls rect.cut{transform:scaleY(.45)}
+.life .ext{transform-box:fill-box;transform-origin:left;transform:scaleX(0);transition:transform 1.4s var(--ease) .3s}
+.pays.on .life .ext{transform:scaleX(1)}
+.ledger ul{list-style:none;margin:40px 0 0;padding:0;max-width:900px}
+.ledger li{display:flex;align-items:baseline;gap:14px;padding:16px 0;border-bottom:1px solid var(--rule);font-size:20px}
 .ledger .dots{flex:1;border-bottom:2px dotted #b7c6d4;transform:translateY(-6px)}
 .ledger .val{font-family:Archivo;font-weight:800;font-stretch:110%;color:var(--ink);white-space:nowrap}
-.stack{background:var(--navy);color:var(--on-navy)}
+/* fleet */
+.fleet .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.fleet p{max-width:34em}
+.bars{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:24px}
+.bars svg{width:100%;height:auto;display:block}
+.bars .b{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);transition:transform .9s var(--ease)}
+.bars.on .b{transform:scaleY(1)}
+.bars .lbl{font:600 14px Archivo,sans-serif;fill:var(--muted)}
+.bars .lblk{font:700 15px Archivo,sans-serif;fill:var(--ink)}
+/* stack */
 .stack .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
-.stack h2{color:#fff}
 .stack p{margin:0 0 14px;max-width:32em}
 .stack .one{color:#fff;font-weight:700;margin-top:20px}
 .layers{display:flex;flex-direction:column;gap:6px}
-.layers div{display:flex;justify-content:space-between;gap:16px;padding:15px 20px;border-radius:8px;background:var(--navy-2);border:1px solid rgba(255,255,255,.1);color:#fff;font-weight:700;font-size:19px}
+.layers div{display:flex;justify-content:space-between;gap:16px;padding:15px 20px;border-radius:8px;background:var(--navy-2);border:1px solid rgba(255,255,255,.1);color:#fff;font-weight:700;font-size:19px;transition:transform .6s var(--ease),opacity .6s}
 .layers div span{font-weight:400;color:var(--on-navy);font-size:17px;text-align:right}
 .layers div.base{background:var(--glacier);border-color:var(--glacier);color:var(--navy);padding:22px 20px;font-family:Archivo;font-weight:800;font-stretch:115%;font-size:22px}
-.layers div.base span{color:var(--navy);font-family:"Public Sans";font-stretch:normal;font-weight:400}
+.layers div.base span{color:var(--navy);font-family:"Public Sans";font-weight:400}
+.js .layers:not(.on) div:not(.base){opacity:.15;transform:translateY(-14px)}
+/* proof */
 .proof{background:var(--ice)}
-.proof .grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center}
-.proof figure{margin:0;border-radius:14px;overflow:hidden;aspect-ratio:6/7}
-.proof figure img{width:100%;height:100%;object-fit:cover;display:block}
-.proof ol{list-style:none;counter-reset:s;margin:26px 0 0;padding:0}
+.proof .grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.proof ol{list-style:none;counter-reset:s;margin:20px 0 0;padding:0}
 .proof li{counter-increment:s;display:grid;grid-template-columns:48px 1fr;gap:18px;padding:18px 0;border-top:1px solid #c5dbe8}
 .proof li:before{content:counter(s);width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-family:Archivo;font-weight:800;font-size:19px}
 .proof li b{display:block;color:var(--ink);font-size:21px;margin-top:6px}
 .proof li p{margin:4px 0 0}
-.start{background:var(--navy);color:var(--on-navy);padding:88px 0}
+.ba{background:#fff;border:1px solid #c5dbe8;border-radius:14px;padding:22px}
+.ba svg{width:100%;height:auto;display:block}
+.ba .ln{fill:none;stroke-width:3;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;transition:stroke-dashoffset 1.8s var(--ease)}
+.ba .ln.after{transition-delay:1.2s}
+.ba.on .ln{stroke-dashoffset:0}
+.ba .gap{opacity:0;transition:opacity .6s 2.6s}
+.ba.on .gap{opacity:1}
+.ba text{font:600 14px Archivo,sans-serif;fill:var(--muted)}
+/* say yes */
+.yes details{border-top:1px solid var(--rule);max-width:860px}
+.yes details:last-of-type{border-bottom:1px solid var(--rule)}
+.yes summary{list-style:none;cursor:pointer;padding:20px 0;font-family:Archivo;font-weight:700;font-size:21px;color:var(--ink);display:flex;justify-content:space-between;gap:16px}
+.yes summary::-webkit-details-marker{display:none}
+.yes summary:after{content:"+";font-size:28px;line-height:1;color:var(--glacier-d)}
+.yes details[open] summary:after{content:"\2212"}
+.yes details p{margin:0 0 22px;max-width:44em}
+/* start */
+.start{background:var(--navy);color:var(--on-navy);padding:96px 0}
 .start .grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
 .start h2{color:#fff;font-size:clamp(32px,4.2vw,48px);margin:0 0 16px}
 .start p{margin:0;font-size:21px}
@@ -83,26 +197,39 @@ form.intake input:focus,form.intake select:focus{border-color:var(--cobalt);outl
 form.intake .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 form.intake .btn{width:100%;margin-top:24px}
 footer{background:#06111F;color:#A9B9C9;font-size:16px;padding:38px 0 46px}
-footer p{max-width:80ch;margin:0 0 12px}
+footer p{max-width:84ch;margin:0 0 12px}
 footer .logo{font-size:19px;margin-bottom:16px}
 @media (max-width:880px){
- .hero .grid,.why .grid,.stack .grid,.proof .grid,.start .grid{grid-template-columns:1fr;gap:32px}
+ .hero .grid,.why .grid,.stack .grid,.proof .grid,.start .grid,.fleet .grid,.spec{grid-template-columns:1fr;gap:32px}
  .hero{padding-top:44px}
- .fact .wrap{grid-template-columns:1fr}
+ .fact .wrap,.night .top{grid-template-columns:1fr}
+ .night .hrs+span{text-align:left}
  .spec dl{grid-template-columns:1fr}
  .spec dd{border-top:0;padding-top:0}
  .spec dt{background:none;padding-bottom:6px}
+ .steps{grid-template-columns:1fr 1fr}
+ .steps button:nth-child(2){border-right:0}
+ .steps button:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+ .pays{grid-template-columns:1fr}
+ .pays>div+div{padding-left:0;border-left:0;border-top:1px solid var(--rule)}
  .ledger li{flex-wrap:wrap;gap:4px}
  .ledger .dots{display:none}
  .ledger .val{width:100%}
- .proof figure{aspect-ratio:4/3}
  header.bar .btn span{display:none}
  header.bar .logo{font-size:18px}
  form.intake .row{grid-template-columns:1fr}
  .layers div{flex-direction:column;gap:2px}
  .layers div span{text-align:left}
 }
-</style></head>
+@media (prefers-reduced-motion:reduce){
+ .chart24 .ln,.ba .ln,.flow path{stroke-dashoffset:0!important}
+ .bars .b,.life .ext{transform:none!important}
+ .js .layers:not(.on) div:not(.base){opacity:1;transform:none}
+ .ba .gap{opacity:1}
+}
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <clipPath id="sqc"><path d="M98.00 50.00 L97.99 61.18 L97.97 64.75 L97.94 67.34 L97.89 69.45 L97.84 71.26 L97.76 72.85 L97.68 74.29 L97.58 75.61 L97.47 76.82 L97.34 77.95 L97.20 79.01 L97.05 80.01 L96.88 80.95 L96.70 81.84 L96.50 82.69 L96.29 83.49 L96.07 84.26 L95.83 85.00 L95.58 85.70 L95.32 86.38 L95.03 87.02 L94.74 87.64 L94.43 88.24 L94.10 88.81 L93.76 89.36 L93.40 89.88 L93.02 90.39 L92.63 90.87 L92.21 91.34 L91.79 91.79 L91.34 92.21 L90.87 92.63 L90.39 93.02 L89.88 93.40 L89.36 93.76 L88.81 94.10 L88.24 94.43 L87.64 94.74 L87.02 95.03 L86.38 95.32 L85.70 95.58 L85.00 95.83 L84.26 96.07 L83.49 96.29 L82.69 96.50 L81.84 96.70 L80.95 96.88 L80.01 97.05 L79.01 97.20 L77.95 97.34 L76.82 97.47 L75.61 97.58 L74.29 97.68 L72.85 97.76 L71.26 97.84 L69.45 97.89 L67.34 97.94 L64.75 97.97 L61.18 97.99 L50.00 98.00 L38.82 97.99 L35.25 97.97 L32.66 97.94 L30.55 97.89 L28.74 97.84 L27.15 97.76 L25.71 97.68 L24.39 97.58 L23.18 97.47 L22.05 97.34 L20.99 97.20 L19.99 97.05 L19.05 96.88 L18.16 96.70 L17.31 96.50 L16.51 96.29 L15.74 96.07 L15.00 95.83 L14.30 95.58 L13.62 95.32 L12.98 95.03 L12.36 94.74 L11.76 94.43 L11.19 94.10 L10.64 93.76 L10.12 93.40 L9.61 93.02 L9.13 92.63 L8.66 92.21 L8.21 91.79 L7.79 91.34 L7.37 90.87 L6.98 90.39 L6.60 89.88 L6.24 89.36 L5.90 88.81 L5.57 88.24 L5.26 87.64 L4.97 87.02 L4.68 86.38 L4.42 85.70 L4.17 85.00 L3.93 84.26 L3.71 83.49 L3.50 82.69 L3.30 81.84 L3.12 80.95 L2.95 80.01 L2.80 79.01 L2.66 77.95 L2.53 76.82 L2.42 75.61 L2.32 74.29 L2.24 72.85 L2.16 71.26 L2.11 69.45 L2.06 67.34 L2.03 64.75 L2.01 61.18 L2.00 50.00 L2.01 38.82 L2.03 35.25 L2.06 32.66 L2.11 30.55 L2.16 28.74 L2.24 27.15 L2.32 25.71 L2.42 24.39 L2.53 23.18 L2.66 22.05 L2.80 20.99 L2.95 19.99 L3.12 19.05 L3.30 18.16 L3.50 17.31 L3.71 16.51 L3.93 15.74 L4.17 15.00 L4.42 14.30 L4.68 13.62 L4.97 12.98 L5.26 12.36 L5.57 11.76 L5.90 11.19 L6.24 10.64 L6.60 10.12 L6.98 9.61 L7.37 9.13 L7.79 8.66 L8.21 8.21 L8.66 7.79 L9.13 7.37 L9.61 6.98 L10.12 6.60 L10.64 6.24 L11.19 5.90 L11.76 5.57 L12.36 5.26 L12.98 4.97 L13.62 4.68 L14.30 4.42 L15.00 4.17 L15.74 3.93 L16.51 3.71 L17.31 3.50 L18.16 3.30 L19.05 3.12 L19.99 2.95 L20.99 2.80 L22.05 2.66 L23.18 2.53 L24.39 2.42 L25.71 2.32 L27.15 2.24 L28.74 2.16 L30.55 2.11 L32.66 2.06 L35.25 2.03 L38.82 2.01 L50.00 2.00 L61.18 2.01 L64.75 2.03 L67.34 2.06 L69.45 2.11 L71.26 2.16 L72.85 2.24 L74.29 2.32 L75.61 2.42 L76.82 2.53 L77.95 2.66 L79.01 2.80 L80.01 2.95 L80.95 3.12 L81.84 3.30 L82.69 3.50 L83.49 3.71 L84.26 3.93 L85.00 4.17 L85.70 4.42 L86.38 4.68 L87.02 4.97 L87.64 5.26 L88.24 5.57 L88.81 5.90 L89.36 6.24 L89.88 6.60 L90.39 6.98 L90.87 7.37 L91.34 7.79 L91.79 8.21 L92.21 8.66 L92.63 9.13 L93.02 9.61 L93.40 10.12 L93.76 10.64 L94.10 11.19 L94.43 11.76 L94.74 12.36 L95.03 12.98 L95.32 13.62 L95.58 14.30 L95.83 15.00 L96.07 15.74 L96.29 16.51 L96.50 17.31 L96.70 18.16 L96.88 19.05 L97.05 19.99 L97.20 20.99 L97.34 22.05 L97.47 23.18 L97.58 24.39 L97.68 25.71 L97.76 27.15 L97.84 28.74 L97.89 30.55 L97.94 32.66 L97.97 35.25 L97.99 38.82Z"/></clipPath>
@@ -112,11 +239,17 @@ footer .logo{font-size:19px;margin-bottom:16px}
 </defs></svg>
 
 <header class="bar"><div class="wrap">
-<a class="logo" href="#top" aria-label="CRYOGENX4"><svg aria-hidden="true" style="--tile:#132A48"><use href="#w1"/></svg><span class="word">CRYOGEN<span class="x4">X4</span></span></a>
+<a class="logo" href="#top" aria-label="CRYOGENX4"><svg aria-hidden="true" style="--tile:#1B3557"><use href="#w1"/></svg><span class="word">CRYOGEN<span class="x4">X4</span></span></a>
 <a class="btn btn-blue" href="sms:+18324937915?&body=Hi%20Dave%2C%20I%20saw%20the%20CRYOGENX4%20supermarket%20page.%20I%27d%20like%20to%20talk%20about%20one%20of%20our%20stores.">Text Dave<span>&nbsp;832-493-7915</span></a>
 </div></header>
 <main id="top">
-<section class="hero"><div class="wrap">
+
+<section class="hero">
+<svg class="field" viewBox="0 0 1500 600" preserveAspectRatio="none" aria-hidden="true">
+<g class="d1"><path d="M0 140c75-34 150 34 225 0s150-34 225 0 150 34 225 0 150-34 225 0 150 34 225 0 150-34 225 0 150 34 225 0" stroke="#F26A21" opacity=".35"/><path d="M0 470c75-30 150 30 225 0s150-30 225 0 150 30 225 0 150-30 225 0 150 30 225 0 150-30 225 0 150 30 225 0" stroke="#19B5E8" opacity=".35"/></g>
+<g class="d2"><path d="M0 300c100-40 200 40 300 0s200-40 300 0 200 40 300 0 200-40 300 0 200 40 300 0 200-40 300 0" stroke="#19B5E8" opacity=".22"/></g>
+</svg>
+<div class="wrap">
 <div class="grid">
 <div>
 <p class="for">For supermarkets and grocery chains</p>
@@ -124,73 +257,184 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <p class="lead">CRYOGENX4 restores the heat transfer inside your cases, racks and rooftop units. It's a one-time treatment, installed while the store stays open. And we prove it on one of your stores before you roll it out.</p>
 <div class="act"><a class="btn btn-blue" href="#start">Start with one store</a><a class="sms" href="sms:+18324937915?&body=Hi%20Dave%2C%20I%27d%20like%20to%20talk%20about%20CRYOGENX4%20for%20one%20of%20our%20stores.">or text Dave, 832-493-7915</a></div>
 </div>
-<figure><img src="https://images.unsplash.com/photo-1601599561213-832382fd07ba?auto=format&fit=crop&w=1300&q=80" alt="A long run of glass-front refrigerated cases stocked with yogurt in a grocery store" width="1300" height="1040" fetchpriority="high"></figure>
+<figure><img src="/cryogenx4/assets/img/store-cases.jpg" alt="Illustrative: a grocery aisle lined with lit, glass-door refrigerated cases" width="1400" height="781" fetchpriority="high"><figcaption>Illustrative</figcaption></figure>
 </div>
 </div>
 <svg class="flow" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 23c50-20 100 20 150 0s100-20 150 0 100 20 150 0 100-20 150 0" fill="none" stroke="#F26A21" stroke-width="4"/><path d="M600 23c50-20 100 20 150 0s100-20 150 0 100 20 150 0 100-20 150 0" fill="none" stroke="#19B5E8" stroke-width="4"/></svg>
 </section>
 
-<section class="fact" aria-label="Refrigeration share of store electricity">
-<img src="https://images.unsplash.com/photo-1710037248074-834123e47286?auto=format&fit=crop&w=1800&q=70" alt="" loading="lazy" width="1800" height="1200">
-<div class="wrap">
-<span class="fig n">40&ndash;60%</span>
+<section class="fact" aria-label="Refrigeration share of store electricity"><div class="wrap">
+<span class="fig n"><span data-count="40">40</span>&ndash;<span data-count="60">60</span>%</span>
 <p>of a supermarket's electricity goes to refrigeration. It's the biggest load in the building, and it never shuts off.</p>
 <small>Source: U.S. EPA, via NCEE Working Paper 2015-03</small>
+</div></section>
+
+<section class="s night dark">
+<img src="/cryogenx4/assets/img/night-aisle.jpg" alt="" loading="lazy" width="1376" height="768">
+<div class="wrap">
+<div class="top">
+<div><h2>The cold never clocks out.</h2>
+<p>At close, the lights dim and the registers go quiet. The refrigeration doesn't. It holds your product through every dark hour, which makes it the one load that runs the whole year, and the place where lost efficiency costs you around the clock.</p></div>
+<div><span class="fig hrs" data-count="8760" data-sep="1">8,760</span><span>hours a year the cases never stop</span></div>
 </div>
-</section>
+<div class="chart24" data-on>
+<svg viewBox="0 0 900 260" role="img" aria-label="Over one day, lighting and rooftop cooling drop overnight while refrigeration stays level.">
+<rect x="615" y="10" width="190" height="200" fill="#19B5E8" opacity=".12"/>
+<text x="710" y="34" text-anchor="middle" fill="#9ED9EF" font-family="Archivo" font-weight="600" font-size="15">store closed</text>
+<line x1="40" y1="210" x2="880" y2="210" stroke="#3A5576"/>
+<g fill="#93A7BB" font-family="Archivo" font-size="14"><text x="40" y="236">6 am</text><text x="250" y="236">noon</text><text x="460" y="236">6 pm</text><text x="610" y="236">10 pm</text><text x="800" y="236">6 am</text></g>
+<path class="ln ln2" d="M40 150 C120 110 200 70 300 66 S460 68 560 80 S600 92 615 120 C640 170 660 186 700 188 S790 186 805 170 C830 130 860 120 880 116" stroke="#8FA3B8"/>
+<path class="ln" d="M40 98 C90 92 140 104 190 98 S290 92 340 100 S440 104 490 96 S590 92 640 100 S740 104 790 97 S860 94 880 98" stroke="#19B5E8"/>
+</svg>
+<div class="legend"><span><i style="background:#19B5E8"></i>Refrigeration</span><span><i style="background:#8FA3B8"></i>Lights and rooftop cooling</span></div>
+<p class="fignote">One store, one day. Illustrative shape, not metered data.</p>
+</div>
+</div></section>
 
 <section class="s why"><div class="wrap grid">
 <div>
 <h2>It costs more to run every year.</h2>
 <p>Refrigeration loses ground with age. Compressor oil slowly coats the inside of the coils and lines, so heat moves out more slowly. The compressors run longer to hold the same temperature, and the bill climbs even when nothing else changes.</p>
-<p>On grocery margins, that matters more than in almost any other business.</p>
+<p>On grocery margins, that matters more than in almost any other business. ENERGY STAR estimates that for a supermarket, every dollar saved on energy is worth about $59 in sales.</p>
 </div>
-<div class="pull"><div class="fig">$1 saved &asymp; <b>$59</b> in sales</div><p>ENERGY STAR's estimate for supermarkets, where net profit runs about 1 to 2 percent of sales.</p></div>
+<div class="calc">
+<p class="q"><label for="sv">If one store saved this much a month on energy</label></p>
+<output id="svo" for="sv">$2,000</output>
+<input id="sv" type="range" min="500" max="10000" step="250" value="2000" aria-describedby="svh">
+<div class="row" id="svh"><span>$500</span><span>$10,000</span></div>
+<div class="eq"><p class="q">it would be like ringing up</p><div class="big"><span id="sales">$118,000</span> in sales</div><p class="q" style="font-weight:400;margin-top:6px">every month, with no new customers, staff or stock. <span id="yr">$1.4 million</span> a year.</p></div>
+<p class="src">Uses ENERGY STAR's $1 &asymp; $59 estimate for supermarkets. An illustration, not a projection.</p>
+</div>
 </div></section>
 
 <section class="s how"><div class="wrap">
 <h2>How CRYOGENX4 works</h2>
+<p style="max-width:40em;margin:0">Follow the refrigerant from the cases, through the compressor rack, to the condenser on the roof where the heat leaves the building.</p>
+<div class="machine">
+<div class="stage">
+<svg id="rig" data-step="1" viewBox="0 0 1000 440" role="img" aria-labelledby="rigt">
+<title id="rigt">Cross-section of a store: display cases, a compressor rack and a rooftop condenser, connected by a refrigerant loop.</title>
+<rect width="1000" height="440" fill="#0A1A2F"/>
+<rect x="40" y="150" width="920" height="250" fill="#10243F" stroke="#25456B" stroke-width="2"/>
+<rect x="30" y="140" width="940" height="12" fill="#1B3557"/>
+<line x1="640" y1="152" x2="640" y2="400" stroke="#25456B" stroke-width="2"/>
+<text class="lbl" x="70" y="185">Sales floor</text><text class="lbl" x="660" y="185">Back room</text><text class="lbl" x="760" y="60">Roof</text>
+<!-- cases -->
+<g fill="#16314F" stroke="#3B6A99" stroke-width="2">
+<rect x="80" y="250" width="120" height="130" rx="6"/><rect x="230" y="250" width="120" height="130" rx="6"/><rect x="380" y="250" width="120" height="130" rx="6"/>
+</g>
+<g fill="#79E0FF" opacity=".55"><rect x="92" y="262" width="96" height="6"/><rect x="242" y="262" width="96" height="6"/><rect x="392" y="262" width="96" height="6"/></g>
+<g stroke="#25456B" stroke-width="2"><line x1="92" y1="300" x2="188" y2="300"/><line x1="92" y1="340" x2="188" y2="340"/><line x1="242" y1="300" x2="338" y2="300"/><line x1="242" y1="340" x2="338" y2="340"/><line x1="392" y1="300" x2="488" y2="300"/><line x1="392" y1="340" x2="488" y2="340"/></g>
+<text class="lbl" x="190" y="406">Cases and walk-ins</text>
+<!-- rack -->
+<rect x="680" y="270" width="170" height="110" rx="6" fill="#16314F" stroke="#3B6A99" stroke-width="2"/>
+<g fill="#25456B"><circle cx="720" cy="325" r="22"/><circle cx="765" cy="325" r="22"/><circle cx="810" cy="325" r="22"/></g>
+<text class="lbl" x="680" y="406">Compressor rack</text>
+<!-- condenser -->
+<rect x="700" y="74" width="200" height="66" rx="6" fill="#16314F" stroke="#3B6A99" stroke-width="2"/>
+<g transform="translate(755 107)"><circle r="24" fill="#0F2240"/><g class="fan" fill="#3B6A99"><path d="M0 0L-6-22L6-22Z"/><path d="M0 0L22-6L22 6Z"/><path d="M0 0L6 22L-6 22Z"/><path d="M0 0L-22 6L-22-6Z"/></g></g>
+<g transform="translate(845 107)"><circle r="24" fill="#0F2240"/><g class="fan" fill="#3B6A99"><path d="M0 0L-6-22L6-22Z"/><path d="M0 0L22-6L22 6Z"/><path d="M0 0L6 22L-6 22Z"/><path d="M0 0L-22 6L-22-6Z"/></g></g>
+<g class="heat"><circle cx="740" cy="66" r="6"/><circle cx="790" cy="66" r="5"/><circle cx="840" cy="66" r="6"/><circle cx="880" cy="66" r="5"/></g>
+<!-- loop -->
+<path id="loop" class="pipe pipe-base" d="M140 250 V220 H440 V250 M440 220 H600 V325 H680 M850 325 H920 V107 H900 M700 107 H660 V220 H600"/>
+<path class="pipe film" d="M140 250 V220 H440 V250 M440 220 H600 V325 H680 M850 325 H920 V107 H900 M700 107 H660 V220 H600"/>
+<path class="pipe pipe-flow" d="M140 250 V220 H440 V250 M440 220 H600 V325 H680 M850 325 H920 V107 H900 M700 107 H660 V220 H600"/>
+<path class="pipe pulse" d="M140 250 V220 H440 V250 M440 220 H600 V325 H680 M850 325 H920 V107 H900 M700 107 H660 V220 H600" stroke="#fff" stroke-width="4" stroke-dasharray="40 900"/>
+<g class="tech"><circle cx="600" cy="325" r="16" fill="#19B5E8"/><text x="600" y="331" text-anchor="middle" font-family="Archivo" font-weight="800" font-size="15" fill="#0A1A2F">+</text><text class="lbl" x="520" y="365" style="fill:#79E0FF">Added here, system running</text></g>
+<!-- gauge -->
+<g transform="translate(70 40)">
+<text class="lbl" x="0" y="0">Compressor run time</text>
+<rect x="0" y="14" width="300" height="20" rx="10" fill="#1B3557"/>
+<rect class="gauge-fill" x="0" y="14" width="180" height="20" rx="10" fill="#19B5E8"/>
+<text class="lbl2" id="gv" x="314" y="32">60%</text>
+<text class="lbl" id="gnote" x="0" y="64" style="fill:#79E0FF">Clean coils: heat leaves easily</text>
+</g>
+</svg>
+</div>
+<div class="steps" role="group" aria-label="Steps">
+<button type="button" data-s="1" aria-pressed="true"><b>1. New equipment</b><span>Heat moves out freely. Compressors cycle normally.</span></button>
+<button type="button" data-s="2" aria-pressed="false"><b>2. Years later</b><span>Oil coats the coils and lines. Compressors run longer.</span></button>
+<button type="button" data-s="3" aria-pressed="false"><b>3. CRYOGENX4 added</b><span>A technician adds it to the circuit while the store stays open.</span></button>
+<button type="button" data-s="4" aria-pressed="false"><b>4. Heat moves again</b><span>Less run time for the same cold, so less power.</span></button>
+</div>
+</div>
+<p class="fignote">Animation is illustrative. Run-time figures show the idea, not a measured result.</p>
 <div class="spec">
 <dl>
 <dt>Install</dt><dd>A certified technician adds it to the refrigerant circuit while the system runs. No modifications, no shutdown, no product moved.</dd>
 <dt>What it does</dt><dd>Works on the internal metal surfaces to improve heat transfer at the condenser, evaporator and compressor.</dd>
-<dt>Result</dt><dd>Cases and rooms reach temperature faster, so compressors run less and draw less power.</dd>
 <dt>Equipment</dt><dd>1 to 1,600 tons: reach-ins, walk-in coolers and freezers, rack systems and rooftop units.</dd>
 <dt>How long it lasts</dt><dd>One treatment, for the remaining life of the equipment.</dd>
+<dt>Install time</dt><dd>Typically one day. 50,000+ units treated.</dd>
 </dl>
-<div class="foot"><span>Typical install: 1 day</span><span>50,000+ units treated</span></div>
+<figure><img src="/cryogenx4/assets/img/coil-split.jpg" alt="Illustrative: a refrigeration coil, clean on one side and coated on the other" loading="lazy" width="1200" height="805"><figcaption>Illustrative: the same coil, clean on the left and coated on the right.</figcaption></figure>
 </div>
 </div></section>
 
 <section class="s ledger"><div class="wrap">
-<h2>What each store gets back</h2>
+<h2>Three ways it pays a store back</h2>
+<div class="pays" data-on>
+<div>
+<svg viewBox="0 0 150 84" aria-hidden="true"><path d="M15 70 A45 45 0 0 1 105 70" fill="none" stroke="#D3DFE9" stroke-width="10"/><path d="M75 27 A45 45 0 0 1 105 70" fill="none" stroke="#F26A21" stroke-width="10" opacity=".55"/><g class="needle"><line x1="60" y1="70" x2="60" y2="30" stroke="#0A1A2F" stroke-width="4" stroke-linecap="round"/></g><circle cx="60" cy="70" r="6" fill="#0A1A2F"/></svg>
+<h3>The meter</h3><p>Compressors that move heat easily run less, so the store buys less electricity.</p><span class="v">Up to 40% less*</span>
+</div>
+<div>
+<svg class="calls" viewBox="0 0 150 84" aria-hidden="true"><g fill="#1C4DB0"><rect x="8" y="30" width="18" height="50"/><rect class="cut" x="34" y="20" width="18" height="60"/><rect class="cut" x="60" y="34" width="18" height="46"/><rect class="cut" x="86" y="16" width="18" height="64"/><rect class="cut" x="112" y="26" width="18" height="54"/></g><line x1="0" y1="80" x2="150" y2="80" stroke="#0A1A2F" stroke-width="2"/></svg>
+<h3>Service calls</h3><p>Equipment that isn't straining breaks down less and needs less upkeep.</p><span class="v">Up to 40% less maintenance</span>
+</div>
+<div>
+<svg class="life" viewBox="0 0 150 84" aria-hidden="true"><rect x="0" y="34" width="80" height="18" fill="#8FA3B8"/><rect class="ext" x="80" y="34" width="66" height="18" fill="#19B5E8"/><line x1="80" y1="24" x2="80" y2="62" stroke="#0A1A2F" stroke-width="2" stroke-dasharray="3 3"/><text x="0" y="76" font-family="Archivo" font-size="12" fill="#55657A">expected life</text><text x="84" y="76" font-family="Archivo" font-size="12" fill="#0A6F94">added</text></svg>
+<h3>Equipment life</h3><p>Lower head pressure and less run time mean the rack and rooftop units last longer.</p><span class="v">10&ndash;15 years added</span>
+</div>
+</div>
 <ul>
-<li><span>Energy on refrigeration and cooling</span><span class="dots" aria-hidden="true"></span><span class="val">Up to 40% less*</span></li>
-<li><span>Maintenance on treated equipment</span><span class="dots" aria-hidden="true"></span><span class="val">Up to 40% less</span></li>
-<li><span>Equipment life</span><span class="dots" aria-hidden="true"></span><span class="val">10&ndash;15 years added</span></li>
 <li><span>Typical payback</span><span class="dots" aria-hidden="true"></span><span class="val">12&ndash;36 months</span></li>
 <li><span>Downtime during install</span><span class="dots" aria-hidden="true"></span><span class="val">None</span></li>
+<li><span>Treatments needed</span><span class="dots" aria-hidden="true"></span><span class="val">One, for the life of the unit</span></li>
 </ul>
 </div></section>
 
-<section class="s stack"><div class="wrap grid">
+<section class="s fleet" style="background:#fff"><div class="wrap grid">
+<div>
+<h2>Your worst store is hiding in the average.</h2>
+<p>Same banner, same layout, same equipment package, and still a wide spread between your best store and your worst. Corporate sees one average. The stores losing the most are invisible inside it.</p>
+<p>That's why we start with your bills, store by store. The store that's struggling most is usually the one that gets the most back, and it's the best place to prove the result.</p>
+</div>
+<div class="bars" data-on>
+<svg viewBox="0 0 560 300" role="img" aria-label="Twelve stores ranked by energy use per square foot. The three highest are well above the fleet average.">
+<defs><pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#FDE7DA"/><line x1="0" y1="0" x2="0" y2="8" stroke="#F26A21" stroke-width="3"/></pattern></defs>
+<line x1="20" y1="250" x2="540" y2="250" stroke="#0A1A2F" stroke-width="2"/>
+<g fill="#C9D8E6" stroke="#0A1A2F" stroke-width="1.5">
+<rect class="b" x="30" y="170" width="30" height="80"/><rect class="b" x="72" y="164" width="30" height="86" style="transition-delay:.05s"/><rect class="b" x="114" y="158" width="30" height="92" style="transition-delay:.1s"/><rect class="b" x="156" y="152" width="30" height="98" style="transition-delay:.15s"/><rect class="b" x="198" y="146" width="30" height="104" style="transition-delay:.2s"/><rect class="b" x="240" y="140" width="30" height="110" style="transition-delay:.25s"/><rect class="b" x="282" y="134" width="30" height="116" style="transition-delay:.3s"/><rect class="b" x="324" y="124" width="30" height="126" style="transition-delay:.35s"/><rect class="b" x="366" y="114" width="30" height="136" style="transition-delay:.4s"/>
+</g>
+<g fill="url(#hatch)" stroke="#0A1A2F" stroke-width="1.5"><rect class="b" x="408" y="92" width="30" height="158" style="transition-delay:.5s"/><rect class="b" x="450" y="74" width="30" height="176" style="transition-delay:.55s"/><rect class="b" x="492" y="56" width="30" height="194" style="transition-delay:.6s"/></g>
+<line x1="20" y1="128" x2="540" y2="128" stroke="#0A1A2F" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text class="lblk" x="24" y="118">Fleet average: the only number corporate sees</text>
+<text class="lblk" x="404" y="40" style="fill:#B4470E">Start here</text>
+<text class="lbl" x="30" y="274">best</text><text class="lbl" x="490" y="274">worst</text>
+<text class="lbl" x="150" y="294">12 stores, ranked by energy use per square foot</text>
+</svg>
+<p class="fignote">Illustrative.</p>
+</div>
+</div></section>
+
+<section class="s stack dark"><div class="wrap grid">
 <div>
 <h2>Start with CRYOGENX4. Add what pays.</h2>
 <p>Once your refrigeration is restored, the same team looks at what else is costing the store money, and adds only the measures that pay for themselves.</p>
 <p class="one">One diagnosis, one team, one proposal.</p>
 </div>
-<div class="layers" aria-label="The CRYOGENX4 stack">
-<div>Battery storage <span>trims the monthly peak charge</span></div>
-<div>Transformers <span>lower losses before power reaches the store</span></div>
-<div>High-efficiency motors <span>fans, pumps and compressors</span></div>
-<div>Power quality <span>cleaner power, less wasted load</span></div>
-<div>Solar thermal <span>boosts restored units</span></div>
+<div class="layers" data-on aria-label="The CRYOGENX4 stack">
+<div style="transition-delay:.5s">Battery storage <span>trims the monthly peak charge</span></div>
+<div style="transition-delay:.4s">Transformers <span>lower losses before power reaches the store</span></div>
+<div style="transition-delay:.3s">High-efficiency motors <span>fans, pumps and compressors</span></div>
+<div style="transition-delay:.2s">Power quality <span>cleaner power, less wasted load</span></div>
+<div style="transition-delay:.1s">Solar thermal <span>boosts restored units</span></div>
 <div class="base">CRYOGENX4 <span>refrigeration and rooftop units</span></div>
 </div>
 </div></section>
 
 <section class="s proof"><div class="wrap grid">
-<figure><img src="https://images.unsplash.com/photo-1776860154052-d91c90b25c59?auto=format&fit=crop&w=1100&q=80" alt="A row of four large outdoor condensing units beside a building" loading="lazy" width="1100" height="1280"></figure>
 <div>
 <h2>We prove it on one store first.</h2>
 <ol>
@@ -199,6 +443,26 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <li><div><b>You roll out on your terms.</b><p>When the numbers hold up, we plan the rest of your stores, with financing options so the savings can cover the payment.</p></div></li>
 </ol>
 </div>
+<div class="ba" data-on>
+<svg viewBox="0 0 520 300" role="img" aria-label="Daily energy use before treatment, then lower after treatment, with the difference marked.">
+<line x1="20" y1="250" x2="500" y2="250" stroke="#0A1A2F" stroke-width="2"/>
+<line x1="260" y1="30" x2="260" y2="250" stroke="#55657A" stroke-dasharray="5 5"/>
+<text x="260" y="22" text-anchor="middle">treatment</text>
+<path class="ln" d="M30 96 L50 84 L70 102 L90 88 L110 98 L130 82 L150 100 L170 90 L190 104 L210 86 L230 96 L250 90" stroke="#8FA3B8"/>
+<path class="ln after" d="M270 150 L290 140 L310 156 L330 144 L350 152 L370 138 L390 154 L410 146 L430 158 L450 142 L470 150 L490 146" stroke="#1C4DB0"/>
+<g class="gap"><line x1="270" y1="93" x2="490" y2="93" stroke="#8FA3B8" stroke-dasharray="4 5"/><line x1="500" y1="93" x2="500" y2="148" stroke="#1C4DB0" stroke-width="2"/><line x1="494" y1="93" x2="506" y2="93" stroke="#1C4DB0" stroke-width="2"/><line x1="494" y1="148" x2="506" y2="148" stroke="#1C4DB0" stroke-width="2"/><text x="492" y="124" text-anchor="end" style="fill:#1C4DB0;font-weight:700">the savings, measured</text></g>
+<text x="80" y="276">before, weather-adjusted</text><text x="330" y="276">after</text>
+</svg>
+<p class="fignote">Illustrative shape. Your store's real before-and-after is what we measure.</p>
+</div>
+</div></section>
+
+<section class="s yes" style="background:#fff"><div class="wrap">
+<h2>Written for everyone who has to say yes.</h2>
+<p style="max-width:42em;margin:0 0 24px">A facilities lead finds it, an owner approves it, finance checks the math. Forward this page to whoever is next.</p>
+<details><summary>If you own the business</summary><p>Energy you stop buying goes straight to the bottom line. On grocery margins, ENERGY STAR puts each dollar saved at about $59 in sales. You see the result on one store before deciding anything about the rest.</p></details>
+<details><summary>If you run facilities</summary><p>One day per store, installed while the system runs, with no modifications and no product moved. Treated equipment runs less, needs less service and lasts longer.</p></details>
+<details><summary>If you sign off on the money</summary><p>Typical payback is 12 to 36 months. The pilot is measured before and after, adjusted for weather, with every assumption written down. Financing can be arranged so the savings cover the payment.</p></details>
 </div></section>
 
 <section class="start" id="start"><div class="wrap grid">
@@ -224,16 +488,39 @@ footer .logo{font-size:19px;margin-bottom:16px}
 </main>
 <footer><div class="wrap">
 <span class="logo"><svg aria-hidden="true" style="--tile:#132A48"><use href="#w1"/></svg><span class="word">CRYOGEN<span class="x4">X4</span></span></span>
-<p>* Up to 40% reflects CRYOGENX4 combined with stacked measures on refrigeration and cooling loads; CRYOGENX4 on its own is up to 30%. Every store is different. Savings depend on the equipment's age and condition, how the store runs, and the weather, which is why we measure on your store before you roll out. Maintenance, equipment-life, payback and unit-count figures are CRYOGENX4's.</p>
-<p>Sources: refrigeration share, U.S. EPA via NCEE Working Paper 2015-03. Energy savings as sales, ENERGY STAR Building Upgrade Manual, Supermarkets chapter. Photos: Eduardo Soares, Inna Safa and alpha innotec on Unsplash.</p>
+<p>* Up to 40% reflects CRYOGENX4 combined with stacked measures on refrigeration and cooling loads; CRYOGENX4 on its own is up to 30%. Every store is different. Savings depend on the equipment's age and condition, how the store runs, and the weather, which is why we measure on your store before you roll out. Maintenance, equipment-life, payback and unit-count figures are CRYOGENX4's. Charts and animations are illustrative.</p>
+<p>Sources: refrigeration share, U.S. EPA via NCEE Working Paper 2015-03. Energy savings as sales, ENERGY STAR Building Upgrade Manual, Supermarkets chapter. Images are illustrative.</p>
 <p>CRYOGENX4 &middot; Tri-S Technologies &middot; Houston, Texas</p>
 </div></footer>
 <script>
+(function(){
+var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+var fmt=function(n){return n.toLocaleString('en-US')};
+/* reveal-triggered pieces: content is visible by default; this only adds motion */
+var io='IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.35}):null;
+document.querySelectorAll('[data-on]').forEach(function(el){if(io&&!reduced)io.observe(el);else el.classList.add('on')});
+/* count-ups */
+var cio='IntersectionObserver' in window&&!reduced?new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;cio.unobserve(e.target);var el=e.target,to=+el.dataset.count,t0=null;function step(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/1400),v=Math.round(to*(1-Math.pow(1-p,4)));el.textContent=el.dataset.sep?fmt(v):v;if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)})},{threshold:.6}):null;
+if(cio)document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el)});
+/* sales calculator */
+var sv=document.getElementById('sv');
+function calc(){var m=+sv.value;document.getElementById('svo').textContent='$'+fmt(m);document.getElementById('sales').textContent='$'+fmt(m*59);var y=m*59*12;document.getElementById('yr').textContent=y>=1e6?'$'+(Math.round(y/1e5)/10)+' million':'$'+fmt(y)}
+sv.addEventListener('input',calc);calc();
+/* machine */
+var rig=document.getElementById('rig'),btns=[].slice.call(document.querySelectorAll('.steps button'));
+var G={1:[60,'Clean coils: heat leaves easily'],2:[88,'Coated coils: heat is trapped, compressors strain'],3:[74,'Treatment working into the coils'],4:[62,'Heat moves again: less run time, less power']};
+var cur=1,timer=null,auto=true;
+function set(s){cur=s;rig.setAttribute('data-step',s);btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.s==s?'true':'false')});rig.querySelector('.gauge-fill').setAttribute('width',G[s][0]*3);document.getElementById('gv').textContent=G[s][0]+'%';document.getElementById('gnote').textContent=G[s][1]}
+btns.forEach(function(b){b.addEventListener('click',function(){auto=false;clearInterval(timer);set(+b.dataset.s)})});
+if(!reduced&&'IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(e){clearInterval(timer);if(e.isIntersecting&&auto){timer=setInterval(function(){set(cur%4+1)},4200)}})},{threshold:.5}).observe(rig)}
+set(1);
+/* form */
 document.getElementById('f').addEventListener('submit',function(e){
  e.preventDefault();
  var g=function(i){return document.getElementById(i).value.trim()};
  var body='Hi Dave,\n\nWe would like to start with one store.\n\nName: '+g('n')+'\nCompany: '+g('c')+'\nRole: '+g('r')+'\nNumber of stores: '+g('s')+'\nFirst store city: '+g('l')+'\nPhone: '+g('p')+'\n';
  location.href='mailto:dave@cryogenx4.com?subject='+encodeURIComponent('Start with one store: '+g('c'))+'&body='+encodeURIComponent(body);
 });
+})();
 </script>
 </body></html>
