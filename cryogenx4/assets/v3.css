@@ -1,0 +1,39 @@
+@font-face{font-family:"Archivo";src:url(/assets/fonts/archivo-var.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
+@font-face{font-family:"Public Sans";src:url(/cryogenx4/assets/fonts/public-sans-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Public Sans";src:url(/cryogenx4/assets/fonts/public-sans-latin-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Public Sans";src:url(/cryogenx4/assets/fonts/public-sans-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+:root{
+  --navy:#0A1A2F;     /* Deep Freeze: primary dark */
+  --navy-2:#132A48;
+  --cobalt:#1C4DB0;   /* from the current logo's GEN */
+  --glacier:#19B5E8;  /* brand blue: buttons and marks on navy */
+  --glacier-d:#0A6F94;/* links and small text on white, 5.6:1 */
+  --ice:#E3F2F9;      /* light panel */
+  --frost:#F4F8FB;    /* page background */
+  --ember:#F26A21;    /* the orange in the current logo: heat only */
+  --ink:#0A1A2F;
+  --body:#33435A;     /* 9.6:1 on white */
+  --muted:#55657A;    /* 5.9:1 on white */
+  --on-navy:#C9D8E6;  /* body text on navy, 11:1 */
+  --rule:#D3DFE9;
+  --z-sticky:20;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--frost);color:var(--body);font:400 20px/1.6 "Public Sans",system-ui,sans-serif}
+.wrap{max-width:1140px;margin:0 auto;padding:0 clamp(20px,4vw,36px)}
+h1,h2,h3{font-family:"Archivo",sans-serif;font-weight:800;font-stretch:112%;color:var(--ink);letter-spacing:-.01em;line-height:1.08;margin:0;text-wrap:balance}
+p{text-wrap:pretty}
+.fig{font-family:"Archivo",sans-serif;font-weight:800;font-stretch:115%;font-variant-numeric:tabular-nums;line-height:1}
+a{color:var(--glacier-d);text-underline-offset:3px}
+.word{font-family:"Archivo",sans-serif;font-weight:800;font-stretch:125%;letter-spacing:.01em;line-height:1;white-space:nowrap}
+.word .x4{color:var(--glacier)}
+.logo{display:inline-flex;align-items:center;gap:.45em;text-decoration:none;color:#fff}
+.logo svg{width:1.6em;height:1.6em;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;font:700 20px/1 "Public Sans",sans-serif;padding:0 26px;border-radius:8px;text-decoration:none;border:0;cursor:pointer;transition:background-color .2s cubic-bezier(.22,1,.36,1)}
+.btn-blue{background:var(--glacier);color:var(--navy)}
+.btn-blue:hover{background:#45c4ef}
+.btn-navy{background:var(--navy);color:#fff}
+.btn-navy:hover{background:var(--navy-2)}
+:focus-visible{outline:3px solid var(--ember);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}

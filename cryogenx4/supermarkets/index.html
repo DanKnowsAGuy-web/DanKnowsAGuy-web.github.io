@@ -2,133 +2,102 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>CRYOGENX4 for Supermarkets: up to 40% less energy on store refrigeration</title>
-<meta name="description" content="One treatment restores heat transfer in your cases, racks and rooftop units, installed while the store stays open. Proven on one of your stores before you roll it out.">
+<title>CRYOGENX4 for Supermarkets: up to 40% less energy on refrigeration</title>
+<meta name="description" content="A one-time treatment that restores heat transfer in your store's refrigeration and rooftop units. Proven on one of your stores before you roll it out.">
 <link rel="icon" href="/cryogenx4/assets/favicon.svg">
-<link rel="stylesheet" href="/cryogenx4/assets/cx4.css">
+<link rel="stylesheet" href="/cryogenx4/assets/v3.css">
 <style>
-/* header */
-.bar{position:sticky;top:0;z-index:var(--z-sticky);background:var(--ink);color:#fff}
-.bar .wrap{display:flex;justify-content:space-between;align-items:center;height:68px;gap:16px}
-.bar .lockup{font-size:30px;--bar:var(--signal)}
-.bar a.txt{color:#fff;font-weight:700;text-decoration:none;font-size:18px;white-space:nowrap}
-.bar a.txt b{color:var(--signal)}
-
-/* hero: drenched signal orange */
-.hero{background:var(--signal);color:var(--ink);overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,4vw,56px);align-items:end;padding-top:clamp(40px,6vw,80px)}
-.hero h1{font-size:clamp(54px,8.4vw,96px);text-transform:uppercase;animation:rise .9s cubic-bezier(.22,1,.36,1) both}
-.hero h1 sup{font-size:.36em;vertical-align:top;position:relative;top:.1em}
-.hero .lead{font-size:clamp(20px,1.7vw,23px);max-width:34ch;margin:26px 0 30px}
-.hero .act{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;padding-bottom:clamp(40px,6vw,80px)}
-.hero .act a.sms{font-weight:700;font-size:19px}
-.hero figure{margin:0;align-self:stretch;position:relative;min-height:420px;background:var(--ink)}
-.hero figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(1.05)}
-.hero figure figcaption{position:absolute;left:0;bottom:0;background:var(--ink);color:#fff;font:700 15px/1.3 Atkinson;padding:10px 14px;max-width:80%}
-@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-
-/* fact band */
-.fact{position:relative;background:var(--ink);color:#fff;min-height:min(78vh,640px);display:grid;align-items:end;overflow:hidden}
-.fact img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42}
-.fact .wrap{position:relative;width:100%;padding-top:90px;padding-bottom:64px}
-.fact .n{font-family:"Big Shoulders";font-weight:900;font-size:clamp(90px,17vw,220px);line-height:.82;color:var(--signal);display:block}
-.fact p{font-size:clamp(24px,2.6vw,34px);line-height:1.25;max-width:24ch;margin:16px 0 0;font-weight:700}
-.fact small{display:block;margin-top:18px;font-size:16px;color:var(--steel)}
-
-/* why */
-.why{padding:clamp(72px,9vw,120px) 0}
-.why .wrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(28px,5vw,72px)}
-.why h2{font-size:clamp(44px,5.6vw,76px);text-transform:uppercase}
-.why .body p{margin:0 0 18px;max-width:58ch}
-.why .pull{margin-top:34px;border-top:6px solid var(--ink);padding-top:20px}
-.why .pull .display{font-size:clamp(56px,7vw,92px);text-transform:uppercase}
-.why .pull .display em{font-style:normal;color:var(--signal-d)}
-.why .pull p{margin:8px 0 0;color:var(--graphite);font-size:18px}
-
-/* spec plate */
-.spec{background:var(--ink);color:#fff;padding:clamp(72px,9vw,120px) 0}
-.spec h2{font-size:clamp(44px,5.6vw,76px);text-transform:uppercase;margin-bottom:34px}
-.plate{position:relative;border:3px solid var(--steel);border-radius:10px;padding:clamp(22px,3vw,40px) clamp(22px,3vw,44px)}
-.plate:before,.plate:after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:var(--steel);top:16px}
-.plate:before{left:16px}.plate:after{right:16px}
-.plate dl{margin:0;display:grid;grid-template-columns:minmax(150px,240px) minmax(0,1fr)}
-.plate dt,.plate dd{padding:20px 0;border-bottom:2px solid #3a332f;margin:0}
-.plate dt{font-family:"Big Shoulders";font-weight:800;font-size:26px;letter-spacing:.04em;text-transform:uppercase;color:var(--signal)}
-.plate dd{font-size:21px;color:#fff}
-.plate dl > :nth-last-child(-n+2){border-bottom:0}
-.plate .sn{display:flex;justify-content:space-between;margin-top:14px;font:700 14px/1 Atkinson;letter-spacing:.14em;text-transform:uppercase;color:var(--steel)}
-
-/* ledger */
-.ledger{padding:clamp(72px,9vw,120px) 0}
-.ledger h2{font-size:clamp(44px,5.6vw,76px);text-transform:uppercase;max-width:14ch}
-.ledger ul{list-style:none;margin:40px 0 0;padding:0;border-top:6px solid var(--ink)}
-.ledger li{display:flex;align-items:baseline;gap:14px;padding:22px 0;border-bottom:2px solid var(--steel);font-size:clamp(20px,2vw,24px)}
-.ledger li .lbl{flex:0 1 auto}
-.ledger li .dots{flex:1 1 auto;border-bottom:3px dotted #9b938f;transform:translateY(-6px);min-width:24px}
-.ledger li .val{font-family:"Big Shoulders";font-weight:900;font-size:clamp(34px,4vw,52px);line-height:1;text-transform:uppercase;white-space:nowrap}
-
-/* stack */
-.stack{background:var(--steel);padding:clamp(72px,9vw,120px) 0}
-.stack .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:end}
-.stack h2{font-size:clamp(44px,5.6vw,76px);text-transform:uppercase}
-.stack p{max-width:44ch}
-.stack p.one{font-family:"Big Shoulders";font-weight:900;font-size:32px;text-transform:uppercase;line-height:1}
+header.bar{position:sticky;top:0;z-index:var(--z-sticky);background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08)}
+header.bar .wrap{display:flex;justify-content:space-between;align-items:center;min-height:72px;gap:16px}
+header.bar .logo{font-size:21px}
+header.bar .btn{min-height:46px;font-size:18px;padding:0 18px}
+.hero{background:var(--navy);color:var(--on-navy);padding:64px 0 0}
+.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero .for{font-size:19px;color:var(--glacier);margin:0 0 14px}
+.hero h1{color:#fff;font-size:clamp(38px,5.2vw,62px);margin:0 0 20px}
+.hero h1 sup{font-size:.4em;color:var(--glacier);vertical-align:super}
+.hero .lead{font-size:21px;margin:0 0 30px;max-width:34em}
+.act{display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
+.act a.sms{color:#fff;font-weight:700}
+.hero figure{margin:0;border-radius:14px;overflow:hidden;aspect-ratio:5/4}
+.hero figure img{width:100%;height:100%;object-fit:cover;display:block}
+.flow{display:block;width:100%;height:46px;margin-top:56px}
+.fact{position:relative;color:#fff;overflow:hidden;background:var(--navy-2)}
+.fact img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.28}
+.fact .wrap{position:relative;display:grid;grid-template-columns:auto 1fr;gap:12px 40px;align-items:center;padding-top:64px;padding-bottom:64px}
+.fact .n{font-size:clamp(64px,10vw,124px);color:#fff}
+.fact p{margin:0;font-size:clamp(21px,2.4vw,27px);line-height:1.4;max-width:24em}
+.fact small{grid-column:1/-1;font-size:15px;color:var(--on-navy)}
+section.s{padding:88px 0}
+section.s h2{font-size:clamp(30px,3.8vw,44px);margin:0 0 18px;max-width:22em}
+.why .grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.why p{margin:0 0 16px;max-width:36em}
+.pull{background:#fff;border:1px solid var(--rule);border-radius:14px;padding:32px}
+.pull .fig{font-size:clamp(40px,5vw,60px);color:var(--ink)}
+.pull .fig b{color:var(--cobalt);font-weight:800}
+.pull p{margin:12px 0 0;font-size:18px;color:var(--muted)}
+.how{background:#fff}
+.spec{margin-top:30px;border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.spec dl{margin:0;display:grid;grid-template-columns:220px 1fr}
+.spec dt,.spec dd{margin:0;padding:20px 26px;border-top:1px solid var(--rule)}
+.spec dt:first-of-type,.spec dd:first-of-type{border-top:0}
+.spec dt{font-family:Archivo;font-weight:700;font-stretch:105%;color:var(--ink);background:var(--frost);font-size:18px}
+.spec .foot{display:flex;flex-wrap:wrap;gap:8px 28px;padding:16px 26px;background:var(--ice);font-weight:700;color:var(--navy);font-size:18px}
+.ledger ul{list-style:none;margin:28px 0 0;padding:0;max-width:900px}
+.ledger li{display:flex;align-items:baseline;gap:14px;padding:18px 0;border-bottom:1px solid var(--rule);font-size:21px}
+.ledger li:first-child{border-top:2px solid var(--ink)}
+.ledger .dots{flex:1;border-bottom:2px dotted #b7c6d4;transform:translateY(-6px)}
+.ledger .val{font-family:Archivo;font-weight:800;font-stretch:110%;color:var(--ink);white-space:nowrap}
+.stack{background:var(--navy);color:var(--on-navy)}
+.stack .grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.stack h2{color:#fff}
+.stack p{margin:0 0 14px;max-width:32em}
+.stack .one{color:#fff;font-weight:700;margin-top:20px}
 .layers{display:flex;flex-direction:column;gap:6px}
-.layers div{background:var(--ink);color:#fff;padding:14px 18px;font-weight:700;font-size:19px;display:flex;justify-content:space-between;gap:12px;border-radius:3px;transform-origin:left center}
-.layers div span{font-weight:400;color:var(--steel);font-size:16px;text-align:right}
-.layers div.base{background:var(--signal);color:var(--ink);padding:24px 18px;font-family:"Big Shoulders";font-weight:900;font-size:30px;text-transform:uppercase}
-.layers div.base span{color:var(--ink);font-family:Atkinson;font-weight:700;text-transform:none;font-size:16px;align-self:center}
-@supports (animation-timeline:view()){
- .layers div{animation:grow linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
- @keyframes grow{from{transform:scaleX(.55);opacity:.3}to{transform:none;opacity:1}}
-}
-
-/* proof */
-.proof{padding:clamp(72px,9vw,120px) 0}
-.proof .wrap{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px)}
-.proof figure{margin:0;position:relative;min-height:460px;background:var(--ink);border-radius:4px;overflow:hidden}
-.proof figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.proof h2{font-size:clamp(44px,5.6vw,76px);text-transform:uppercase}
-.proof ol{list-style:none;padding:0;margin:30px 0 0;counter-reset:s}
-.proof li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:18px;padding:22px 0;border-top:2px solid var(--steel)}
-.proof li:before{counter-increment:s;content:counter(s);font-family:"Big Shoulders";font-weight:900;font-size:64px;line-height:.8;color:var(--signal-d)}
-.proof li b{display:block;font-size:22px}
+.layers div{display:flex;justify-content:space-between;gap:16px;padding:15px 20px;border-radius:8px;background:var(--navy-2);border:1px solid rgba(255,255,255,.1);color:#fff;font-weight:700;font-size:19px}
+.layers div span{font-weight:400;color:var(--on-navy);font-size:17px;text-align:right}
+.layers div.base{background:var(--glacier);border-color:var(--glacier);color:var(--navy);padding:22px 20px;font-family:Archivo;font-weight:800;font-stretch:115%;font-size:22px}
+.layers div.base span{color:var(--navy);font-family:"Public Sans";font-stretch:normal;font-weight:400}
+.proof{background:var(--ice)}
+.proof .grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center}
+.proof figure{margin:0;border-radius:14px;overflow:hidden;aspect-ratio:6/7}
+.proof figure img{width:100%;height:100%;object-fit:cover;display:block}
+.proof ol{list-style:none;counter-reset:s;margin:26px 0 0;padding:0}
+.proof li{counter-increment:s;display:grid;grid-template-columns:48px 1fr;gap:18px;padding:18px 0;border-top:1px solid #c5dbe8}
+.proof li:before{content:counter(s);width:44px;height:44px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-family:Archivo;font-weight:800;font-size:19px}
+.proof li b{display:block;color:var(--ink);font-size:21px;margin-top:6px}
 .proof li p{margin:4px 0 0}
-
-/* start */
-.start{background:var(--ink);color:#fff;padding:clamp(72px,9vw,120px) 0}
-.start .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:start}
-.start h2{font-size:clamp(60px,8.4vw,96px);text-transform:uppercase;color:var(--signal)}
-.start p{max-width:40ch;color:var(--steel)}
-.dave{margin-top:28px;border-top:2px solid #3a332f;padding-top:22px}
-.dave b{display:block;font-size:22px}
-.dave a{color:#fff;font-size:21px}
-form.intake{background:var(--concrete);color:var(--ink);border-radius:6px;padding:clamp(22px,3vw,34px)}
-form.intake h3{font-size:36px;text-transform:uppercase}
-form.intake .hint{margin:6px 0 10px;font-size:17px;color:var(--graphite)}
-form.intake label{display:block;font-weight:700;font-size:17px;margin:16px 0 6px}
-form.intake input,form.intake select{width:100%;min-height:52px;font:inherit;font-size:19px;padding:10px 14px;border:2px solid #b9b3b0;border-radius:4px;background:#fff;color:var(--ink)}
-form.intake input:focus,form.intake select:focus{border-color:var(--ink);outline:none}
+.start{background:var(--navy);color:var(--on-navy);padding:88px 0}
+.start .grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.start h2{color:#fff;font-size:clamp(32px,4.2vw,48px);margin:0 0 16px}
+.start p{margin:0;font-size:21px}
+.dave{margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14)}
+.dave b{display:block;color:#fff;font-size:21px}
+.dave a{color:var(--glacier);font-size:20px;text-decoration:none}
+form.intake{background:#fff;border-radius:14px;padding:32px;color:var(--body)}
+form.intake h3{font-size:24px}
+form.intake .hint{margin:6px 0 8px;font-size:17px;color:var(--muted)}
+form.intake label{display:block;font-weight:700;color:var(--ink);font-size:17px;margin:16px 0 6px}
+form.intake input,form.intake select{width:100%;min-height:52px;font:inherit;font-size:19px;padding:10px 14px;border:1.5px solid #a9bccd;border-radius:8px;background:#fff;color:var(--ink)}
+form.intake input:focus,form.intake select:focus{border-color:var(--cobalt);outline:2px solid var(--glacier);outline-offset:0}
 form.intake .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 form.intake .btn{width:100%;margin-top:24px}
-
-footer{background:#0b0807;color:var(--steel);padding:36px 0 44px;font-size:16px}
+footer{background:#06111F;color:#A9B9C9;font-size:16px;padding:38px 0 46px}
 footer p{max-width:80ch;margin:0 0 12px}
-footer .lockup{font-size:26px;color:#fff;--bar:var(--signal);margin-bottom:14px}
-
+footer .logo{font-size:19px;margin-bottom:16px}
 @media (max-width:880px){
- .hero .wrap,.why .wrap,.stack .wrap,.proof .wrap,.start .wrap{grid-template-columns:1fr}
- .hero figure{min-height:300px;margin:0 calc(-1*clamp(20px,4vw,40px))}
- .hero .act{padding-bottom:0}
- .hero .wrap{padding-bottom:0}
- .plate dl{grid-template-columns:1fr}
- .plate dt{padding-bottom:4px;border-bottom:0}
- .plate dd{padding-top:0}
- .ledger li{flex-wrap:wrap}
- .ledger li .dots{display:none}
- .ledger li .val{width:100%}
- .proof figure{min-height:280px}
- .bar a.txt span{display:none}
+ .hero .grid,.why .grid,.stack .grid,.proof .grid,.start .grid{grid-template-columns:1fr;gap:32px}
+ .hero{padding-top:44px}
+ .fact .wrap{grid-template-columns:1fr}
+ .spec dl{grid-template-columns:1fr}
+ .spec dd{border-top:0;padding-top:0}
+ .spec dt{background:none;padding-bottom:6px}
+ .ledger li{flex-wrap:wrap;gap:4px}
+ .ledger .dots{display:none}
+ .ledger .val{width:100%}
+ .proof figure{aspect-ratio:4/3}
+ header.bar .btn span{display:none}
+ header.bar .logo{font-size:18px}
  form.intake .row{grid-template-columns:1fr}
  .layers div{flex-direction:column;gap:2px}
  .layers div span{text-align:left}
@@ -137,77 +106,97 @@ footer .lockup{font-size:26px;color:#fff;--bar:var(--signal);margin-bottom:14px}
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
+<path id="wv" d="M2 0c12-9 24 9 34 0s22-9 34 0s22-9 34 0" fill="none" stroke-linecap="butt"/>
+<mask id="mA" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="100"><rect width="120" height="100" fill="#fff"/><g stroke="#000" stroke-width="12"><use href="#wv" y="30"/><use href="#wv" y="50"/><use href="#wv" y="70"/></g><g fill="#000"><polygon points="99,20 120,30 99,40"/><polygon points="99,40 120,50 99,60"/><polygon points="99,60 120,70 99,80"/></g></mask>
+<!-- A: the current logo, cleaned up. Orange box, three waves with arrows. -->
+<symbol id="m-orig" viewBox="0 0 120 100">
+<rect x="10" y="10" width="78" height="80" fill="var(--box,currentColor)" mask="url(#mA)"/>
+<g stroke="var(--waves,currentColor)" stroke-width="5.5"><use href="#wv" y="30"/><use href="#wv" y="50"/><use href="#wv" y="70"/></g>
+<g fill="var(--waves,currentColor)"><polygon points="103,23.5 116,30 103,36.5"/><polygon points="103,43.5 116,50 103,56.5"/><polygon points="103,63.5 116,70 103,76.5"/></g>
+</symbol>
+<!-- B: draft 1 wave tile, refined. Hard split from heat to cold, no gradient. -->
+<clipPath id="cL"><rect x="0" y="0" width="47" height="100"/></clipPath>
+<clipPath id="cR"><rect x="47" y="0" width="53" height="100"/></clipPath>
+<path id="wv2" d="M16 0c9-8 17 8 23 0s15-8 23 0s15-8 23 0" fill="none" stroke-linecap="round"/>
+<symbol id="m-wave" viewBox="0 0 100 100">
+<rect x="2" y="2" width="96" height="96" rx="20" fill="var(--tile,#0A1A2F)"/>
+<g stroke-width="6.5">
+<g clip-path="url(#cL)" stroke="var(--hot,#F26A21)"><use href="#wv2" y="33"/><use href="#wv2" y="50"/><use href="#wv2" y="67"/></g>
+<g clip-path="url(#cR)" stroke="var(--cold,#19B5E8)"><use href="#wv2" y="33"/><use href="#wv2" y="50"/><use href="#wv2" y="67"/></g>
+</g>
+</symbol>
+<!-- C: Crossflow X -->
 <mask id="gapA" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><rect x="-10" y="35" width="120" height="30" fill="#000" transform="rotate(-45 50 50)"/></mask>
 <symbol id="cx-a" viewBox="0 0 100 100">
 <g mask="url(#gapA)" fill="var(--fins,currentColor)"><g transform="rotate(45 50 50)"><rect x="6" y="32" width="88" height="8"/><rect x="6" y="46" width="88" height="8"/><rect x="6" y="60" width="88" height="8"/></g></g>
-<rect x="4" y="39" width="92" height="22" transform="rotate(-45 50 50)" fill="var(--bar,currentColor)"/>
-</symbol>
-<symbol id="cx-c" viewBox="0 0 100 100">
-<g mask="url(#gapA)" fill="var(--fins,currentColor)"><rect x="4" y="39" width="92" height="22" transform="rotate(45 50 50)"/></g>
 <rect x="4" y="39" width="92" height="22" transform="rotate(-45 50 50)" fill="var(--bar,currentColor)"/>
 </symbol>
 </defs>
 </svg>
 
 <header class="bar"><div class="wrap">
-<a class="lockup" href="#top" aria-label="CRYOGENX4"><svg class="mark" aria-hidden="true"><use href="#cx-a"/></svg>CRYOGENX4</a>
-<a class="txt" href="sms:+18324937915?&body=Hi%20Dave%2C%20I%20saw%20the%20CRYOGENX4%20supermarket%20page.%20I%27d%20like%20to%20talk%20about%20one%20of%20our%20stores.">Text Dave<span> <b>832-493-7915</b></span></a>
+<a class="logo" href="#top" aria-label="CRYOGENX4"><svg aria-hidden="true" style="--tile:#132A48"><use href="#m-wave"/></svg><span class="word">CRYOGEN<span class="x4">X4</span></span></a>
+<a class="btn btn-blue" href="sms:+18324937915?&body=Hi%20Dave%2C%20I%20saw%20the%20CRYOGENX4%20supermarket%20page.%20I%27d%20like%20to%20talk%20about%20one%20of%20our%20stores.">Text Dave<span>&nbsp;832-493-7915</span></a>
 </div></header>
-
 <main id="top">
 <section class="hero"><div class="wrap">
+<div class="grid">
 <div>
-<h1>Up to 40% less energy on store refrigeration.<sup>*</sup></h1>
-<p class="lead">CRYOGENX4 restores the heat transfer inside your cases, racks and rooftop units. One treatment, installed while the store stays open. Proven on one of your stores before you roll it out.</p>
-<div class="act"><a class="btn btn-ink" href="#start">Pick a store to start with</a><a class="sms" href="sms:+18324937915?&body=Hi%20Dave%2C%20I%27d%20like%20to%20talk%20about%20CRYOGENX4%20for%20one%20of%20our%20stores.">or text Dave, 832-493-7915</a></div>
+<p class="for">For supermarkets and grocery chains</p>
+<h1>Up to 40% less energy on store refrigeration and cooling.<sup>*</sup></h1>
+<p class="lead">CRYOGENX4 restores the heat transfer inside your cases, racks and rooftop units. It's a one-time treatment, installed while the store stays open. And we prove it on one of your stores before you roll it out.</p>
+<div class="act"><a class="btn btn-blue" href="#start">Start with one store</a><a class="sms" href="sms:+18324937915?&body=Hi%20Dave%2C%20I%27d%20like%20to%20talk%20about%20CRYOGENX4%20for%20one%20of%20our%20stores.">or text Dave, 832-493-7915</a></div>
 </div>
-<figure><img src="https://images.unsplash.com/photo-1601599561213-832382fd07ba?auto=format&fit=crop&w=1400&q=80" alt="A long run of glass-front refrigerated cases stocked with yogurt in a grocery store" loading="eager" fetchpriority="high" width="1400" height="1000"><figcaption>Cases like these run 24 hours a day.</figcaption></figure>
-</div></section>
+<figure><img src="https://images.unsplash.com/photo-1601599561213-832382fd07ba?auto=format&fit=crop&w=1300&q=80" alt="A long run of glass-front refrigerated cases stocked with yogurt in a grocery store" width="1300" height="1040" fetchpriority="high"></figure>
+</div>
+</div>
+<svg class="flow" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 23c50-20 100 20 150 0s100-20 150 0 100 20 150 0 100-20 150 0" fill="none" stroke="#F26A21" stroke-width="4"/><path d="M600 23c50-20 100 20 150 0s100-20 150 0 100 20 150 0 100-20 150 0" fill="none" stroke="#19B5E8" stroke-width="4"/></svg>
+</section>
 
 <section class="fact" aria-label="Refrigeration share of store electricity">
 <img src="https://images.unsplash.com/photo-1710037248074-834123e47286?auto=format&fit=crop&w=1800&q=70" alt="" loading="lazy" width="1800" height="1200">
 <div class="wrap">
-<span class="n">40&ndash;60%</span>
+<span class="fig n">40&ndash;60%</span>
 <p>of a supermarket's electricity goes to refrigeration. It's the biggest load in the building, and it never shuts off.</p>
 <small>Source: U.S. EPA, via NCEE Working Paper 2015-03</small>
 </div>
 </section>
 
-<section class="why"><div class="wrap">
+<section class="s why"><div class="wrap grid">
+<div>
 <h2>It costs more to run every year.</h2>
-<div class="body">
-<p>Refrigeration loses ground with age. Over time, compressor oil coats the inside of the coils and lines, and heat moves out more slowly. The compressors have to run longer to hold the same temperature, and the bill climbs even when nothing else changes.</p>
+<p>Refrigeration loses ground with age. Compressor oil slowly coats the inside of the coils and lines, so heat moves out more slowly. The compressors run longer to hold the same temperature, and the bill climbs even when nothing else changes.</p>
 <p>On grocery margins, that matters more than in almost any other business.</p>
-<div class="pull"><div class="display">$1 saved &asymp; <em>$59</em> in sales</div><p>ENERGY STAR's estimate for supermarkets, where net profit runs about 1 to 2 percent of sales.</p></div>
 </div>
+<div class="pull"><div class="fig">$1 saved &asymp; <b>$59</b> in sales</div><p>ENERGY STAR's estimate for supermarkets, where net profit runs about 1 to 2 percent of sales.</p></div>
 </div></section>
 
-<section class="spec"><div class="wrap">
+<section class="s how"><div class="wrap">
 <h2>How CRYOGENX4 works</h2>
-<div class="plate">
+<div class="spec">
 <dl>
 <dt>Install</dt><dd>A certified technician adds it to the refrigerant circuit while the system runs. No modifications, no shutdown, no product moved.</dd>
 <dt>What it does</dt><dd>Works on the internal metal surfaces to improve heat transfer at the condenser, evaporator and compressor.</dd>
 <dt>Result</dt><dd>Cases and rooms reach temperature faster, so compressors run less and draw less power.</dd>
 <dt>Equipment</dt><dd>1 to 1,600 tons: reach-ins, walk-in coolers and freezers, rack systems and rooftop units.</dd>
-<dt>Service life</dt><dd>One treatment, for the remaining life of the equipment.</dd>
+<dt>How long it lasts</dt><dd>One treatment, for the remaining life of the equipment.</dd>
 </dl>
-<div class="sn"><span>Typical install: 1 day</span><span>50,000+ units treated</span></div>
+<div class="foot"><span>Typical install: 1 day</span><span>50,000+ units treated</span></div>
 </div>
 </div></section>
 
-<section class="ledger"><div class="wrap">
+<section class="s ledger"><div class="wrap">
 <h2>What each store gets back</h2>
 <ul>
-<li><span class="lbl">Energy on refrigeration and cooling</span><span class="dots" aria-hidden="true"></span><span class="val">Up to 40% less*</span></li>
-<li><span class="lbl">Maintenance on treated equipment</span><span class="dots" aria-hidden="true"></span><span class="val">Up to 40% less</span></li>
-<li><span class="lbl">Equipment life</span><span class="dots" aria-hidden="true"></span><span class="val">10&ndash;15 years added</span></li>
-<li><span class="lbl">Typical payback</span><span class="dots" aria-hidden="true"></span><span class="val">12&ndash;36 months</span></li>
-<li><span class="lbl">Downtime during install</span><span class="dots" aria-hidden="true"></span><span class="val">None</span></li>
+<li><span>Energy on refrigeration and cooling</span><span class="dots" aria-hidden="true"></span><span class="val">Up to 40% less*</span></li>
+<li><span>Maintenance on treated equipment</span><span class="dots" aria-hidden="true"></span><span class="val">Up to 40% less</span></li>
+<li><span>Equipment life</span><span class="dots" aria-hidden="true"></span><span class="val">10&ndash;15 years added</span></li>
+<li><span>Typical payback</span><span class="dots" aria-hidden="true"></span><span class="val">12&ndash;36 months</span></li>
+<li><span>Downtime during install</span><span class="dots" aria-hidden="true"></span><span class="val">None</span></li>
 </ul>
 </div></section>
 
-<section class="stack"><div class="wrap">
+<section class="s stack"><div class="wrap grid">
 <div>
 <h2>Start with CRYOGENX4. Add what pays.</h2>
 <p>Once your refrigeration is restored, the same team looks at what else is costing the store money, and adds only the measures that pay for themselves.</p>
@@ -223,8 +212,8 @@ footer .lockup{font-size:26px;color:#fff;--bar:var(--signal);margin-bottom:14px}
 </div>
 </div></section>
 
-<section class="proof"><div class="wrap">
-<figure><img src="https://images.unsplash.com/photo-1776860154052-d91c90b25c59?auto=format&fit=crop&w=1200&q=80" alt="A row of four large outdoor condensing units beside a building" loading="lazy" width="1200" height="1400"></figure>
+<section class="s proof"><div class="wrap grid">
+<figure><img src="https://images.unsplash.com/photo-1776860154052-d91c90b25c59?auto=format&fit=crop&w=1100&q=80" alt="A row of four large outdoor condensing units beside a building" loading="lazy" width="1100" height="1280"></figure>
 <div>
 <h2>We prove it on one store first.</h2>
 <ol>
@@ -235,7 +224,7 @@ footer .lockup{font-size:26px;color:#fff;--bar:var(--signal);margin-bottom:14px}
 </div>
 </div></section>
 
-<section class="start" id="start"><div class="wrap">
+<section class="start" id="start"><div class="wrap grid">
 <div>
 <h2>Start with one store.</h2>
 <p>Tell us which store you'd like to start with. Dave will get back to you and walk you through what we need. It takes about 15 minutes.</p>
@@ -252,18 +241,16 @@ footer .lockup{font-size:26px;color:#fff;--bar:var(--signal);margin-bottom:14px}
 <div class="row"><div><label for="s">How many stores?</label><select id="s"><option>1 to 5</option><option>6 to 25</option><option>26 to 100</option><option>More than 100</option></select></div>
 <div><label for="l">First store's city</label><input id="l" autocomplete="address-level2"></div></div>
 <label for="p">Best phone</label><input id="p" type="tel" autocomplete="tel">
-<button class="btn btn-signal" type="submit">Send to Dave</button>
+<button class="btn btn-blue" type="submit">Send to Dave</button>
 </form>
 </div></section>
 </main>
-
 <footer><div class="wrap">
-<span class="lockup"><svg class="mark" aria-hidden="true"><use href="#cx-a"/></svg>CRYOGENX4</span>
+<span class="logo"><svg aria-hidden="true" style="--tile:#132A48"><use href="#m-wave"/></svg><span class="word">CRYOGEN<span class="x4">X4</span></span></span>
 <p>* Up to 40% reflects CRYOGENX4 combined with stacked measures on refrigeration and cooling loads; CRYOGENX4 on its own is up to 30%. Every store is different. Savings depend on the equipment's age and condition, how the store runs, and the weather, which is why we measure on your store before you roll out. Maintenance, equipment-life, payback and unit-count figures are CRYOGENX4's.</p>
 <p>Sources: refrigeration share, U.S. EPA via NCEE Working Paper 2015-03. Energy savings as sales, ENERGY STAR Building Upgrade Manual, Supermarkets chapter. Photos: Eduardo Soares, Inna Safa and alpha innotec on Unsplash.</p>
 <p>CRYOGENX4 &middot; Tri-S Technologies &middot; Houston, Texas</p>
 </div></footer>
-
 <script>
 document.getElementById('f').addEventListener('submit',function(e){
  e.preventDefault();
