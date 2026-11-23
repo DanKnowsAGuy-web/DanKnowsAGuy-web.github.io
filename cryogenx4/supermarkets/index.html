@@ -2,8 +2,8 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>CRYOGENX4 for Supermarkets: up to 30% less refrigeration energy, proven on one store</title>
-<meta name="description" content="One treatment restores heat transfer inside your store's refrigeration and rooftop units. Up to 30% less energy, up to 40% with the full program, proven on one of your stores first.">
+<title>CRYOGENX4 for Supermarkets: recover up to 35% of HVAC and refrigeration spend, proven on one store</title>
+<meta name="description" content="One treatment restores heat transfer inside your store's HVAC and refrigeration equipment, recovering up to 35% of what it costs to run. Proven on one of your stores first.">
 <link rel="icon" href="/cryogenx4/assets/favicon.svg">
 <link rel="stylesheet" href="/cryogenx4/assets/v3.css">
 <style>
@@ -26,7 +26,7 @@ section.s h2{font-size:clamp(30px,3.8vw,46px);margin:0 0 18px;max-width:20em}
 .hero .field .d1{animation:drift 26s linear infinite}
 .hero .field .d2{animation:drift 34s linear infinite reverse}
 @keyframes drift{from{transform:translateX(0)}to{transform:translateX(-300px)}}
-.hero .grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero .grid{position:relative;display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:center}
 .hero .for{font-size:19px;color:var(--glacier);margin:0 0 14px}
 .hero h1{color:#fff;font-size:clamp(38px,5.2vw,62px);margin:0 0 20px}
 .hero h1 sup{font-size:.4em;color:var(--glacier);vertical-align:super}
@@ -352,6 +352,40 @@ footer .logo{font-size:19px;margin-bottom:16px}
 .stakes .col li:first-child{border-top:0}
 .stakes .col li svg{flex:none;width:56px;height:40px}
 .stakes .col li b{color:var(--ink)}
+
+/* hero tighten + motion */
+.hero{padding-top:48px}
+.hero h1{font-size:clamp(34px,4.4vw,54px);margin-bottom:16px}
+.hero .lead{font-size:20px;margin-bottom:24px}
+.hero .sub2{margin-top:12px}
+.hero .flow{margin-top:36px}
+.hero figure.hfig{aspect-ratio:4/3.4}
+.htxt>*{animation:rise .9s var(--ease) both}
+.htxt>*:nth-child(2){animation-delay:.08s}.htxt>*:nth-child(3){animation-delay:.16s}.htxt>*:nth-child(4){animation-delay:.24s}.htxt>*:nth-child(5){animation-delay:.32s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.live{position:absolute;left:16px;right:16px;bottom:16px;background:rgba(7,21,38,.86);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:14px 16px;color:#fff}
+.live .lt{margin:0 0 8px;font-size:15px;font-weight:700;color:#C9D8E6}
+.lbar{display:flex;height:16px;border-radius:8px;overflow:hidden;background:#132A48}
+.lbar .need{flex:0 0 65%;background:#19B5E8}
+.lbar .over{flex:0 0 35%;background:repeating-linear-gradient(45deg,#F26A21 0 6px,#D9561A 6px 12px);animation:shrink 7s var(--ease) infinite}
+@keyframes shrink{0%,18%{flex-basis:35%}55%,82%{flex-basis:2%}100%{flex-basis:35%}}
+.lkey{display:flex;justify-content:space-between;font-size:14px;margin-top:8px;color:#9FB7CC}
+.lkey .k2{position:relative;min-width:90px;text-align:right}
+.lkey .k2 i{font-style:normal;font-weight:700;position:absolute;right:0;top:0}
+.lkey .o{color:#FF9A5C;animation:swapA 7s infinite}.lkey .r{color:#79E0FF;animation:swapB 7s infinite}
+@keyframes swapA{0%,30%{opacity:1}40%,90%{opacity:0}100%{opacity:1}}
+@keyframes swapB{0%,30%{opacity:0}40%,90%{opacity:1}100%{opacity:0}}
+.hwave{position:absolute;left:0;top:14px;width:100%;height:46px;opacity:.85}
+.hwave path{animation:hw 6s linear infinite}
+.hwave path+path{animation-duration:9s}
+@keyframes hw{to{transform:translateX(300px)}}
+@media (prefers-reduced-motion:reduce){.htxt>*,.lbar .over,.lkey i,.hwave path{animation:none!important}.lkey .r{opacity:0}}
+.mcalc .fld{margin:0 0 18px}
+.mcalc .fld .top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.mcalc .fld label{margin:0}
+.mcalc .fld output{font-family:Archivo;font-weight:800;font-stretch:110%;font-size:24px;color:var(--ink);white-space:nowrap}
+.mcalc .fld .why{font-size:15px;color:var(--muted);margin:2px 0 0}
+.chain div.fleet2{background:var(--ice)}
 @media (max-width:880px){
  .problem .beats,.vq,.guide .grid,.math .grid,.stakes .cols{grid-template-columns:1fr}
  .problem .beats>div+div{padding-left:0;border-left:0;border-top:1px solid rgba(255,255,255,.16)}
@@ -388,21 +422,28 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <g class="d2"><path d="M0 300c100-40 200 40 300 0s200-40 300 0 200 40 300 0 200-40 300 0 200 40 300 0 200-40 300 0" stroke="#19B5E8" opacity=".22"/></g>
 </svg>
 <div class="wrap"><div class="grid">
-<div>
+<div class="htxt">
 <p class="for">For supermarkets and grocery chains</p>
-<h1>Cut store refrigeration energy up to 30%. Keep every case running.<sup>*</sup></h1>
-<p class="lead">One CRYOGENX4 treatment restores heat transfer inside the cases, racks and rooftop units you already own. Installed in about a day while the store stays open, and proven on one of your stores before you spend on the rest.</p>
+<h1>Recover up to 35% of your HVAC and refrigeration spend.<sup>*</sup></h1>
+<p class="lead">Aging cases, racks and rooftop units build overspend into every bill. One CRYOGENX4 treatment takes it back out, on the equipment you already own, installed in about a day while the store stays open.</p>
 <div class="ctas2"><a class="btn btn-blue" href="#start">Start with one store</a><a class="ghost" href="#math">Run your store's numbers</a></div>
 <p class="sub2">Up to 40% with the full program. No shutdown, no new equipment.</p>
 </div>
-<figure><img src="/cryogenx4/assets/img/store-cases.jpg" alt="Illustrative: a grocery aisle lined with lit, glass-door refrigerated cases" width="1400" height="781" fetchpriority="high"><figcaption>Illustrative</figcaption></figure>
+<figure class="hfig"><img src="/cryogenx4/assets/img/store-cases.jpg" alt="A grocery aisle lined with lit, glass-door refrigerated cases" width="1400" height="781" fetchpriority="high">
+<svg class="hwave" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true"><path d="M-300 30c50-22 100 22 150 0s100-22 150 0 100 22 150 0 100-22 150 0 100 22 150 0 100-22 150 0" fill="none" stroke="#F26A21" stroke-width="3"/><path d="M-300 40c50-18 100 18 150 0s100-18 150 0 100 18 150 0 100-18 150 0 100 18 150 0 100-18 150 0" fill="none" stroke="#19B5E8" stroke-width="3"/></svg>
+<div class="live" aria-hidden="true">
+<p class="lt">HVAC and refrigeration bill, one store</p>
+<div class="lbar"><span class="need"></span><span class="over"></span></div>
+<div class="lkey"><span class="k1">What the equipment needs</span><span class="k2"><i class="o">Overspend</i><i class="r">Recovered</i></span></div>
+</div>
+</figure>
 </div></div>
 <svg class="flow" viewBox="0 0 1200 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 23c50-20 100 20 150 0s100-20 150 0 100 20 150 0 100-20 150 0" fill="none" stroke="#F26A21" stroke-width="4"/><path d="M600 23c50-20 100 20 150 0s100-20 150 0 100 20 150 0 100-20 150 0" fill="none" stroke="#19B5E8" stroke-width="4"/></svg>
 </section>
 
 <section class="fact" aria-label="Refrigeration share of store electricity"><div class="wrap">
 <span class="fig n"><span data-count="40">40</span>&ndash;<span data-count="60">60</span>%</span>
-<p>of a supermarket's electricity goes to refrigeration. It's the biggest load in the building, and it never shuts off.</p>
+<p>of a supermarket's electricity goes to refrigeration alone. Add HVAC, and it's most of the bill. It's also where the overspend hides.</p>
 <small>Source: U.S. EPA, via NCEE Working Paper 2015-03</small>
 </div></section>
 
@@ -412,7 +453,7 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <div class="wrap">
 <div class="top">
 <div><h2>The cold never clocks out. Neither does the bill.</h2>
-<p>At close, the lights dim and the registers go quiet. The refrigeration keeps running through every dark hour, and every year it costs a little more to do the same job.</p></div>
+<p>At close, the lights dim and the registers go quiet. The cases keep running through every dark hour, the rooftop units pick back up at dawn, and every year a little more of that bill is overspend.</p></div>
 <div><span class="fig hrs" data-count="8760" data-sep="1">8,760</span><span>hours a year the cases never stop</span></div>
 </div>
 <div class="chart24" data-on>
@@ -424,20 +465,20 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <path class="ln ln2" d="M40 150 C120 110 200 70 300 66 S460 68 560 80 S600 92 615 120 C640 170 660 186 700 188 S790 186 805 170 C830 130 860 120 880 116" stroke="#8FA3B8"/>
 <path class="ln" d="M40 98 C90 92 140 104 190 98 S290 92 340 100 S440 104 490 96 S590 92 640 100 S740 104 790 97 S860 94 880 98" stroke="#19B5E8"/>
 </svg>
-<div class="legend"><span><i style="background:#19B5E8"></i>Refrigeration</span><span><i style="background:#8FA3B8"></i>Lights and rooftop cooling</span></div>
+<div class="legend"><span><i style="background:#19B5E8"></i>Refrigeration</span><span><i style="background:#8FA3B8"></i>Lights and rooftop HVAC</span></div>
 <p class="fignote">One store, one day. Illustrative shape, not metered data.</p>
 </div>
 <div class="beats">
-<div><i>On the bill</i><b>Your biggest load costs more every year.</b><p>Same store, same hours, same cold, and a higher electric bill for it.</p></div>
+<div><i>On the bill</i><b>The overspend grows every year.</b><p>Same store, same hours, same cold, and more of the HVAC and refrigeration bill pays for nothing.</p></div>
 <div><i>For you</i><b>You've heard the savings pitches.</b><p>Most never showed up on the bill, so it's hard to trust the next one.</p></div>
-<div><i>The principle</i><b>You shouldn't replace what can be restored.</b><p>Most of these systems aren't worn out. They're working against something inside them.</p></div>
+<div><i>The principle</i><b>You shouldn't replace what can be restored.</b><p>Most of this equipment isn't worn out. It's working against something inside it.</p></div>
 </div>
 </div></section>
 
 <!-- 3. the villain, and the fix: animated cutaway -->
 <section class="s cutaway"><div class="wrap">
-<h2>What's really happening inside your refrigeration.</h2>
-<p style="max-width:42em;margin:0">Over time, compressor oil coats the inside wall of the coils and refrigerant lines. Heat can't get out as easily, so the compressors run longer to hold the same temperature. Watch what changes.</p>
+<h2>What's really happening inside your HVAC and refrigeration.</h2>
+<p style="max-width:42em;margin:0">Over time, compressor oil coats the inside wall of the coils and refrigerant lines in your cases, racks and rooftop units. Heat can't get out as easily, so the compressors run longer to hold the same temperature. Watch what changes.</p>
 <div class="cutwrap">
 <svg id="cut" data-step="1" viewBox="0 0 1180 520" role="img" aria-labelledby="cutt">
 <title id="cutt">Animated cutaway of a store: display cases, a compressor rack, a rooftop condenser and the electric meter, joined by refrigerant lines shown in cross-section, with a magnified view inside one line.</title>
@@ -541,7 +582,7 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <p style="max-width:44em;margin:0">More of what you want, more certainty you'll get it, sooner, and with almost nothing asked of your team.</p>
 <div class="vq" data-on>
 <div class="side">
-<div class="card" style="--w:92%"><p class="lbl">What you get</p><b>Up to 30% less refrigeration energy</b><span>Up to 40% with the full program, plus up to 40% less maintenance and 10&ndash;15 years of added equipment life.</span><div class="meter"><em></em></div></div>
+<div class="card" style="--w:92%"><p class="lbl">What you get</p><b>Up to 35% of HVAC and refrigeration spend recovered</b><span>Up to 40% with the full program, plus up to 40% less maintenance and 10&ndash;15 years of added equipment life.</span><div class="meter"><em></em></div></div>
 <div class="card" style="--w:85%"><p class="lbl">How sure you can be</p><b>Measured on your own store</b><span>Before and after, weather-adjusted, every assumption written down. 50,000+ units treated.</span><div class="meter"><em></em></div></div>
 </div>
 <div class="div" aria-hidden="true"><div class="bar"></div><span>divided by</span><div class="bar"></div></div>
@@ -550,29 +591,32 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <div class="card dn" style="--w:12%"><p class="lbl">What it takes from you</p><b>A year of bills and a few photos</b><span>No shutdown, no new equipment, no product moved.</span><div class="meter"><em></em></div></div>
 </div>
 </div>
-<div class="cost"><p>What it costs to find out what one store should save: <b>a year of bills and a few nameplate photos.</b></p><a class="btn btn-blue" href="#start">Claim your One-Store Proof</a></div>
+<div class="cost"><p>What it takes to find out how much overspend one store is carrying: <b>a year of bills and a few nameplate photos.</b></p><a class="btn btn-blue" href="#start">Claim your One-Store Proof</a></div>
 </div></section>
 
 <!-- 6. the math -->
 <section class="s math" id="math"><div class="wrap grid">
 <div>
-<h2>What up to 30% looks like on your store.</h2>
-<p>Move the slider to your store's monthly electric bill and pick how much of it goes to refrigeration. This is an estimate to size the opportunity. The One-Store Proof gives you the real number.</p>
+<h2>How much overspend is your store carrying?</h2>
+<p>Set the four things that move the number most: the monthly bill, how much of it goes to HVAC and refrigeration, how much overspend is likely there, and how many stores you run. It sizes the opportunity. The One-Store Proof gives you the real number.</p>
 </div>
 <div class="mcalc">
-<label for="bill">Monthly electric bill, one store</label>
-<output class="big" id="billo" for="bill">$20,000</output>
-<input id="bill" type="range" min="5000" max="100000" step="1000" value="20000">
-<div class="row"><span>$5,000</span><span>$100,000</span></div>
-<p style="font-weight:700;color:var(--ink);margin:16px 0 0">Share that goes to refrigeration</p>
-<div class="seg" role="group" aria-label="Refrigeration share"><button type="button" data-sh="40" aria-pressed="false">40%</button><button type="button" data-sh="50" aria-pressed="true">50%</button><button type="button" data-sh="60" aria-pressed="false">60%</button></div>
+<div class="fld"><div class="top"><label for="bill">Monthly electric bill, one store</label><output id="billo" for="bill">$20,000</output></div>
+<input id="bill" type="range" min="5000" max="100000" step="1000" value="20000"></div>
+<div class="fld"><div class="top"><label for="shr">Share going to HVAC and refrigeration</label><output id="shro" for="shr">50%</output></div>
+<input id="shr" type="range" min="40" max="65" step="1" value="50"><p class="why">Refrigeration alone is typically 40 to 60% of a supermarket's electricity.</p></div>
+<div class="fld"><div class="top"><label for="red">Overspend recovered</label><output id="redo" for="red">28%</output></div>
+<input id="red" type="range" min="20" max="35" step="1" value="28"><p class="why">Older, harder-working equipment usually sits toward the high end.</p></div>
+<div class="fld"><div class="top"><label for="sto">Stores</label><output id="stoo" for="sto">1</output></div>
+<input id="sto" type="range" min="1" max="100" step="1" value="1"></div>
 <div class="chain" aria-live="polite">
-<div><span>Refrigeration each month</span><b id="m1">$10,000</b></div>
-<div class="hit"><span>Back each month with CRYOGENX4, up to</span><b id="m2">$3,000</b></div>
-<div><span>Back each year, up to</span><b id="m3">$36,000</b></div>
-<div class="sales"><span>Like ringing up this much in sales, every month</span><b id="m4">$177,000</b></div>
+<div><span>HVAC and refrigeration spend, per store each month</span><b id="m1">$10,000</b></div>
+<div class="hit"><span>Overspend recovered per store each month, up to</span><b id="m2">$2,800</b></div>
+<div><span>Per store each year, up to</span><b id="m3">$33,600</b></div>
+<div class="fleet2"><span id="m5l">Across your stores each year, up to</span><b id="m5">$33,600</b></div>
+<div class="sales"><span>Like ringing up this much in sales, per store every month</span><b id="m4">$165,200</b></div>
 </div>
-<p class="src">Up to 30% is CRYOGENX4 on its own; the full program can reach up to 40%. Refrigeration is 40 to 60% of supermarket electricity (U.S. EPA). Sales equivalent uses ENERGY STAR's $1 &asymp; $59 for supermarkets. An estimate, not a quote.</p>
+<p class="src">Up to 35% is the top of the range for CRYOGENX4 on treated HVAC and refrigeration equipment; the full program can reach up to 40%. Refrigeration share: U.S. EPA. Sales equivalent uses ENERGY STAR's $1 &asymp; $59 for supermarkets. An estimate, not a quote.</p>
 </div>
 </div></section>
 
@@ -581,7 +625,7 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <div>
 <h2>Three steps. The first one is just paperwork.</h2>
 <ol>
-<li><div><b>Send us one store.</b><p>Twelve months of electric bills and photos of the equipment nameplates. We show you what that store should save, with no obligation.</p></div></li>
+<li><div><b>Send us one store.</b><p>Twelve months of electric bills and photos of the equipment nameplates. We show you how much overspend that store is carrying, with no obligation.</p></div></li>
 <li><div><b>We treat it and measure it.</b><p>About a day, while the store stays open. Before and after, adjusted for weather, with every assumption written down.</p></div></li>
 <li><div><b>You roll out on your terms.</b><p>When the numbers hold up, we plan the rest of your stores, with financing options so the savings can cover the payment.</p></div></li>
 </ol>
@@ -605,12 +649,12 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <h2>Same stores. Same equipment. Two ways the next five years go.</h2>
 <div class="cols pays2" data-on>
 <div class="col no"><h3>If nothing changes</h3><ul>
-<li><svg viewBox="0 0 56 40" aria-hidden="true"><path d="M4 34 L18 26 L30 28 L42 16 L52 8" fill="none" stroke="#F26A21" stroke-width="3" stroke-linecap="round"/><path d="M44 8h8v8" fill="none" stroke="#F26A21" stroke-width="3"/></svg><span><b>The refrigeration bill keeps climbing,</b> year after year, in every store.</span></li>
+<li><svg viewBox="0 0 56 40" aria-hidden="true"><path d="M4 34 L18 26 L30 28 L42 16 L52 8" fill="none" stroke="#F26A21" stroke-width="3" stroke-linecap="round"/><path d="M44 8h8v8" fill="none" stroke="#F26A21" stroke-width="3"/></svg><span><b>HVAC and refrigeration overspend keeps climbing,</b> year after year, in every store.</span></li>
 <li><svg viewBox="0 0 56 40" aria-hidden="true"><rect x="8" y="10" width="14" height="24" rx="3" fill="#C9D8E6"/><rect x="26" y="10" width="14" height="24" rx="3" fill="#C9D8E6"/><path d="M44 6l4 8M48 4l-2 10" stroke="#F26A21" stroke-width="3" stroke-linecap="round"/></svg><span><b>Compressors strain and wear out early,</b> and replacement lands as an emergency.</span></li>
 <li><svg viewBox="0 0 56 40" aria-hidden="true"><path d="M10 30l14-14m-4-6l10 10M34 8a8 8 0 1 0 10 10" fill="none" stroke="#55657A" stroke-width="3" stroke-linecap="round"/></svg><span><b>Service calls keep coming,</b> and so do the invoices.</span></li>
 </ul></div>
 <div class="col yes"><h3>With CRYOGENX4</h3><ul>
-<li><svg viewBox="0 0 150 84" aria-hidden="true" style="width:56px;height:40px"><path d="M15 70 A45 45 0 0 1 105 70" fill="none" stroke="#C9D8E6" stroke-width="12"/><g class="needle"><line x1="60" y1="70" x2="60" y2="30" stroke="#0A1A2F" stroke-width="6" stroke-linecap="round"/></g><circle cx="60" cy="70" r="8" fill="#0A1A2F"/></svg><span><b>Up to 30% less energy*</b> on treated refrigeration, up to 40% with the full program.</span></li>
+<li><svg viewBox="0 0 150 84" aria-hidden="true" style="width:56px;height:40px"><path d="M15 70 A45 45 0 0 1 105 70" fill="none" stroke="#C9D8E6" stroke-width="12"/><g class="needle"><line x1="60" y1="70" x2="60" y2="30" stroke="#0A1A2F" stroke-width="6" stroke-linecap="round"/></g><circle cx="60" cy="70" r="8" fill="#0A1A2F"/></svg><span><b>Up to 35% of HVAC and refrigeration spend recovered,*</b> up to 40% with the full program.</span></li>
 <li><svg class="calls" viewBox="0 0 150 84" aria-hidden="true" style="width:56px;height:40px"><g fill="#1C4DB0"><rect x="8" y="30" width="22" height="50"/><rect class="cut" x="38" y="20" width="22" height="60"/><rect class="cut" x="68" y="34" width="22" height="46"/><rect class="cut" x="98" y="16" width="22" height="64"/></g></svg><span><b>Up to 40% less maintenance</b> on treated equipment.</span></li>
 <li><svg class="life" viewBox="0 0 150 84" aria-hidden="true" style="width:56px;height:40px"><rect x="0" y="30" width="80" height="24" fill="#8FA3B8"/><rect class="ext" x="80" y="30" width="66" height="24" fill="#19B5E8"/></svg><span><b>10 to 15 years of added equipment life,</b> so you replace on your schedule.</span></li>
 </ul></div>
@@ -643,8 +687,8 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <section class="s stack dark"><div class="wrap grid">
 <div>
 <h2>Start with CRYOGENX4. Add what pays.</h2>
-<p>Once your refrigeration is restored, the same team looks at what else is costing the store money, and adds only the measures that pay for themselves.</p>
-<p class="one">Together, the full program reaches up to 40% less energy on refrigeration and cooling.*</p>
+<p>Once your HVAC and refrigeration are restored, the same team looks for overspend everywhere else in the store, and adds only the measures that pay for themselves.</p>
+<p class="one">Together, the full program recovers up to 40% of HVAC and refrigeration spend.*</p>
 <p>One diagnosis, one team, one proposal.</p>
 </div>
 <div class="layers" data-on aria-label="The CRYOGENX4 program">
@@ -653,14 +697,14 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <div style="transition-delay:.3s">High-efficiency motors <span>fans, pumps and compressors</span></div>
 <div style="transition-delay:.2s">Power quality <span>cleaner power, less wasted load</span></div>
 <div style="transition-delay:.1s">Solar thermal <span>boosts restored units</span></div>
-<div class="base">CRYOGENX4 <span>refrigeration and rooftop units</span></div>
+<div class="base">CRYOGENX4 <span>HVAC and refrigeration equipment</span></div>
 </div>
 </div></section>
 
 <section class="s yes" style="background:#fff"><div class="wrap">
 <h2>Written for everyone who has to say yes.</h2>
 <p style="max-width:42em;margin:0 0 24px">A facilities lead finds it, an owner approves it, finance checks the math. Forward this page to whoever is next.</p>
-<details><summary>If you own the business</summary><p>Energy you stop buying goes straight to the bottom line. On grocery margins, ENERGY STAR puts each dollar saved at about $59 in sales. You see the result on one store before deciding anything about the rest.</p></details>
+<details><summary>If you own the business</summary><p>Overspend you stop paying goes straight to the bottom line. On grocery margins, ENERGY STAR puts each dollar saved at about $59 in sales. You see the result on one store before deciding anything about the rest.</p></details>
 <details><summary>If you run facilities</summary><p>About a day per store, installed while the system runs, with no modifications and no product moved. Treated equipment runs less, needs less service and lasts longer.</p></details>
 <details><summary>If you sign off on the money</summary><p>Typical payback is 12 to 36 months. The proof store is measured before and after, adjusted for weather, with every assumption written down. Financing can be arranged so the savings cover the payment.</p></details>
 </div></section>
@@ -669,7 +713,7 @@ footer .logo{font-size:19px;margin-bottom:16px}
 <section class="start" id="start"><div class="wrap grid">
 <div>
 <h2>Start with one store.</h2>
-<p>Picture next year: the same stores, the same cases, a lower bill every month, and numbers your finance team checked themselves. It starts with one store. Tell us which one and Dave will walk you through what we need. It takes about 15 minutes.</p>
+<p>Picture next year: the same stores, the same cases, the overspend gone from the bill every month, and numbers your finance team checked themselves. It starts with one store. Tell us which one and Dave will walk you through what we need. It takes about 15 minutes.</p>
 <div class="dave"><b>Dave Peterson, Director</b>
 <a href="sms:+18324937915?&body=Hi%20Dave%2C%20I%27d%20like%20to%20talk%20about%20CRYOGENX4%20for%20one%20of%20our%20stores.">Text or call 832-493-7915</a><br>
 <a href="mailto:dave@cryogenx4.com?subject=CRYOGENX4%20for%20our%20stores">dave@cryogenx4.com</a></div>
@@ -689,7 +733,7 @@ footer .logo{font-size:19px;margin-bottom:16px}
 </main>
 <footer><div class="wrap">
 <span class="logo"><svg aria-hidden="true" style="--tile:#132A48"><use href="#w1"/></svg><span class="word">CRYOGEN<span class="x4">X4</span></span></span>
-<p>* Up to 30% is CRYOGENX4's figure for treated refrigeration and cooling equipment on its own. Up to 40% is the full program: CRYOGENX4 combined with the other measures shown on this page. Every store is different. Savings depend on the equipment's age and condition, how the store runs, and the weather, which is why we measure on your store before you roll out. Maintenance, equipment-life, payback and unit-count figures are CRYOGENX4's. Charts, calculator and animations are illustrative estimates, not quotes.</p>
+<p>* Overspend is the part of the HVAC and refrigeration bill the equipment uses only because it no longer moves heat efficiently. Up to 35% is the top of the range for CRYOGENX4 on treated HVAC and refrigeration equipment on its own; up to 40% is the full program, CRYOGENX4 combined with the other measures shown on this page. Every store is different. Results depend on the equipment's age and condition, how the store runs, and the weather, which is why we measure on your store before you roll out. Maintenance, equipment-life, payback and unit-count figures are CRYOGENX4's. Charts, calculator and animations are illustrative estimates, not quotes.</p>
 <p>Sources: refrigeration share, U.S. EPA via NCEE Working Paper 2015-03. Energy savings as sales, ENERGY STAR Building Upgrade Manual, Supermarkets chapter. Images are illustrative.</p>
 <p>CRYOGENX4 &middot; Tri-S Technologies &middot; Houston, Texas</p>
 </div></footer>
@@ -702,11 +746,14 @@ document.querySelectorAll('[data-on]').forEach(function(el){if(io&&!reduced)io.o
 var cio='IntersectionObserver' in window&&!reduced?new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;cio.unobserve(e.target);var el=e.target,to=+el.dataset.count,t0=null;function step(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/1400),v=Math.round(to*(1-Math.pow(1-p,4)));el.textContent=el.dataset.sep?fmt(v):v;if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)})},{threshold:.6}):null;
 if(cio)document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el)});
 /* store math */
-var bill=document.getElementById('bill'),share=50,shown={};
-function tween(id,to){var el=document.getElementById(id),from=shown[id]||to;shown[id]=to;if(reduced||from===to){el.textContent='$'+fmt(to);return}var t0=null;function st(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/450),v=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));el.textContent='$'+fmt(v);if(p<1)requestAnimationFrame(st)}requestAnimationFrame(st)}
-function calc(){var b=+bill.value,r=b*share/100,m=Math.round(r*.3);document.getElementById('billo').textContent='$'+fmt(b);tween('m1',r);tween('m2',m);tween('m3',m*12);tween('m4',m*59)}
-bill.addEventListener('input',calc);
-document.querySelectorAll('.seg button').forEach(function(btn){btn.addEventListener('click',function(){share=+btn.dataset.sh;document.querySelectorAll('.seg button').forEach(function(x){x.setAttribute('aria-pressed',x===btn?'true':'false')});calc()})});
+var ids=['bill','shr','red','sto'],shown={};
+function tween(id,to){var el=document.getElementById(id),from=shown[id]==null?to:shown[id];shown[id]=to;if(reduced||from===to){el.textContent='$'+fmt(to);return}var t0=null;function st(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/450),x=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));el.textContent='$'+fmt(x);if(p<1)requestAnimationFrame(st)}requestAnimationFrame(st)}
+function val(id){return +document.getElementById(id).value}
+function calc(){var b=val('bill'),sh=val('shr'),rd=val('red'),n=val('sto'),r=Math.round(b*sh/100),m=Math.round(r*rd/100);
+document.getElementById('billo').textContent='$'+fmt(b);document.getElementById('shro').textContent=sh+'%';document.getElementById('redo').textContent=rd+'%';document.getElementById('stoo').textContent=n;
+tween('m1',r);tween('m2',m);tween('m3',m*12);tween('m5',m*12*n);tween('m4',m*59);
+document.getElementById('m5l').textContent=n>1?'Across your '+n+' stores each year, up to':'Across your stores each year, up to'}
+ids.forEach(function(i){document.getElementById(i).addEventListener('input',calc)});
 calc();
 /* cutaway */
 var cut=document.getElementById('cut'),bar=document.querySelector('.cutsteps'),btns=[].slice.call(bar.querySelectorAll('button'));
