@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>CRYOGENX4 for Supermarkets: Up to 40% less energy on refrigeration and cooling</title>
+<meta name="description" content="A one-time treatment that restores heat transfer in your store's refrigeration and rooftop units. Proven on one of your stores before you roll it out.">
+<link rel="icon" href="/cryogenx4/assets/mark.svg">
+<link rel="stylesheet" href="/cryogenx4/assets/cx4.css">
+<style>
+header.bar{position:sticky;top:0;z-index:10;background:rgba(10,26,47,.94);backdrop-filter:blur(8px)}
+header.bar .wrap{display:flex;justify-content:space-between;align-items:center;height:72px}
+header.bar .btn{padding:12px 18px;font-size:17px}
+.hero{background:var(--freeze);background-image:radial-gradient(90% 120% at 100% 0%,#17406b 0%,rgba(10,26,47,0) 60%),radial-gradient(60% 80% at 0% 100%,#0f2f52 0%,rgba(10,26,47,0) 70%);color:#cfe3f1;padding:64px 0 0;overflow:hidden}
+.hero .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:center}
+.hero .eyebrow{color:#7fd6f6}
+.hero h1{color:#fff;font-size:clamp(36px,5vw,56px);margin:16px 0 18px;font-stretch:112%}
+.hero h1 em{font-style:normal;color:var(--glacier)}
+.hero p.lead{font-size:21px;color:#c3d6e6;margin:0 0 28px;max-width:600px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px}
+.art{position:relative}
+.art svg{width:100%;height:auto;display:block}
+.strip{margin-top:54px;border-top:1px solid rgba(255,255,255,.12);display:grid;grid-template-columns:repeat(4,1fr)}
+.strip div{padding:24px 18px 30px;border-right:1px solid rgba(255,255,255,.12)}
+.strip div:last-child{border-right:0}
+.strip .num{display:block;color:#fff;font-size:30px;line-height:1.1}
+.strip span.l{font-size:16px;color:#9fb6c9}
+section.band{padding:84px 0}
+section.band h2{font-size:clamp(30px,4vw,42px);margin:12px 0 14px;max-width:760px}
+section.band p.intro{font-size:20px;max-width:720px;margin:0}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
+.card{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:28px}
+.card h3{font-size:22px;margin:14px 0 8px}
+.card p{margin:0;font-size:18px}
+.ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--arctic)}
+.ico.heat{background:#FFF0E8}
+.ico svg{width:26px;height:26px}
+.big{font-family:"Spline Mono",monospace;font-weight:600;color:var(--ink);font-size:44px;line-height:1;display:block;margin-top:16px}
+.big.heat{color:var(--ember)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px;counter-reset:s}
+.step{position:relative;padding:28px;border-radius:18px;background:#fff;border:1px solid var(--rule)}
+.step:before{counter-increment:s;content:counter(s);font-family:"Spline Mono",monospace;font-weight:600;font-size:15px;color:var(--glacier-d);border:1.5px solid var(--glacier);border-radius:999px;width:34px;height:34px;display:grid;place-items:center}
+.step h3{font-size:21px;margin:16px 0 8px}
+.step p{margin:0;font-size:18px}
+.note{font-size:17px;color:var(--faint);margin-top:22px}
+.gets{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:38px;border:1px solid var(--rule);border-radius:18px;background:#fff;overflow:hidden}
+.gets div{padding:28px 24px;border-right:1px solid var(--rule)}
+.gets div:last-child{border-right:0}
+.gets .num{display:block;font-size:34px;color:var(--ink);line-height:1.05}
+.gets p{margin:10px 0 0;font-size:17px}
+.stack{background:var(--freeze);color:#c3d6e6}
+.stack h2{color:#fff}
+.stack .eyebrow{color:#7fd6f6}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+.tiles div{border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:22px 22px;font-size:19px;color:#fff;font-weight:600;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.tiles div.lead{background:linear-gradient(135deg,#19B5E8 0%,#0E8FBC 100%);border-color:transparent;color:var(--freeze)}
+.tiles small{display:block;font-weight:400;font-size:15px;color:#9fb6c9}
+.tiles div.lead small{color:#0a2a44}
+.one{margin-top:30px;font-family:Archivo;font-weight:700;font-stretch:112%;font-size:24px;color:#fff}
+.proof{background:var(--arctic)}
+.start{background:var(--freeze);color:#c3d6e6;padding:84px 0}
+.start .grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.start h2{color:#fff;font-size:clamp(32px,4.4vw,46px);margin:12px 0 14px}
+.start .eyebrow{color:#7fd6f6}
+.person{margin-top:26px;border-top:1px solid rgba(255,255,255,.14);padding-top:22px}
+.person b{color:#fff;font-size:21px;display:block}
+.person a{color:#7fd6f6;text-decoration:none;font-size:20px}
+form.intake{background:#fff;border-radius:20px;padding:30px;color:var(--body)}
+form.intake h3{font-size:22px;margin:0 0 6px}
+form.intake p{margin:0 0 18px;font-size:16px;color:var(--faint)}
+form.intake label{display:block;font-weight:600;color:var(--ink);font-size:16px;margin:14px 0 6px}
+form.intake input,form.intake select{width:100%;font:inherit;font-size:18px;padding:13px 14px;border:1px solid var(--rule);border-radius:10px;background:var(--frost);color:var(--ink)}
+form.intake .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+form.intake .btn{width:100%;margin-top:22px}
+footer{background:#07131f;color:#7f93a8;font-size:14.5px;padding:34px 0 40px;line-height:1.55}
+footer p{margin:0 0 10px;max-width:900px}
+footer .logo .word{font-size:18px}
+footer .logo img{width:30px;height:30px}
+@media (max-width:860px){
+ .hero .grid,.start .grid{grid-template-columns:1fr}
+ .art{display:none}
+ .strip{grid-template-columns:1fr 1fr}
+ .strip div:nth-child(2){border-right:0}
+ .strip div:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.12)}
+ .cards,.steps,.tiles{grid-template-columns:1fr}
+ .gets{grid-template-columns:1fr 1fr}
+ .gets div:nth-child(2){border-right:0}
+ .gets div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+ header.bar .btn span{display:none}
+ header.bar .btn{white-space:nowrap;padding:11px 14px}
+ header.bar .logo .word{font-size:18px}
+ header.bar .logo img{width:32px;height:32px}
+ .gets .num{font-size:26px}
+ .strip .num{font-size:24px}
+ form.intake .row{grid-template-columns:1fr}
+}
+</style></head>
+<body>
+
+<header class="bar"><div class="wrap">
+<a class="logo" href="#top"><img src="/cryogenx4/assets/mark.svg" alt=""><span class="word">CRYOGEN<span class="x4">X4</span></span></a>
+<a class="btn btn-primary" href="sms:+18324937915?&body=Hi%20Dave%2C%20I%20saw%20the%20CRYOGENX4%20supermarket%20page.%20I%27d%20like%20to%20talk%20about%20one%20of%20our%20stores.">Text Dave<span>&nbsp;832-493-7915</span></a>
+</div></header>
+
+<section class="hero" id="top"><div class="wrap">
+<div class="grid">
+<div>
+<div class="eyebrow">For supermarkets and grocery chains</div>
+<h1>Up to <em>40% less energy</em> for your store's refrigeration and cooling.<sup style="font-size:.4em;vertical-align:super;color:#7fd6f6">*</sup></h1>
+<p class="lead">CRYOGENX4 restores the heat transfer inside your cases, racks and rooftop units. It's a one-time treatment, installed while everything keeps running. And we prove it on one of your stores before you roll it out.</p>
+<div class="ctas"><a class="btn btn-primary" href="#start">Start with one store</a><a class="btn btn-ghost" href="#how">See how it works</a></div>
+</div>
+<div class="art" aria-hidden="true">
+<svg viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="fl" x1="0" x2="1"><stop offset="0" stop-color="#FF6B2C"/><stop offset=".42" stop-color="#FF6B2C"/><stop offset=".6" stop-color="#19B5E8"/><stop offset="1" stop-color="#9BE6FF"/></linearGradient>
+<linearGradient id="cs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b3d63"/><stop offset="1" stop-color="#0d2440"/></linearGradient>
+</defs>
+<rect x="60" y="40" width="300" height="300" rx="34" fill="url(#cs)" stroke="rgba(255,255,255,.1)"/>
+<g stroke="rgba(155,230,255,.18)" stroke-width="2"><line x1="90" y1="120" x2="330" y2="120"/><line x1="90" y1="190" x2="330" y2="190"/><line x1="90" y1="260" x2="330" y2="260"/></g>
+<g fill="none" stroke="url(#fl)" stroke-width="10" stroke-linecap="round">
+<path d="M20 125 C 80 85, 120 165, 190 125 S 300 85, 400 125"/>
+<path d="M20 195 C 80 155, 120 235, 190 195 S 300 155, 400 195"/>
+<path d="M20 265 C 80 225, 120 305, 190 265 S 300 225, 400 265"/>
+</g>
+<g font-family="Spline Mono, monospace" font-size="15" fill="#9fb6c9"><text x="92" y="330">HEAT OUT</text><text x="258" y="330">COLD IN</text></g>
+</svg>
+</div>
+</div>
+<div class="strip">
+<div><span class="num">40&ndash;60%</span><span class="l">of a supermarket's electricity goes to refrigeration</span></div>
+<div><span class="num">1 day</span><span class="l">typical install, no downtime</span></div>
+<div><span class="num">12&ndash;36 mo</span><span class="l">typical payback</span></div>
+<div><span class="num">50,000+</span><span class="l">units treated worldwide</span></div>
+</div>
+</div></section>
+
+<section class="band"><div class="wrap">
+<div class="eyebrow">Why this matters in grocery</div>
+<h2>Your biggest electric load is losing ground every year.</h2>
+<p class="intro">In a supermarket, refrigeration runs around the clock and uses more electricity than anything else in the building. As it ages, it quietly costs more to do the same job.</p>
+<div class="cards">
+<div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#0E8FBC" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M4.9 6l14.2 12M19.1 6 4.9 18"/></svg></div><span class="big">40&ndash;60%</span><h3>Refrigeration leads the bill</h3><p>Cases, walk-ins and racks use 40 to 60 percent of a typical supermarket's electricity.</p></div>
+<div class="card"><div class="ico heat"><svg viewBox="0 0 24 24" fill="none" stroke="#FF6B2C" stroke-width="2" stroke-linecap="round"><path d="M14 4v10.5a4 4 0 1 1-4 0V4a2 2 0 1 1 4 0z"/></svg></div><span class="big heat">Every year</span><h3>Efficiency slips with age</h3><p>Over time, compressor oil coats the inside of coils and lines. Heat moves out more slowly, so compressors run longer to hold the same temperature.</p></div>
+<div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#0E8FBC" stroke-width="2" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></div><span class="big">$1 = $59</span><h3>Savings act like sales</h3><p>On grocery's thin margins, ENERGY STAR estimates every dollar saved on energy is worth about $59 in new sales.</p></div>
+</div>
+</div></section>
+
+<section class="band" id="how" style="padding-top:0"><div class="wrap">
+<div class="eyebrow">How CRYOGENX4 works</div>
+<h2>One treatment. The equipment you already own works like it should.</h2>
+<div class="steps">
+<div class="step"><h3>Added to the refrigerant circuit</h3><p>A certified technician adds CRYOGENX4 while the system runs. No modifications, no shutdown, no product moved.</p></div>
+<div class="step"><h3>Restores heat transfer</h3><p>It works on the internal metal surfaces and improves heat transfer at the condenser, evaporator and compressor.</p></div>
+<div class="step"><h3>Compressors run less</h3><p>Cases and rooms reach temperature faster, so compressors cycle less and draw less power for the same cold.</p></div>
+</div>
+<p class="note">Treats equipment from 1 to 1,600 tons: reach-ins, walk-in coolers and freezers, rack systems and rooftop units. One time, for the remaining life of the equipment.</p>
+</div></section>
+
+<section class="band" style="padding-top:0"><div class="wrap">
+<div class="eyebrow">What each store gets</div>
+<h2>Lower bills now. Fewer service calls and longer equipment life later.</h2>
+<div class="gets">
+<div><span class="num">Up to 40%</span><p>less energy on refrigeration and cooling<sup>*</sup></p></div>
+<div><span class="num">Up to 40%</span><p>less maintenance on treated equipment</p></div>
+<div><span class="num">10&ndash;15 yrs</span><p>of added equipment life</p></div>
+<div><span class="num">0 hours</span><p>of downtime. Installed while the store stays open.</p></div>
+</div>
+</div></section>
+
+<section class="band stack"><div class="wrap">
+<div class="eyebrow">Stack the savings</div>
+<h2>CRYOGENX4 is the first step. The same team can take you further.</h2>
+<p class="intro">Once your refrigeration is restored, we look at what else is costing the store money and add only what pays for itself.</p>
+<div class="tiles">
+<div class="lead">CRYOGENX4 heat-transfer restoration<small>Refrigeration and rooftop units</small></div>
+<div>Solar thermal<small>Boosts restored refrigeration and HVAC units</small></div>
+<div>Power quality and harmonization<small>Cleaner power, less wasted load</small></div>
+<div>High-efficiency motors<small>Fans, pumps and compressors</small></div>
+<div>Transformers<small>Lower losses before power reaches the store</small></div>
+<div>Battery storage<small>Trims the monthly peak charge</small></div>
+</div>
+<div class="one">One diagnosis. One team. One proposal.</div>
+</div></section>
+
+<section class="band proof"><div class="wrap">
+<div class="eyebrow">Proven before you commit</div>
+<h2>We show you on one store first.</h2>
+<p class="intro">You shouldn't have to take anyone's word for it, including ours. Here's how it works.</p>
+<div class="steps">
+<div class="step"><h3>Send us one store</h3><p>Twelve months of utility bills and photos of the equipment nameplates. We show you the expected savings for that store, with no obligation.</p></div>
+<div class="step"><h3>Treat it and measure it</h3><p>We treat that store and compare before and after, adjusted for weather, with the method and every assumption written down so your team can check it.</p></div>
+<div class="step"><h3>Roll out with confidence</h3><p>When the numbers hold up, we plan the rest of your stores, with financing options so the savings can cover the payment.</p></div>
+</div>
+</div></section>
+
+<section class="start" id="start"><div class="wrap"><div class="grid">
+<div>
+<div class="eyebrow">Next step</div>
+<h2>Start with one store.</h2>
+<p style="font-size:20px;margin:0">Tell us which store you'd like to start with. Dave will get back to you and walk you through what we need. It takes about 15 minutes.</p>
+<div class="person"><b>Dave Peterson, Director</b>
+<a href="sms:+18324937915?&body=Hi%20Dave%2C%20I%27d%20like%20to%20talk%20about%20CRYOGENX4%20for%20one%20of%20our%20stores.">Text or call 832-493-7915</a><br>
+<a href="mailto:dave@cryogenx4.com?subject=CRYOGENX4%20for%20our%20stores">dave@cryogenx4.com</a></div>
+</div>
+<form class="intake" id="f">
+<h3>Pick a store to start with</h3>
+<p>This opens an email to Dave with your details filled in.</p>
+<label for="n">Your name</label><input id="n" required autocomplete="name">
+<div class="row"><div><label for="c">Company</label><input id="c" required autocomplete="organization"></div>
+<div><label for="r">Your role</label><select id="r"><option>Owner or executive</option><option>Facilities or maintenance</option><option>Finance</option><option>Energy or sustainability</option><option>Other</option></select></div></div>
+<div class="row"><div><label for="s">How many stores?</label><select id="s"><option>1 to 5</option><option>6 to 25</option><option>26 to 100</option><option>More than 100</option></select></div>
+<div><label for="l">First store's city</label><input id="l" autocomplete="address-level2"></div></div>
+<label for="p">Best phone</label><input id="p" type="tel" autocomplete="tel">
+<button class="btn btn-primary" type="submit">Send to Dave</button>
+</form>
+</div></div></section>
+
+<footer><div class="wrap">
+<p><a class="logo" href="#top"><img src="/cryogenx4/assets/mark.svg" alt=""><span class="word">CRYOGEN<span class="x4">X4</span></span></a></p>
+<p>* Up to 40% reflects CRYOGENX4 combined with stacked measures on refrigeration and cooling loads; CRYOGENX4 on its own is up to 30%. Every store is different. Savings depend on the equipment's age and condition, how the store runs, and the weather, which is why we measure on your store before you roll out. Maintenance and equipment-life figures are CRYOGENX4 estimates for treated equipment. Payback and unit counts are from CRYOGENX4.</p>
+<p>Sources: refrigeration share of supermarket electricity, U.S. EPA via NCEE Working Paper 2015-03; energy savings as sales, ENERGY STAR Building Upgrade Manual, Supermarkets chapter.</p>
+<p>CRYOGENX4 &middot; Tri-S Technologies &middot; Houston, Texas</p>
+</div></footer>
+
+<script>
+document.getElementById('f').addEventListener('submit',function(e){
+ e.preventDefault();
+ var g=function(i){return document.getElementById(i).value.trim()};
+ var body='Hi Dave,\n\nWe would like to start with one store.\n\nName: '+g('n')+'\nCompany: '+g('c')+'\nRole: '+g('r')+'\nNumber of stores: '+g('s')+'\nFirst store city: '+g('l')+'\nPhone: '+g('p')+'\n';
+ location.href='mailto:dave@cryogenx4.com?subject='+encodeURIComponent('Start with one store: '+g('c'))+'&body='+encodeURIComponent(body);
+});
+</script>
+</body></html>
