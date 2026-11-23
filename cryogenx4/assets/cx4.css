@@ -1,38 +1,36 @@
-@font-face{font-family:"Archivo";src:url(/assets/fonts/archivo-var.woff2) format("woff2");font-weight:100 900;font-stretch:62% 125%;font-display:swap}
-@font-face{font-family:"Inter";src:url(/assets/fonts/inter-400.woff2) format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Inter";src:url(/assets/fonts/inter-500.woff2) format("woff2");font-weight:500;font-display:swap}
-@font-face{font-family:"Inter";src:url(/assets/fonts/inter-600.woff2) format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"Inter";src:url(/assets/fonts/inter-700.woff2) format("woff2");font-weight:700;font-display:swap}
-@font-face{font-family:"Spline Mono";src:url(/assets/fonts/spline-sans-mono-var.woff2) format("woff2");font-weight:300 700;font-display:swap}
+@font-face{font-family:"Big Shoulders";src:url(/cryogenx4/assets/fonts/big-shoulders-display-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Big Shoulders";src:url(/cryogenx4/assets/fonts/big-shoulders-display-latin-800-normal.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Big Shoulders";src:url(/cryogenx4/assets/fonts/big-shoulders-display-latin-900-normal.woff2) format("woff2");font-weight:900;font-display:swap}
+@font-face{font-family:"Atkinson";src:url(/cryogenx4/assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Atkinson";src:url(/cryogenx4/assets/fonts/atkinson-hyperlegible-latin-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Atkinson";src:url(/cryogenx4/assets/fonts/atkinson-hyperlegible-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
 :root{
-  --freeze:#0A1A2F;   /* deep navy: primary dark */
-  --freeze-2:#12294A;
-  --glacier:#19B5E8;  /* primary brand blue */
-  --glacier-d:#0E8FBC;
-  --arctic:#E6F6FC;   /* light tint */
-  --frost:#F5F9FC;    /* page background */
-  --ember:#FF6B2C;    /* heat accent, used sparingly */
-  --ink:#0A1A2F;
-  --body:#3E4D63;
-  --faint:#6B7A90;
-  --rule:#D5E1EB;
+  /* OKLCH source values; hex fallbacks used for broad support */
+  --signal:#F75A10;   /* oklch(0.67 0.205 40)  brand orange, carries the brand */
+  --signal-d:#D24100; /* oklch(0.58 0.19 38)   pressed / hover */
+  --ink:#140E0B;      /* oklch(0.17 0.012 45)  near-black, tinted to brand hue */
+  --ink-2:#241E1B;    /* oklch(0.24 0.012 45) */
+  --graphite:#524B49; /* oklch(0.42 0.01 45)   secondary text on light, 7.5:1 */
+  --steel:#DAD7D5;    /* oklch(0.88 0.004 45)  rules on light, text on dark */
+  --concrete:#F2EFEE; /* oklch(0.955 0.003 45) light surface */
+  --frost:#79E0FF;    /* oklch(0.86 0.11 225)  the cold outcome, accent only */
+  --z-sticky:20;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--frost);color:var(--body);font:400 19px/1.6 "Inter",system-ui,sans-serif}
-.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
-.word{font-family:"Archivo",sans-serif;font-weight:800;font-stretch:125%;letter-spacing:.01em;color:#fff;line-height:1}
-.word .x4{color:var(--glacier)}
-.logo{display:inline-flex;align-items:center;gap:12px;text-decoration:none}
-.logo img{width:40px;height:40px}
-.logo .word{font-size:24px}
-.logo.dark .word{color:var(--freeze)}
-.logo.dark .word .x4{color:var(--glacier-d)}
-h1,h2,h3{font-family:"Archivo",sans-serif;color:var(--ink);font-stretch:110%;letter-spacing:-.01em;line-height:1.08;margin:0}
-.num{font-family:"Spline Mono",ui-monospace,monospace;font-weight:600}
-.eyebrow{font:600 14px/1 "Inter",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--glacier-d)}
-a{color:var(--glacier-d)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:700 19px/1 "Inter",sans-serif;padding:18px 26px;border-radius:12px;text-decoration:none;border:0;cursor:pointer}
-.btn-primary{background:var(--glacier);color:var(--freeze)}
-.btn-primary:hover{background:#3cc3f0}
-.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.4)}
+body{margin:0;background:var(--concrete);color:var(--ink);font:400 20px/1.6 "Atkinson",system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,40px)}
+h1,h2,h3,.display{font-family:"Big Shoulders",Impact,sans-serif;font-weight:900;line-height:.92;letter-spacing:-.005em;margin:0;text-wrap:balance}
+p{text-wrap:pretty}
+a{color:inherit;text-decoration-color:var(--signal);text-decoration-thickness:2px;text-underline-offset:4px}
+.mark{display:inline-block;width:1em;height:1em;vertical-align:-.12em}
+.lockup{display:inline-flex;align-items:center;gap:.32em;font-family:"Big Shoulders",sans-serif;font-weight:900;letter-spacing:.01em;line-height:1;text-decoration:none;color:inherit}
+.lockup .mark{width:1.05em;height:1.05em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;font:700 20px/1 "Atkinson",sans-serif;padding:0 28px;text-decoration:none;border:0;cursor:pointer;border-radius:4px;transition:background-color .2s cubic-bezier(.22,1,.36,1),transform .2s cubic-bezier(.22,1,.36,1)}
+.btn:active{transform:translateY(1px)}
+.btn-ink{background:var(--ink);color:#fff}
+.btn-ink:hover{background:var(--ink-2)}
+.btn-signal{background:var(--signal);color:var(--ink)}
+.btn-signal:hover{background:#ff6a24}
+:focus-visible{outline:3px solid var(--frost);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>CRYOGENX4 logo concepts, round 2</title>
+<link rel="stylesheet" href="/cryogenx4/assets/cx4.css">
+<style>
+body{background:#fff}
+header.top{background:var(--ink);color:#fff;padding:44px 0 40px}
+header.top h1{font-size:clamp(44px,6vw,76px);text-transform:uppercase}
+header.top p{max-width:62ch;margin:14px 0 0;color:var(--steel)}
+.concept{padding:56px 0;border-bottom:3px solid var(--ink)}
+.concept h2{font-size:44px;text-transform:uppercase}
+.concept h2 small{font-size:22px;letter-spacing:.04em;color:var(--signal-d);margin-left:10px;vertical-align:middle}
+.concept p.idea{max-width:62ch;margin:10px 0 26px;color:var(--graphite)}
+.row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tile{aspect-ratio:1/1;display:grid;place-items:center;border-radius:6px}
+.tile svg{width:52%;height:auto}
+.t-light{background:var(--concrete);color:var(--ink)}
+.t-dark{background:var(--ink);color:#fff}
+.t-signal{background:var(--signal);color:var(--ink)}
+.row2{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;margin-top:12px}
+.sizes{background:var(--concrete);border-radius:6px;padding:26px;display:flex;align-items:flex-end;gap:26px;color:var(--ink)}
+.sizes svg{color:var(--ink)}
+.sizes div{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:15px;color:var(--graphite)}
+.lock{background:var(--ink);color:#fff;border-radius:6px;padding:34px;display:flex;flex-direction:column;justify-content:center;gap:22px}
+.lock .lockup{font-size:64px}
+.lock .lockup.alt{font-size:40px}
+.lock .tag{font:700 15px/1 "Atkinson";letter-spacing:.2em;text-transform:uppercase;color:var(--steel)}
+.pick{display:inline-block;background:var(--signal);color:var(--ink);font:700 16px/1 Atkinson;padding:8px 12px;border-radius:3px;margin-left:12px;vertical-align:middle}
+.tests{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 22px;font-size:17px;color:var(--graphite)}
+.tests b{color:var(--ink)}
+.wm{font-family:"Big Shoulders";font-weight:900;line-height:1;display:inline-flex;align-items:center;letter-spacing:.01em}
+.wm svg{width:.6em;height:.74em;margin:0 .03em}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:56px 0}
+.compare img{width:100%;border:1px solid var(--steel);border-radius:6px}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<mask id="gapA" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><rect x="-10" y="35" width="120" height="30" fill="#000" transform="rotate(-45 50 50)"/></mask>
+<symbol id="cx-a" viewBox="0 0 100 100">
+<g mask="url(#gapA)" fill="var(--fins,currentColor)"><g transform="rotate(45 50 50)"><rect x="6" y="32" width="88" height="8"/><rect x="6" y="46" width="88" height="8"/><rect x="6" y="60" width="88" height="8"/></g></g>
+<rect x="4" y="39" width="92" height="22" transform="rotate(-45 50 50)" fill="var(--bar,currentColor)"/>
+</symbol>
+<symbol id="cx-c" viewBox="0 0 100 100">
+<g mask="url(#gapA)" fill="var(--fins,currentColor)"><rect x="4" y="39" width="92" height="22" transform="rotate(45 50 50)"/></g>
+<rect x="4" y="39" width="92" height="22" transform="rotate(-45 50 50)" fill="var(--bar,currentColor)"/>
+</symbol>
+</defs>
+</svg>
+
+<header class="top"><div class="wrap">
+<h1>CRYOGENX4 logo concepts, round 2</h1>
+<p>Bold, confident, industrial. Every concept is drawn in one color first, then tested at icon size, on dark, and on the brand orange. Color is added only where it carries meaning: orange for heat leaving the system.</p>
+</div></header>
+
+<div class="wrap">
+
+<section class="concept">
+<h2>A. Crossflow X <span class="pick">Recommended</span></h2>
+<p class="idea">The X in the name becomes the mark. One stroke is solid; the other is three tubes, like the coil inside every condenser. The solid stroke passes over the tubes, which is literally what CRYOGENX4 improves: heat moving across the coil. It still reads as a plain X at 16 pixels.</p>
+<div class="row">
+<div class="tile t-light"><svg viewBox="0 0 100 100"><use href="#cx-a"/></svg></div>
+<div class="tile t-dark"><svg viewBox="0 0 100 100"><use href="#cx-a"/></svg></div>
+<div class="tile t-signal"><svg viewBox="0 0 100 100"><use href="#cx-a"/></svg></div>
+</div>
+<div class="row2">
+<div class="sizes">
+<div><svg width="96" height="96"><use href="#cx-a"/></svg>96</div>
+<div><svg width="48" height="48"><use href="#cx-a"/></svg>48</div>
+<div><svg width="24" height="24"><use href="#cx-a"/></svg>24</div>
+<div><svg width="16" height="16"><use href="#cx-a"/></svg>16</div>
+<div style="--bar:var(--signal)"><svg width="96" height="96"><use href="#cx-a"/></svg>color</div>
+</div>
+<div class="lock">
+<span class="lockup" style="--bar:var(--signal)"><svg class="mark"><use href="#cx-a"/></svg>CRYOGENX4</span>
+<span class="tag">Thermal Transfer Technology</span>
+</div>
+</div>
+<div class="tests"><span><b>One color:</b> passes</span><span><b>16 px:</b> reads as X</span><span><b>Ownable:</b> coil detail is specific to the product</span><span><b>Works as:</b> decal, shirt, favicon, LinkedIn avatar</span></div>
+</section>
+
+<section class="concept">
+<h2>B. Nameplate</h2>
+<p class="idea">Every unit CRYOGENX4 treats has a metal nameplate; that's the first thing a technician reads. The mark is a stamped plate with X4 punched through it and two rivets. Strong on equipment and invoices, a little more literal.</p>
+<div class="row">
+<div class="tile t-light"><svg viewBox="0 0 150 100" style="width:62%;height:auto;display:block;margin:auto"><defs><mask id="M0" maskUnits="userSpaceOnUse" x="0" y="0" width="150" height="100"><rect width="150" height="100" fill="#fff"/><text x="75" y="83" text-anchor="middle" font-family="Big Shoulders" font-weight="900" font-size="88" fill="#000">X4</text><circle cx="15" cy="15" r="6" fill="#000"/><circle cx="135" cy="85" r="6" fill="#000"/></mask></defs><rect width="150" height="100" rx="8" fill="currentColor" mask="url(#M0)"/></svg></div>
+<div class="tile t-dark"><svg viewBox="0 0 150 100" style="width:62%;height:auto;display:block;margin:auto"><defs><mask id="M1" maskUnits="userSpaceOnUse" x="0" y="0" width="150" height="100"><rect width="150" height="100" fill="#fff"/><text x="75" y="83" text-anchor="middle" font-family="Big Shoulders" font-weight="900" font-size="88" fill="#000">X4</text><circle cx="15" cy="15" r="6" fill="#000"/><circle cx="135" cy="85" r="6" fill="#000"/></mask></defs><rect width="150" height="100" rx="8" fill="currentColor" mask="url(#M1)"/></svg></div>
+<div class="tile t-signal"><svg viewBox="0 0 150 100" style="width:62%;height:auto;display:block;margin:auto"><defs><mask id="M2" maskUnits="userSpaceOnUse" x="0" y="0" width="150" height="100"><rect width="150" height="100" fill="#fff"/><text x="75" y="83" text-anchor="middle" font-family="Big Shoulders" font-weight="900" font-size="88" fill="#000">X4</text><circle cx="15" cy="15" r="6" fill="#000"/><circle cx="135" cy="85" r="6" fill="#000"/></mask></defs><rect width="150" height="100" rx="8" fill="currentColor" mask="url(#M2)"/></svg></div>
+</div>
+<div class="row2">
+<div class="sizes">
+<div><span style="width:96px;display:block"><svg viewBox="0 0 150 100" style="width:62%;height:auto;display:block;margin:auto"><defs><mask id="M3" maskUnits="userSpaceOnUse" x="0" y="0" width="150" height="100"><rect width="150" height="100" fill="#fff"/><text x="75" y="83" text-anchor="middle" font-family="Big Shoulders" font-weight="900" font-size="88" fill="#000">X4</text><circle cx="15" cy="15" r="6" fill="#000"/><circle cx="135" cy="85" r="6" fill="#000"/></mask></defs><rect width="150" height="100" rx="8" fill="currentColor" mask="url(#M3)"/></svg></span>96</div>
+<div><span style="width:48px;display:block"><svg viewBox="0 0 150 100" style="width:62%;height:auto;display:block;margin:auto"><defs><mask id="M4" maskUnits="userSpaceOnUse" x="0" y="0" width="150" height="100"><rect width="150" height="100" fill="#fff"/><text x="75" y="83" text-anchor="middle" font-family="Big Shoulders" font-weight="900" font-size="88" fill="#000">X4</text><circle cx="15" cy="15" r="6" fill="#000"/><circle cx="135" cy="85" r="6" fill="#000"/></mask></defs><rect width="150" height="100" rx="8" fill="currentColor" mask="url(#M4)"/></svg></span>48</div>
+<div><span style="width:24px;display:block"><svg viewBox="0 0 150 100" style="width:62%;height:auto;display:block;margin:auto"><defs><mask id="M5" maskUnits="userSpaceOnUse" x="0" y="0" width="150" height="100"><rect width="150" height="100" fill="#fff"/><text x="75" y="83" text-anchor="middle" font-family="Big Shoulders" font-weight="900" font-size="88" fill="#000">X4</text><circle cx="15" cy="15" r="6" fill="#000"/><circle cx="135" cy="85" r="6" fill="#000"/></mask></defs><rect width="150" height="100" rx="8" fill="currentColor" mask="url(#M5)"/></svg></span>24</div>
+<div><span style="width:16px;display:block"><svg viewBox="0 0 150 100" style="width:62%;height:auto;display:block;margin:auto"><defs><mask id="M6" maskUnits="userSpaceOnUse" x="0" y="0" width="150" height="100"><rect width="150" height="100" fill="#fff"/><text x="75" y="83" text-anchor="middle" font-family="Big Shoulders" font-weight="900" font-size="88" fill="#000">X4</text><circle cx="15" cy="15" r="6" fill="#000"/><circle cx="135" cy="85" r="6" fill="#000"/></mask></defs><rect width="150" height="100" rx="8" fill="currentColor" mask="url(#M6)"/></svg></span>16</div>
+</div>
+<div class="lock">
+<span class="lockup"><span style="width:1.5em;display:inline-block;color:var(--signal)"><svg viewBox="0 0 150 100" style="width:62%;height:auto;display:block;margin:auto"><defs><mask id="M7" maskUnits="userSpaceOnUse" x="0" y="0" width="150" height="100"><rect width="150" height="100" fill="#fff"/><text x="75" y="83" text-anchor="middle" font-family="Big Shoulders" font-weight="900" font-size="88" fill="#000">X4</text><circle cx="15" cy="15" r="6" fill="#000"/><circle cx="135" cy="85" r="6" fill="#000"/></mask></defs><rect width="150" height="100" rx="8" fill="currentColor" mask="url(#M7)"/></svg></span>CRYOGENX4</span>
+<span class="tag">Thermal Transfer Technology</span>
+</div>
+</div>
+<div class="tests"><span><b>One color:</b> passes</span><span><b>16 px:</b> becomes a solid tag, X4 lost</span><span><b>Ownable:</b> moderate</span></div>
+</section>
+
+<section class="concept">
+<h2>C. Exchange X wordmark</h2>
+<p class="idea">No separate symbol. The X inside the name is drawn as two bars, one passing over the other: exchange, built into the word. Cleanest option, but the mark alone is a simple X, so it's less distinctive as an avatar.</p>
+<div class="row">
+<div class="tile t-light"><svg viewBox="0 0 100 100"><use href="#cx-c"/></svg></div>
+<div class="tile t-dark"><svg viewBox="0 0 100 100"><use href="#cx-c"/></svg></div>
+<div class="tile t-signal"><svg viewBox="0 0 100 100"><use href="#cx-c"/></svg></div>
+</div>
+<div class="row2">
+<div class="sizes">
+<div><svg width="96" height="96"><use href="#cx-c"/></svg>96</div>
+<div><svg width="48" height="48"><use href="#cx-c"/></svg>48</div>
+<div><svg width="24" height="24"><use href="#cx-c"/></svg>24</div>
+<div><svg width="16" height="16"><use href="#cx-c"/></svg>16</div>
+</div>
+<div class="lock">
+<span class="wm" style="font-size:72px;--bar:var(--signal)">CRYOGEN<svg viewBox="0 0 100 100" preserveAspectRatio="none"><use href="#cx-c"/></svg>4</span>
+<span class="tag">Thermal Transfer Technology</span>
+</div>
+</div>
+<div class="tests"><span><b>One color:</b> passes</span><span><b>16 px:</b> clear X</span><span><b>Ownable:</b> weaker alone, strong in the word</span></div>
+</section>
+
+<section class="compare">
+<div><h3 style="font-size:30px;text-transform:uppercase;margin-bottom:12px">Current</h3><img src="/cryogenx4/assets/logo-current.png" alt="Current CRYOGENX4 logo"></div>
+<div><h3 style="font-size:30px;text-transform:uppercase;margin-bottom:12px">Recommended</h3>
+<div class="lock" style="height:calc(100% - 42px)"><span class="lockup" style="--bar:var(--signal);font-size:56px"><svg class="mark"><use href="#cx-a"/></svg>CRYOGENX4</span><span class="tag">Thermal Transfer Technology</span></div></div>
+</section>
+
+</div></body></html>

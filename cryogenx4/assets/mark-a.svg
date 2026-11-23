@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="CRYOGENX4 mark">
+<defs><mask id="cxa"><rect width="100" height="100" fill="#fff"/><rect x="-10" y="35" width="120" height="30" fill="#000" transform="rotate(-45 50 50)"/></mask></defs>
+<g fill="#140E0B"><g mask="url(#cxa)"><g transform="rotate(45 50 50)"><rect x="6" y="32" width="88" height="8"/><rect x="6" y="46" width="88" height="8"/><rect x="6" y="60" width="88" height="8"/></g></g>
+<rect x="4" y="39" width="92" height="22" transform="rotate(-45 50 50)" fill="#F75A10"/></g>
+</svg>

@@ -3,34 +3,51 @@
 <title>CRYOGENX4 Supermarkets one-pager</title>
 <link rel="stylesheet" href="/cryogenx4/assets/cx4.css">
 <style>
-body{margin:0;width:1080px;height:1350px;background:var(--freeze);overflow:hidden}
-.p{width:1080px;height:1350px;padding:70px 72px;box-sizing:border-box;display:flex;flex-direction:column;
-background-image:radial-gradient(80% 60% at 100% 0%,#18426f 0%,rgba(10,26,47,0) 60%),radial-gradient(60% 50% at 0% 100%,#0f2f52 0%,rgba(10,26,47,0) 70%);color:#c3d6e6}
-.logo img{width:58px;height:58px}.logo .word{font-size:34px}
-.eb{margin-top:56px;font:600 22px/1 Inter;letter-spacing:.16em;text-transform:uppercase;color:#7fd6f6}
-h1{color:#fff;font-size:84px;line-height:1.02;margin:22px 0 0;font-stretch:112%}
-h1 em{font-style:normal;color:var(--glacier)}
-.lead{font-size:31px;line-height:1.4;margin:30px 0 0;color:#c3d6e6}
-.g{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.g div{border:1.5px solid rgba(255,255,255,.14);border-radius:22px;padding:26px 28px}
-.g .num{display:block;color:#fff;font-size:46px;line-height:1.05}
-.g span.l{font-size:23px;color:#9fb6c9}
-.cta{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;border-top:1.5px solid rgba(255,255,255,.14);padding-top:30px}
-.cta b{display:block;color:#fff;font-size:34px;font-family:Archivo;font-stretch:110%}
-.cta span{font-size:26px;color:#7fd6f6}
-.pill{background:var(--glacier);color:var(--freeze);font:700 28px/1 Inter;padding:22px 30px;border-radius:16px}
-.fn{font-size:17px;color:#6f86a0;margin-top:18px}
-</style></head><body><div class="p">
-<div class="logo"><img src="/cryogenx4/assets/mark.svg" alt=""><span class="word">CRYOGEN<span class="x4">X4</span></span></div>
-<div class="eb">For supermarkets</div>
-<h1>Up to <em>40% less energy</em> on store refrigeration and cooling.*</h1>
-<p class="lead">A one-time treatment that restores heat transfer in your cases, racks and rooftop units. Installed while the store stays open. Proven on one of your stores first.</p>
-<div class="g">
-<div><span class="num">40&ndash;60%</span><span class="l">of store electricity is refrigeration</span></div>
-<div><span class="num">12&ndash;36 mo</span><span class="l">typical payback</span></div>
-<div><span class="num">Up to 40%</span><span class="l">less maintenance</span></div>
-<div><span class="num">10&ndash;15 yrs</span><span class="l">added equipment life</span></div>
+body{margin:0;width:1080px;height:1350px;overflow:hidden;background:var(--signal)}
+.p{width:1080px;height:1350px;display:grid;grid-template-rows:auto 1fr auto}
+.top{padding:64px 72px 0;display:flex;justify-content:space-between;align-items:center}
+.top .lockup{font-size:56px;--bar:var(--ink)}
+.top .lockup svg{--bar:#fff}
+.top span.for{font:700 24px/1 Atkinson;letter-spacing:.14em;text-transform:uppercase}
+.mid{padding:28px 72px 0}
+h1{font-size:136px;text-transform:uppercase;line-height:.86}
+h1 sup{font-size:.34em;vertical-align:top}
+.lead{font-size:30px;line-height:1.35;margin:26px 0 0;max-width:30ch;font-weight:700}
+.bottom{background:var(--ink);color:#fff;padding:34px 72px 34px}
+.led{display:grid;grid-template-columns:1fr 1fr;column-gap:48px}
+.led div{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #3a332f;padding:16px 0;font-size:26px;color:var(--steel)}
+.led div b{white-space:nowrap;font-family:"Big Shoulders";font-weight:900;font-size:46px;color:#fff;line-height:1}
+.cta{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
+.cta .display{font-size:60px;color:var(--signal);text-transform:uppercase}
+.cta p{margin:6px 0 0;font-size:27px;font-weight:700}
+.fn{margin-top:20px;font-size:18px;color:#bdb6b2}
+</style></head><body><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<mask id="gapA" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><rect x="-10" y="35" width="120" height="30" fill="#000" transform="rotate(-45 50 50)"/></mask>
+<symbol id="cx-a" viewBox="0 0 100 100">
+<g mask="url(#gapA)" fill="var(--fins,currentColor)"><g transform="rotate(45 50 50)"><rect x="6" y="32" width="88" height="8"/><rect x="6" y="46" width="88" height="8"/><rect x="6" y="60" width="88" height="8"/></g></g>
+<rect x="4" y="39" width="92" height="22" transform="rotate(-45 50 50)" fill="var(--bar,currentColor)"/>
+</symbol>
+<symbol id="cx-c" viewBox="0 0 100 100">
+<g mask="url(#gapA)" fill="var(--fins,currentColor)"><rect x="4" y="39" width="92" height="22" transform="rotate(45 50 50)"/></g>
+<rect x="4" y="39" width="92" height="22" transform="rotate(-45 50 50)" fill="var(--bar,currentColor)"/>
+</symbol>
+</defs>
+</svg>
+<div class="p">
+<div class="top"><span class="lockup"><svg class="mark"><use href="#cx-a"/></svg>CRYOGENX4</span><span class="for">For supermarkets</span></div>
+<div class="mid">
+<h1>Up to 40% less energy on store refrigeration.<sup>*</sup></h1>
+<p class="lead">One treatment restores heat transfer in your cases, racks and rooftop units. Installed while the store stays open. Proven on one of your stores first.</p>
 </div>
-<div class="cta"><div><b>Start with one store.</b><span>Dave Peterson &middot; 832-493-7915</span></div><div class="pill">Text Dave</div></div>
+<div class="bottom">
+<div class="led">
+<div>Refrigeration's share<b>40&ndash;60%</b></div>
+<div>Typical payback<b>12&ndash;36 mo</b></div>
+<div>Maintenance<b>Up to 40% less</b></div>
+<div>Equipment life<b>+10&ndash;15 yrs</b></div>
+</div>
+<div class="cta"><div><div class="display">Start with one store.</div><p>Text Dave Peterson: 832-493-7915</p></div></div>
 <div class="fn">* With stacked measures; CRYOGENX4 alone is up to 30%. Results vary by store, equipment age and weather. Refrigeration share: U.S. EPA.</div>
+</div>
 </div></body></html>

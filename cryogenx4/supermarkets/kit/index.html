@@ -3,58 +3,71 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>CRYOGENX4 Supermarket Campaign Kit (Draft)</title>
-<link rel="icon" href="/cryogenx4/assets/mark.svg">
+<link rel="icon" href="/cryogenx4/assets/favicon.svg">
 <link rel="stylesheet" href="/cryogenx4/assets/cx4.css">
 <style>
-.hdr{background:var(--freeze);color:#c3d6e6;padding:40px 0 34px}
-.hdr h1{color:#fff;font-size:clamp(30px,4.4vw,44px);margin:16px 0 8px}
-.hdr p{margin:0;font-size:19px;max-width:760px}
-.hdr .logo .word{font-size:22px}
-nav.toc{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-nav.toc a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:9px 16px;font-size:16px}
-main{padding:20px 0 70px}
-.bucket{margin-top:46px}
-.bucket>.eyebrow{display:block}
-.bucket h2{font-size:clamp(26px,3.4vw,34px);margin:10px 0 8px}
-.bucket>p{margin:0 0 6px;max-width:780px}
-.card{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:26px;margin-top:16px}
-.card h3{font-size:20px;margin:0 0 10px}
-.copy{position:relative;background:var(--frost);border:1px solid var(--rule);border-radius:12px;padding:18px 84px 18px 18px;white-space:pre-wrap;font-size:17.5px;line-height:1.6;color:var(--ink)}
-.cbtn{position:absolute;top:10px;right:10px;font:600 14px Inter;background:#fff;border:1px solid var(--rule);border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--glacier-d)}
-.k{font:600 13px/1 Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin:18px 0 8px}
-ol.flow{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:10px}
-ol.flow li{display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:start;background:#fff;border:1px solid var(--rule);border-radius:14px;padding:16px 18px}
-ol.flow .n{font-family:"Spline Mono",monospace;font-weight:600;width:38px;height:38px;border-radius:999px;border:1.5px solid var(--glacier);color:var(--glacier-d);display:grid;place-items:center}
-ol.flow b{color:var(--ink)}
-ol.flow p{margin:4px 0 0;font-size:17px}
+.hdr{background:var(--signal);padding:44px 0 36px}
+.hdr .lockup{font-size:38px;--bar:#fff}
+.hdr h1{font-size:clamp(48px,7vw,88px);text-transform:uppercase;margin:18px 0 10px}
+.hdr p{margin:0;font-size:21px;max-width:62ch;font-weight:700}
+nav.toc{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+nav.toc a{background:var(--ink);color:#fff;text-decoration:none;border-radius:4px;padding:12px 16px;font-size:18px;font-weight:700}
+main{padding:10px 0 80px}
+.bucket{padding:56px 0 52px;border-bottom:3px solid var(--ink)}
+.bucket:last-of-type{border-bottom:0}
+.bucket h2{font-size:clamp(40px,5vw,60px);text-transform:uppercase;margin:0 0 10px}
+.bucket h2 .no{color:var(--signal-d)}
+.bucket>p{margin:0 0 10px;max-width:62ch;color:var(--graphite)}
+.card{margin-top:40px}
+.card h3{font-size:30px;text-transform:uppercase;margin:0 0 12px}
+.copy{position:relative;background:var(--concrete);border:2px solid var(--steel);border-radius:4px;padding:18px 96px 18px 18px;white-space:pre-wrap;font-size:19px;line-height:1.6;color:var(--ink)}
+.cbtn{position:absolute;top:10px;right:10px;font:700 15px Atkinson;background:var(--ink);color:#fff;border:0;border-radius:4px;padding:8px 12px;cursor:pointer}
+.k{font:700 15px/1 Atkinson;letter-spacing:.12em;text-transform:uppercase;color:var(--graphite);margin:22px 0 10px}
+.note{font-size:17px;color:var(--graphite);margin:12px 0 0}
+ol.flow{list-style:none;padding:0;margin:18px 0 0;counter-reset:f;border-top:3px solid var(--ink)}
+ol.flow li{display:grid;grid-template-columns:64px 1fr;gap:16px;padding:18px 0;border-bottom:2px solid var(--steel)}
+ol.flow li:before{counter-increment:f;content:counter(f);font-family:"Big Shoulders";font-weight:900;font-size:54px;line-height:.85;color:var(--signal-d)}
+ol.flow b{font-size:21px}
+ol.flow p{margin:4px 0 0}
 ul.check{margin:6px 0 0;padding-left:22px}
 ul.check li{margin:0 0 8px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.thumb{display:block;max-width:420px;width:100%;border-radius:14px;border:1px solid var(--rule)}
-.sw{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
-.sw a{font-size:17px}
+.thumb{display:block;max-width:420px;width:100%;border-radius:4px;border:2px solid var(--steel)}
+.sw{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
 @media(max-width:820px){.two{grid-template-columns:1fr}}
 </style></head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<mask id="gapA" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100"><rect width="100" height="100" fill="#fff"/><rect x="-10" y="35" width="120" height="30" fill="#000" transform="rotate(-45 50 50)"/></mask>
+<symbol id="cx-a" viewBox="0 0 100 100">
+<g mask="url(#gapA)" fill="var(--fins,currentColor)"><g transform="rotate(45 50 50)"><rect x="6" y="32" width="88" height="8"/><rect x="6" y="46" width="88" height="8"/><rect x="6" y="60" width="88" height="8"/></g></g>
+<rect x="4" y="39" width="92" height="22" transform="rotate(-45 50 50)" fill="var(--bar,currentColor)"/>
+</symbol>
+<symbol id="cx-c" viewBox="0 0 100 100">
+<g mask="url(#gapA)" fill="var(--fins,currentColor)"><rect x="4" y="39" width="92" height="22" transform="rotate(45 50 50)"/></g>
+<rect x="4" y="39" width="92" height="22" transform="rotate(-45 50 50)" fill="var(--bar,currentColor)"/>
+</symbol>
+</defs>
+</svg>
+
 <div class="hdr"><div class="wrap">
-<span class="logo"><img src="/cryogenx4/assets/mark.svg" alt=""><span class="word">CRYOGEN<span class="x4">X4</span></span></span>
+<span class="lockup"><svg class="mark" aria-hidden="true"><use href="#cx-a"/></svg>CRYOGENX4</span>
 <h1>Supermarket campaign kit</h1>
-<p>Draft 1 of the four pieces: the brand, the offer, the landing page and the next steps. Everything here is for Dave to send as CRYOGENX4.</p>
+<p>Draft 2 of the four pieces: the brand, the offer, the landing page and the next steps. Everything here is for Dave to send as CRYOGENX4.</p>
 <nav class="toc"><a href="#brand">1. Brand</a><a href="#offer">2. Offer</a><a href="#page">3. Landing page</a><a href="#next">4. Next steps</a></nav>
 </div></div>
 
 <main><div class="wrap">
 
 <section class="bucket" id="brand">
-<span class="eyebrow">1 &middot; Brand</span>
-<h2>A modern, colder CRYOGENX4</h2>
-<p>New mark built from the current logo's orange box and blue waves, a deep navy and glacier blue palette, and wide engineered type.</p>
-<div class="sw"><a href="/cryogenx4/brand/">Open the brand sheet</a></div>
+<h2><span class="no">1.</span> Brand</h2>
+<p>Bold, confident, industrial. A new Crossflow X mark, Signal Orange as the brand color, tall industrial headlines and a highly legible body face.</p>
+<div class="sw"><a class="btn btn-ink" href="/cryogenx4/brand/">Open the brand sheet</a><a class="btn btn-signal" href="/cryogenx4/brand/logo/">See the logo concepts</a></div>
 </section>
 
 <section class="bucket" id="offer">
-<span class="eyebrow">2 &middot; Offer</span>
-<h2>The supermarket offer</h2>
+<h2><span class="no">2.</span> Offer</h2>
 <p>One promise, proven on one store, then rolled out. Every piece below says the same thing in a different length.</p>
 
 <div class="card"><h3>The core offer</h3>
@@ -63,7 +76,7 @@ ul.check li{margin:0 0 8px}
 <div class="copy">A. Up to 40% less energy for your store's refrigeration and cooling.
 B. Your refrigeration is your biggest bill. We cut it, and prove it on one store first.
 C. Same cases. Same racks. Up to 40% less energy to run them.</div>
-<p style="font-size:16px;color:var(--faint);margin:10px 0 0">Every use of "up to 40%" carries the qualifier: with stacked measures; CRYOGENX4 alone is up to 30%; results vary by store, equipment age and weather.</p>
+<p class="note">Every use of "up to 40%" carries the qualifier: with stacked measures; CRYOGENX4 alone is up to 30%; results vary by store, equipment age and weather.</p>
 </div>
 
 <div class="card"><h3>LinkedIn message (to supermarket contacts)</h3>
@@ -100,24 +113,22 @@ If you run stores, I'd be glad to show you what one of yours could save.
 </section>
 
 <section class="bucket" id="page">
-<span class="eyebrow">3 &middot; Landing page</span>
-<h2>One story, one button</h2>
-<p>Built only for grocery: the problem, how it works, what each store gets, the stack, proof on one store, then one next step. No menus pulling people away.</p>
-<div class="sw"><a href="/cryogenx4/supermarkets/">Open the supermarket page</a></div>
+<h2><span class="no">3.</span> Landing page</h2>
+<p>Built only for grocery: the problem, how it works (as a spec plate), what each store gets back (as a ledger), the stack, proof on one store, then one next step. No menus pulling people away.</p>
+<div class="sw"><a class="btn btn-ink" href="/cryogenx4/supermarkets/">Open the supermarket page</a></div>
 </section>
 
 <section class="bucket" id="next">
-<span class="eyebrow">4 &middot; Next steps</span>
-<h2>What happens after someone raises their hand</h2>
+<h2><span class="no">4.</span> Next steps</h2>
 <p>The goal is to make yes easy: one short call, one checklist, and emails they can forward so nobody has to figure anything out.</p>
 
 <ol class="flow">
-<li><span class="n">1</span><div><b>They respond</b><p>Reply on LinkedIn, text Dave, or use the form on the page. The form opens an email to Dave with their name, company, role, store count and first store's city.</p></div></li>
-<li><span class="n">2</span><div><b>15-minute call, booked on the spot</b><p>Dave confirms which store, who pays the utility bill and who services the refrigeration. Before hanging up, the next step and date are set.</p></div></li>
-<li><span class="n">3</span><div><b>Data for one store</b><p>The checklist below goes out the same day, with ready-to-forward emails for their facilities team and accounting.</p></div></li>
-<li><span class="n">4</span><div><b>Store review</b><p>Expected savings for that store, by piece of equipment, with every assumption written down.</p></div></li>
-<li><span class="n">5</span><div><b>Treat one store and measure it</b><p>Before and after, adjusted for weather, so their team can check the math.</p></div></li>
-<li><span class="n">6</span><div><b>Roll out</b><p>Plan the remaining stores, with financing options so savings can cover the payment, and add the stacked measures that pay for themselves.</p></div></li>
+<li><div><b>They respond</b><p>Reply on LinkedIn, text Dave, or use the form on the page. The form opens an email to Dave with their name, company, role, store count and first store's city.</p></div></li>
+<li><div><b>15-minute call, booked on the spot</b><p>Dave confirms which store, who pays the utility bill and who services the refrigeration. Before hanging up, the next step and date are set.</p></div></li>
+<li><div><b>Data for one store</b><p>The checklist below goes out the same day, with ready-to-forward emails for their facilities team and accounting.</p></div></li>
+<li><div><b>Store review</b><p>Expected savings for that store, by piece of equipment, with every assumption written down.</p></div></li>
+<li><div><b>Treat one store and measure it</b><p>Before and after, adjusted for weather, so their team can check the math.</p></div></li>
+<li><div><b>Roll out</b><p>Plan the remaining stores, with financing options so savings can cover the payment, and add the stacked measures that pay for themselves.</p></div></li>
 </ol>
 
 <div class="two">
@@ -135,7 +146,7 @@ If you run stores, I'd be glad to show you what one of yours could save.
 <li>Rough age of the equipment, if known</li>
 <li>Store hours and any big changes in the last two years</li>
 <li>If they can download it, 15-minute interval data from the utility account</li></ul>
-<p style="font-size:16px;color:var(--faint);margin:10px 0 0">If photos don't come back within a week, offer to have a technician take them.</p></div>
+<p class="note">If photos don't come back within a week, offer to have a technician take them.</p></div>
 </div>
 
 <div class="card"><h3>Email they forward to facilities or their refrigeration contractor</h3>
